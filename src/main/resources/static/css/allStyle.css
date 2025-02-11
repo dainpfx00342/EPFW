@@ -41,7 +41,11 @@ table {
     border-collapse: collapse;
     border: 1px solid black;
 }
-
+.table-container {
+    max-height: 300px; /* Giới hạn chiều cao, có thể điều chỉnh */
+    overflow-y: auto;  /* Hiển thị thanh cuộn dọc khi nội dung vượt quá */
+    border: 1px solid #ccc; /* Thêm viền để nhìn rõ */
+}
 th, td {
     border: 1px solid black;
     padding: 8px;

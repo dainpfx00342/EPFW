@@ -11,7 +11,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -26,5 +26,12 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+    public List<User> findAllUserOrderByUsername() {
+        return userRepository.findAllByOrderByUsername();
     }
 }

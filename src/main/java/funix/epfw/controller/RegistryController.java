@@ -31,6 +31,10 @@ public class RegistryController {
             model.addAttribute("registrationError", "Đăng ký không thành công");
             return "registry";
         }
+        if(userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
+            return "registry";
+        }
         userService.saveUser(user);
         return "redirect:/home";
     }
