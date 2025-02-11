@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Magane User</title>
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+</head>
+<body>
+    <h1>Quản lý người dùng</h1>
+    <p>Chào mừng đến trang quản lý người dùng</p>
+    <p>Xin chào:
+        <span class="mess" th:text="${session.user != null ? session.user.username : 'Khách'}"></span>
+        <span> ghé thăm trang của chúng tôi</span>
+    </p>
+    <p>Bấm vào <a href="/login">đây</a> để đăng nhập.</p>
+    <p>Bấm vào <a href="/registry">đây</a> để đăng ký.</p>
+    <p>Role hiện tại: <span th:text="${session.role}"></span></p>
+     <table>
+         <tr>
+             <th>No</th>
+             <th>Username</th>
+             <th>Email</th>
+             <th>Phone</th>
+             <th>Address</th>
+             <th>Role</th>
+             <th>Action</th>
+         </tr>
+         <tr th:each="user : ${users}">
+             <td th:text="${userStat.index + 1}"></td>
+             <td th:text="${user.username}"></td>
+             <td th:text="${user.email}"></td>
+             <td th:text="${user.phone}"></td>
+             <td th:text="${user.address}"></td>
+             <td th:text="${user.role}"></td>
+             <td>
+                 <a th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>
+                 <a th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
+             </td>
+     </table>
+</body>
+</html>
