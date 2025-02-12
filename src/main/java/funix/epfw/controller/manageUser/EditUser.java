@@ -1,7 +1,9 @@
 package funix.epfw.controller.manageUser;
 
+import funix.epfw.constants.ROLE;
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,14 @@ public class EditUser {
         this.userService = userService;
     }
     @GetMapping("/editUser/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        if(currentUser == null || currentUser.getRole() != ROLE.ADMIN) {
+            return "redirect:/accessDenied";
+        }
+
         // Edit user
+
         User user = userService.findById(id);
         if(user == null) {
             // Handle error

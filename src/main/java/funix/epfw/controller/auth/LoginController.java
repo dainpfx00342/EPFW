@@ -35,7 +35,7 @@ public class LoginController {
         User user = userService.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
 
-            session.setAttribute("user", user);
+            session.setAttribute("loggedInUser", user);
             session.setAttribute("role", user.getRole().name());
             return "redirect:/home";
         }
