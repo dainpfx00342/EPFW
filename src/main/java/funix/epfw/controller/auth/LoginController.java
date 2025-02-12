@@ -1,4 +1,4 @@
-package funix.epfw.controller;
+package funix.epfw.controller.auth;
 
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 
@@ -24,7 +23,8 @@ public class LoginController {
     // Để hiển thị trang đăng nhập
     @GetMapping("/login")
     public String showLoginForm(HttpSession session, Model model) {
-
+        //Xoá session cũ
+       session.invalidate();
         return "login"; // Trả về trang đăng nhập
     }
 

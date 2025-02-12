@@ -1,8 +1,6 @@
-package funix.epfw.controller;
+package funix.epfw.controller.home;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller

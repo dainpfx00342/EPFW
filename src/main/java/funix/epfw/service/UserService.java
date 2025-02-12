@@ -34,4 +34,8 @@ public class UserService {
     public List<User> findAllUserOrderByUsername() {
         return userRepository.findAllByOrderByUsername();
     }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

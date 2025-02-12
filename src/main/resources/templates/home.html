@@ -17,7 +17,7 @@
     <p>Role hiện tại: <span th:text="${session.role}"></span></p>
     <ul>
         <li th:if="${session.role != null and session.role == 'ADMIN'}">
-            <a href="/editUser">Quản lý người dùng</a>
+            <a href="/manageUser">Quản lý người dùng</a>
         </li>
 
         <li th:if="${session.role != null and (session.role=='ADMIN' or session.role == 'FARMER')}">

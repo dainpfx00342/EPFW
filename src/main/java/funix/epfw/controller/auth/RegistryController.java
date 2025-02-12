@@ -1,4 +1,4 @@
-package funix.epfw.controller;
+package funix.epfw.controller.auth;
 
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
