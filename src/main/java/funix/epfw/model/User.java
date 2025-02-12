@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 @Data
 @Validated
 @Table(name = "Users")
-@PasswordMatches
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +24,6 @@ public class User {
     @Column(nullable = false)
     @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
-
-    @Transient
-    private String confirmPassword;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

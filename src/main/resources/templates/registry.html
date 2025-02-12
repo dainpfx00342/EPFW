@@ -46,7 +46,7 @@
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Xác Nhận Mật Khẩu: </label>
           <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
-          <div class="errorMess" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+          <div class="errorMess" th:if="${confirmpassError}" th:text="${confirmpassError}"></div>
         </div>
 
         <!-- Địa chỉ -->

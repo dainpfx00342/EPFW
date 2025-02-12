@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class EditUser {
     }
 
     @PostMapping("/editUser/{id}")
-    public String editUser(@PathVariable Long id, User user, RedirectAttributes model, BindingResult result) {
+    public String editUser(@PathVariable Long id, @Validated User user, RedirectAttributes model, BindingResult result) {
         // Update user
         User userToUpdate = userService.findById(id);
         if(userToUpdate == null) {
@@ -45,14 +46,17 @@ public class EditUser {
             model.addFlashAttribute("registrationError", "Cập nhật người dùng không thành công!");
             return "redirect:/editUser";
         }
-        userToUpdate.setUsername(user.getUsername());
         userToUpdate.setAddress(user.getAddress());
-        userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setRole(user.getRole());
-        model.addFlashAttribute("successMessage", "Cập nhật người dùng thành công!");
+        userToUpdate.setEmail(user.getEmail());
+
+
         userService.saveUser(userToUpdate);
+
+
+        model.addFlashAttribute("successMessage", "Cập nhật người dùng thành công!");
+
 
         return "redirect:/manageUser";
     }

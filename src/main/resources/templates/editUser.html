@@ -25,14 +25,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2 class="text-center mb-4">Cập nhật người dùng</h2>
-                <form th:action="@{/editUser}" method="post" th:object="${user}">
+                <form th:action="@{/editUser/{id} (id=${user.id})}" method="post" th:object="${user}">
                     <input type="hidden" th:field="*{id}">
                     <div class="errorMess" th:if="${registrationError}" th:text ="${registrationError}" ></div>
                     <!-- Tên đăng nhập -->
                     <div class="form-group">
-                        <label for="username" class="form-label">Tên Đăng Nhập: </label>
-                        <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Nhập tên đăng nhập" required>
-                        <div class="errorMess" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                        <label class="form-label">Tên Đăng Nhập:  <span th:text="${user.username}" class="mess"></span></label>
+
                     </div>
 
                     <!-- Email -->

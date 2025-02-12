@@ -26,13 +26,18 @@ public class RegistryController {
 
     @PostMapping("/registry")
     public String registry(@Validated @ModelAttribute("user") User user,
-                           BindingResult result, Model model) {
+                           BindingResult result, Model model,
+                           @RequestParam("confirmPassword") String confirmPassword) {
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Đăng ký không thành công");
             return "registry";
         }
         if(userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
+            return "registry";
+        }
+        if(!user.getPassword().equals(confirmPassword)) {
+            model.addAttribute("confirmpassError", "Mật khẩu không khớp");
             return "registry";
         }
         userService.saveUser(user);
