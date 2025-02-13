@@ -27,7 +27,7 @@ public class EditUser {
     public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("loggedInUser");
         if(currentUser == null || currentUser.getRole() != ROLE.ADMIN) {
-            return "redirect:/accessDenied";
+            return "redirect:/auth/accessDenied";
         }
 
         // Edit user
@@ -35,10 +35,10 @@ public class EditUser {
         User user = userService.findById(id);
         if(user == null) {
             // Handle error
-            return "redirect:/manageUser";
+            return "redirect:/manage_user/manageUser";
         }
         model.addAttribute("user", user);
-        return "editUser";
+        return "/manage_user/editUser";
     }
 
     @PostMapping("/editUser/{id}")
@@ -48,11 +48,11 @@ public class EditUser {
         if(userToUpdate == null) {
             // Handle error
             model.addFlashAttribute("registrationError", "Cập nhật người dùng không thành công!");
-            return "redirect:/editUser";
+            return "redirect:/manage_user/editUser";
         }
         if(result.hasErrors()) {
             model.addFlashAttribute("registrationError", "Cập nhật người dùng không thành công!");
-            return "redirect:/editUser";
+            return "redirect:/manage_user/editUser";
         }
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setPhone(user.getPhone());

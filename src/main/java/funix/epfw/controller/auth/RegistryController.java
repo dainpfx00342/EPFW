@@ -21,7 +21,7 @@ public class RegistryController {
     @GetMapping("/registry")
     public String registry(Model model) {
         model.addAttribute("user", new User());
-        return "registry";
+        return "/auth/registry";
     }
 
     @PostMapping("/registry")
@@ -30,18 +30,18 @@ public class RegistryController {
                            @RequestParam("confirmPassword") String confirmPassword) {
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Đăng ký không thành công");
-            return "registry";
+            return "/auth/registry";
         }
         if(userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
-            return "registry";
+            return "/auth/registry";
         }
         if(!user.getPassword().equals(confirmPassword)) {
             model.addAttribute("confirmpassError", "Mật khẩu không khớp");
-            return "registry";
+            return "/auth/registry";
         }
         userService.saveUser(user);
-        return "redirect:/home";
+        return "redirect:/home/home";
     }
 
 

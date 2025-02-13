@@ -22,7 +22,7 @@ public class ManageUser {
     public String editUser(Model model) {
         List<User> users = userService.findAllUserOrderByUsername();
         model.addAttribute("users", users);
-        return "manageUser";
+        return "/manage_user/manageUser";
     }
 
 
