@@ -34,7 +34,8 @@
             <th>Trạng thái sản phẩm</th>
             <th>Người tạo</th>
             <th>Ngày tạo sản phẩm</th>
-            <th>Hinh san pham</th>
+            <th>Hinh sản phẩm</th>
+            <th>Nhóm hàng</th>
             <th>Action</th>
         </tr>
         <tr th:each="product, status : ${products}">
@@ -42,17 +43,24 @@
             <td th:text="${product.productName}"></td>
             <td th:text="${product.numberOfStock}"></td>
             <td th:text="${product.description}"></td>
-            <td th:text="${product.status}"></td>
+            <td th:text="${product.status}? 'Còn hàng' : 'Hết Hàng'"></td>
             <td th:text="${product.createdBy.username}"></td>
             <td th:text="${#temporals.format(product.createdTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
+            <td><img th:src="@{${product.imageUrl}}" width="100" height="100"  alt="Hình sản phẩm"/></td>
             <td>
-                <img th:src="@{${product.imageUrl}}" width="100" height="100" />
-            <td>
-                <a th:href="@{/editProduct/{id}(id=${product.id})}" >Edit</a>
-
+                <span th:switch="${product.productCategory.name()}">
+                    <span th:case="'AGRICULTURE'">Nông sản</span>
+                    <span th:case="'FORESTRY'">Lâm sản</span>
+                    <span th:case="'FISHERY'">Thủy sản</span>
+                    <span th:case="'LIVESTOCK'">Chăn nuôi</span>
+                    <span th:case="*">Không xác định</span> <!-- Mặc định nếu không khớp -->
+                </span>
+            </td>
+            <td><a th:href="@{/editProduct/{id}(id=${product.id})}" >Edit</a>
                 <a th:href="@{/deleteProduct/{id}(id=${product.id})}"
                    onclick="return confirm('Bạn có muốn xoá sản phẩm này?');">Delete</a>
             </td>
+        </tr>
     </table>
 </div>
 
