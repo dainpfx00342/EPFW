@@ -1,10 +1,8 @@
 package funix.epfw.controller.product;
 
-import funix.epfw.constants.ROLE;
 import funix.epfw.controller.auth.AuthChecker;
 import funix.epfw.controller.auth.FramerAuth;
 import funix.epfw.model.Product;
-import funix.epfw.model.User;
 import funix.epfw.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

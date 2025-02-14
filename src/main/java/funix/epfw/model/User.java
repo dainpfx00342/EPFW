@@ -1,6 +1,6 @@
 package funix.epfw.model;
 
-import funix.epfw.constants.ROLE;
+import funix.epfw.constants.Role;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Pattern;
@@ -27,7 +27,7 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ROLE role;
+    private Role role;
 
     @Column
     @Pattern(regexp ="0\\d{9}", message = "Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số")

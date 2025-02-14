@@ -1,6 +1,5 @@
 package funix.epfw.controller.manageUser;
 
-import funix.epfw.constants.ROLE;
 import funix.epfw.controller.auth.AdminAuth;
 import funix.epfw.controller.auth.AuthChecker;
 import funix.epfw.model.User;
@@ -14,9 +13,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("loggedInUser")
 public class EditUser {
 
     private final UserService userService;
@@ -25,6 +26,17 @@ public class EditUser {
     public EditUser(UserService userService) {
         this.userService = userService;
     }
+
+    @GetMapping("/editUser")
+    public String showEditForm(HttpSession session) {
+        AuthChecker authChecker = new AdminAuth();
+        String accessCheck = authChecker.checkAuth(session);
+        if(accessCheck != null) {
+            return accessCheck;
+        }
+        return "redirect:/manage_user/manageUser";
+    }
+
     @GetMapping("/editUser/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
         AuthChecker authChecker = new AdminAuth();
@@ -32,8 +44,6 @@ public class EditUser {
         if(accessCheck != null) {
             return accessCheck;
         }
-        // Edit user
-
         User user = userService.findById(id);
         if(user == null) {
             // Handle error

@@ -9,10 +9,10 @@
     <h1>Quản lý người dùng</h1>
     <p>Chào mừng đến trang quản lý người dùng</p>
     <p>Xin chào:
-        <span class="mess" th:text="${session.user != null ? session.user.username : 'Khách'}"></span>
+        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
         <span> đã quay lại</span>
     </p>
-    <p>Bấm vào <a href="/home/home">đây</a> để về trang chủ.</p>
+    <p>Bấm vào <a href="/home">đây</a> để về trang chủ.</p>
     <p>Bấm vào <a href="/auth/registry">đây</a> để đăng ký.</p>
     <p>Role hiện tại: <span th:text="${session.role}"></span></p>
     <h1>Danh sách người dùng: <span th:text="${users.size()}"></span></h1>
