@@ -1,6 +1,7 @@
 package funix.epfw.service;
 
 import funix.epfw.model.Product;
+import funix.epfw.model.User;
 import funix.epfw.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAllProductsByUser(User currentUser) {
+        return productRepository.findProductByCreatedBy(currentUser);
     }
 
     public List<Product> findAll() {
-        return null;
+        return productRepository.findAll();
     }
 }
