@@ -9,7 +9,7 @@
     <h1>Trang chủ</h1>
     <p>Chào mừng đến trang chủ</p>
     <p>Xin chào:
-        <span class="mess" th:text="${session.user != null ? session.user.username : 'Khách'}"></span>
+        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
         <span> ghé thăm trang của chúng tôi</span>
     </p>
     <p>Bấm vào <a href="/login">đây</a> để đăng nhập.</p>
@@ -22,11 +22,11 @@
         </li>
 
         <li th:if="${session.role != null and (session.role=='ADMIN' or session.role == 'FARMER')}">
-            <a href="#">Trang nông trại</a>
+            <a href="/manageProduct">Trang nông trại</a>
         </li>
 
         <li th:if="${session.role != null and (session.role =='ADMIN' or session.role == 'BUYER')}">
-            <a href="#">Quản lý đơn hàng</a>
+            <a href="/manageOrder">Quản lý đơn hàng</a>
         </li>
     </ul>
 </body>

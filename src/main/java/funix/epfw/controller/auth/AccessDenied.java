@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AccessDenied {
     @GetMapping("/accessDenied")
     public String accessDenied() {
-        return "accessDenied";
+        return "/auth/accessDenied";
     }
 
 }

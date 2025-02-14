@@ -1,6 +1,8 @@
 package funix.epfw.controller.manageUser;
 
 import funix.epfw.constants.ROLE;
+import funix.epfw.controller.auth.AdminAuth;
+import funix.epfw.controller.auth.AuthChecker;
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -25,11 +27,11 @@ public class EditUser {
     }
     @GetMapping("/editUser/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("loggedInUser");
-        if(currentUser == null || currentUser.getRole() != ROLE.ADMIN) {
-            return "redirect:/auth/accessDenied";
+        AuthChecker authChecker = new AdminAuth();
+        String accessCheck = authChecker.checkAuth(session);
+        if(accessCheck != null) {
+            return accessCheck;
         }
-
         // Edit user
 
         User user = userService.findById(id);

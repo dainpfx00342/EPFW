@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý nông trại</title>
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <title>Quản Lý Nông Sản</title>
 </head>
 <body>
+<h1>Quản Lý Nông Sản</h1>
+<p>Chào mừng đến trang quản lý nông sản</p>
+<p>Xin chào:
+    <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
+    <span> đã quay lại</span>
+</p>
+<p>Bấm vào <a href="/home">đây</a> để về trang chủ.</p>
+<p>Bấm vào <a href="/addProduct">đây</a> để tạo mới sản phẩm.</p>
+<p>Role hiện tại: <span th:text="${session.role}"></span></p>
+<h1>Danh sách sản phẩm: <span th:text="${products.size()}"></span></h1>
 
+<!-- Hiển thị thông báo xóa thành công -->
+<div th:if="${successMessage}" class="mess">
+    <span th:text="${successMessage}"></span>
+</div>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Product Name</th>
+            <th>Số tồn kho</th>
+            <th>Mô Tả Sản Phẩm</th>
+            <th>Trạng thái sản phẩm</th>
+            <th>Người tạo</th>
+            <th>Ngày tạo sản phẩm</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="product, status : ${products}">
+            <td th:text="${status.index +1 }"></td>
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.numberOfStock}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.status}"></td>
+            <td th:text="${product.createdBy.username}"></td>
+            <td th:text="${#temporals.format(product.createdTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
+            <td>
+                <a th:href="@{/editProduct/{id}(id=${product.id})}" >Edit</a>
+
+                <a th:href="@{/deleteProduct/{id}(id=${product.id})}"
+                   onclick="return confirm('Bạn có muốn xoá sản phẩm này?');">Delete</a>
+            </td>
+    </table>
+</div>
 </body>
 </html>

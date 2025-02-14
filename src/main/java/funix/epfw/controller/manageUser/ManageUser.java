@@ -1,15 +1,20 @@
 package funix.epfw.controller.manageUser;
 
+import funix.epfw.controller.auth.AdminAuth;
+import funix.epfw.controller.auth.AuthChecker;
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 @Controller
+@SessionAttributes("loggedInUser")
 public class ManageUser {
     private final UserService userService;
 
@@ -19,7 +24,12 @@ public class ManageUser {
     }
 
     @GetMapping("/manageUser")
-    public String editUser(Model model) {
+    public String editUser(Model model, HttpSession session) {
+        AuthChecker authChecker = new AdminAuth();
+        String accessCheck = authChecker.checkAuth(session);
+        if(accessCheck != null) {
+            return accessCheck;
+        }
         List<User> users = userService.findAllUserOrderByUsername();
         model.addAttribute("users", users);
         return "/manage_user/manageUser";
