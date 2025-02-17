@@ -2,11 +2,9 @@ package funix.epfw.model;
 
 import funix.epfw.constants.ProductCategory;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,8 +20,9 @@ public class Product {
     private String productName;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Số lượng sản phẩm phải lớn hơn 0")
-    private int numberOfStock;
+    @Size(max = 12, message = "Số lượng sản phẩm không thể lớn hơn hàng trăm tỉ")
+    @Pattern(regexp = "^[0-9]*$", message = "Số lượng sản phẩm phải là số")
+    private String numberOfStock;
 
     @Column(nullable = false)
     private String description;
@@ -32,8 +31,9 @@ public class Product {
     private boolean status;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Giá sản phẩm phải lớn hơn 0")
-    private int price;
+    @Size(max = 12, message = "Giá sản phẩm khoảng từ 0 đến 999 tỉ")
+    @Pattern(regexp = "^[0-9]*$", message = "Giá sản phẩm phải là số")
+    private String price;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

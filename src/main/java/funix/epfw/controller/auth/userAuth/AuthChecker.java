@@ -1,4 +1,4 @@
-package funix.epfw.controller.auth;
+package funix.epfw.controller.auth.userAuth;
 
 import jakarta.servlet.http.HttpSession;
 

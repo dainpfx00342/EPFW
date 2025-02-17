@@ -2,6 +2,7 @@ package funix.epfw.controller.auth;
 
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,8 @@ public class RegistryController {
     @PostMapping("/registry")
     public String registry(@Validated @ModelAttribute("user") User user,
                            BindingResult result, Model model,
-                           @RequestParam("confirmPassword") String confirmPassword) {
+                           @RequestParam("confirmPassword") String confirmPassword,
+                           HttpSession session) {
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Đăng ký không thành công");
             return "/auth/registry";
@@ -41,7 +43,10 @@ public class RegistryController {
             return "/auth/registry";
         }
         userService.saveUser(user);
-        return "redirect:/home/home";
+
+        session.setAttribute("loggedInUser", user);
+        session.setAttribute("role", user.getRole().name());
+        return "/home/home";
     }
 
 

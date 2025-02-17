@@ -1,10 +1,11 @@
-package funix.epfw.controller.auth;
+package funix.epfw.controller.auth.userAuth;
 
 import funix.epfw.constants.Role;
 import funix.epfw.model.User;
 import jakarta.servlet.http.HttpSession;
 
-public class BuyerAuth implements AuthChecker {
+public class AdminAuth implements AuthChecker {
+
     @Override
     public String checkAuth(HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
@@ -12,8 +13,8 @@ public class BuyerAuth implements AuthChecker {
             return "redirect:/accessDenied";
         }
         Role role = user.getRole();
-        if(role != Role.ADMIN && role != Role.BUYER) {
-            return "redirect:/auth/accessDenied";
+        if(role != Role.ADMIN) {
+            return "redirect:/accessDenied";
         }
         return null;
     }

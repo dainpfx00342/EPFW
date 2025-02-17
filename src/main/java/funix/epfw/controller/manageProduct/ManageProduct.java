@@ -1,8 +1,8 @@
-package funix.epfw.controller.product;
+package funix.epfw.controller.manageProduct;
 
 import funix.epfw.constants.Role;
-import funix.epfw.controller.auth.AuthChecker;
-import funix.epfw.controller.auth.FramerAuth;
+import funix.epfw.controller.auth.userAuth.AuthChecker;
+import funix.epfw.controller.auth.userAuth.FramerAuth;
 import funix.epfw.model.Product;
 import funix.epfw.model.User;
 import funix.epfw.service.ProductService;

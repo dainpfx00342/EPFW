@@ -1,7 +1,7 @@
 package funix.epfw.controller.manageUser;
 
-import funix.epfw.controller.auth.AdminAuth;
-import funix.epfw.controller.auth.AuthChecker;
+import funix.epfw.controller.auth.userAuth.AdminAuth;
+import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;

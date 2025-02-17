@@ -24,11 +24,15 @@ public class ProductService {
 
     //Get all products by user
     public List<Product> getAllProductsByUser(User currentUser) {
-        return productRepository.findProductByCreatedBy(currentUser);
+        return productRepository.findProducsByCreatedBy(currentUser);
     }
 
     //Get all products
     public List<Product> findAll() {
          return productRepository.findAll();
+    }
+
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
     }
 }

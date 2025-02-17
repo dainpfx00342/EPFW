@@ -19,7 +19,6 @@
 <p>Bấm vào  <a href="/addProduct"><i class="fas fa-plus"></i></a> để tạo mới sản phẩm.</p>
 <p>Role hiện tại: <span th:text="${session.role}"></span></p>
 <h1>Danh sách sản phẩm: <span th:text="${products.size()}"></span></h1>
-
 <!-- Hiển thị thông báo xóa thành công -->
 <div th:if="${successMessage}" class="mess">
     <span th:text="${successMessage}"></span>
@@ -36,6 +35,7 @@
             <th>Ngày tạo sản phẩm</th>
             <th>Hinh sản phẩm</th>
             <th>Nhóm hàng</th>
+            <th>Đơn Giá</th>
             <th>Action</th>
         </tr>
         <tr th:each="product, status : ${products}">
@@ -56,6 +56,7 @@
                     <span th:case="*">Không xác định</span> <!-- Mặc định nếu không khớp -->
                 </span>
             </td>
+            <td th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
             <td><a th:href="@{/editProduct/{id}(id=${product.id})}" >Edit</a>
                 <a th:href="@{/deleteProduct/{id}(id=${product.id})}"
                    onclick="return confirm('Bạn có muốn xoá sản phẩm này?');">Delete</a>
