@@ -15,20 +15,27 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    // Add user
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+    // Find user by username
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
-    public void saveUser(User user) { userRepository.save(user);    }
-
-    public User findByUsername(String username) {return userRepository.findByUsername(username);}
-
-    public List<User> getAllUsers() { return userRepository.findAll(); }
-
+    //  delete user by id
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+    // Find all users order by username
     public List<User> findAllUserOrderByUsername() {
         return userRepository.findAllByOrderByUsername();
     }
 
+
+    // Find user by id
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }

@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,28 +48,19 @@ public class AddProduct {
                               BindingResult result,
                               @RequestParam("imageFile") MultipartFile file,
                               Model model, HttpSession session) {
+        try{
+            String imageUrl = productService.saveImage(file);
+            if(imageUrl != null){
+                product.setImageUrl(imageUrl);
+            }
+        }catch (IOException e){
+            model.addAttribute("registrationError", "Lỗi lưu ảnh");
+        }
         // Kiểm tra xác thực người dùng
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null) {
             return "redirect:/login";
         }
-        // Kiểm tra file ảnh
-        if (!file.isEmpty()) {
-            try {
-                // 🌟 Lưu file ảnh vào thư mục static/images/
-                String fileName = file.getOriginalFilename();
-                Path filePath = Paths.get("src/main/resources/static/images/" + fileName);
-                Files.write(filePath, file.getBytes());
-
-                // 🌟 Lưu tên file ảnh vào product
-                product.setImageUrl("/images/" + fileName);
-
-            } catch (Exception e) {
-                model.addAttribute("registrationError", "Lỗi khi tải ảnh sản phẩm");
-                return "/manage_product/addProduct";
-            }
-        }
-
         // Kiểm tra nếu form có lỗi validation
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Vui lòng nhập đầy đủ và chính xác thông tin.");
@@ -78,7 +70,7 @@ public class AddProduct {
         product.setCreatedBy(user);
 
         // Lưu vào DB
-        productService.addProduct(product);
+        productService.saveProduct(product);
 
         return "redirect:/manageProduct";
 
