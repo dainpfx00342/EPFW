@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -31,7 +34,7 @@ public class EditUser {
         if(accessCheck != null) {
             return accessCheck;
         }
-        return "redirect:/manageUser";
+        return "redirect:/manage_user/manageUser";
     }
 
     @GetMapping("/editUser/{id}")
@@ -44,33 +47,33 @@ public class EditUser {
         User user = userService.findById(id);
         if(user == null) {
             // Handle error
-            return "redirect:/login";
+            return "redirect:/manage_user/manageUser";
         }
         model.addAttribute("user", user);
         return "/manage_user/editUser";
     }
 
     @PostMapping("/editUser/{id}")
-    public String editUser(@PathVariable Long id, @Validated @ModelAttribute("user") User user,
-                           BindingResult result, Model model, RedirectAttributes reModel) {
+    public String editUser(@PathVariable Long id, @Validated User user, RedirectAttributes model, BindingResult result) {
         // Update user
         User userToUpdate = userService.findById(id);
-        // Update user
+        if(userToUpdate == null) {
+            // Handle error
+            model.addFlashAttribute("registrationError", "Cập nhật người dùng không thành công!");
+            return "redirect:/manage_user/editUser";
+        }
+        if(result.hasErrors()) {
+            model.addFlashAttribute("registrationError", "Cập nhật người dùng không thành công!");
+            return "redirect:/manage_user/editUser";
+        }
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setRole(user.getRole());
         userToUpdate.setEmail(user.getEmail());
-        // Validate user
-        if(result.hasErrors()) {
-            model.addAttribute("errorMessage", "Cập nhật người dùng không thành công!");
-            model.addAttribute("user", user); // Giữ lại thông tin user để hiển thị lại form
-            return "/manage_user/editUser";
-        }
 
-
-        // Save user to database
+        // Save user
         userService.saveUser(userToUpdate);
-        reModel.addFlashAttribute("successMessage", "Cập nhật người dùng thành công!");
+        model.addFlashAttribute("successMessage", "Cập nhật người dùng thành công!");
         return "redirect:/manageUser";
     }
 }

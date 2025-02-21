@@ -9,7 +9,7 @@
     <h1>Chỉnh Sửa người dùng</h1>
     <p>Chào mừng đến trang chỉnh sửa người dùng</p>
     <p>Xin chào:
-        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
+        <span class="mess" th:text="${session.user != null ? session.user.username : 'Khách'}"></span>
         <span> ghé thăm trang của chúng tôi</span>
     </p>
     <p>Bấm vào <a href="/login">đây</a> để đăng nhập.</p>
@@ -20,10 +20,6 @@
     <!-- Hiển thị thông báo sửa thành công -->
     <div th:if="${successMessage}" class="mess">
         <span th:text="${successMessage}"></span>
-    </div>
-    <!-- Hiển thị thông báo lỗi -->
-    <div th:if="${errorMessage}" class="errorMess">
-        <span th:text="${errorMessage}"></span>
     </div>
     <div class="container">
         <div class="row justify-content-center">

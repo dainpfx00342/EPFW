@@ -43,11 +43,8 @@ public class Product {
     @JoinColumn(nullable = false)
     private User createdBy;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime createdTimes;
-
-    @Column
-    private LocalDateTime updatedTimes;
 
     @Column
     private String imageUrl;
@@ -56,7 +53,6 @@ public class Product {
     protected void onCreate() {
         this.createdTimes = LocalDateTime.now();
         this.status = true;
-
     }
 
 
