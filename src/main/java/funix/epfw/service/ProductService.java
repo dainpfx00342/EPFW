@@ -1,6 +1,6 @@
 package funix.epfw.service;
 
-import funix.epfw.model.Product;
+import funix.epfw.model.product.Product;
 import funix.epfw.model.User;
 import funix.epfw.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

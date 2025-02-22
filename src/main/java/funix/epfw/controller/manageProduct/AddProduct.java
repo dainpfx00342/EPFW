@@ -2,7 +2,7 @@ package funix.epfw.controller.manageProduct;
 
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FramerAuth;
-import funix.epfw.model.Product;
+import funix.epfw.model.product.Product;
 import funix.epfw.model.User;
 import funix.epfw.service.ProductService;
 import jakarta.servlet.http.HttpSession;

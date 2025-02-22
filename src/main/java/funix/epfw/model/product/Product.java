@@ -1,11 +1,13 @@
-package funix.epfw.model;
+package funix.epfw.model.product;
 
 import funix.epfw.constants.ProductCategory;
+import funix.epfw.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -40,7 +42,6 @@ public class Product {
     private ProductCategory productCategory;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private User createdBy;
 
     @Column(nullable = false)
@@ -48,6 +49,9 @@ public class Product {
 
     @Column
     private String imageUrl;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Blog> blogs;
 
     @PrePersist
     protected void onCreate() {
