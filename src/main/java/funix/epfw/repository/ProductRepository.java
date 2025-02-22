@@ -1,6 +1,6 @@
 package funix.epfw.repository;
 
-import funix.epfw.model.Product;
+import funix.epfw.model.product.Product;
 import funix.epfw.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

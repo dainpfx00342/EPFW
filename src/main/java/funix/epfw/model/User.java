@@ -10,14 +10,13 @@ import org.springframework.validation.annotation.Validated;
 
 @Entity
 @Data
-@Validated
-@Table(name = "Users")
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Size(min = 5, message = "Username phải có ít nhất 5 ký tự")
     private String username;
 
