@@ -2,7 +2,7 @@ package funix.epfw.controller.manageProduct;
 
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FramerAuth;
-import funix.epfw.model.Product;
+import funix.epfw.model.product.Product;
 import funix.epfw.model.User;
 import funix.epfw.service.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Controller
 @SessionAttributes("loggedInUser")

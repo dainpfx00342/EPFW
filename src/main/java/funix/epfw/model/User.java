@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 @Entity
 @Data
 @Validated
-@Table(name = "Users")
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

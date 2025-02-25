@@ -1,6 +1,6 @@
 package funix.epfw.service;
 
-import funix.epfw.model.Product;
+import funix.epfw.model.product.Product;
 import funix.epfw.model.User;
 import funix.epfw.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ProductService {

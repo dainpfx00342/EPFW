@@ -1,6 +1,17 @@
-body{
+html,body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     font-family: "Times New Roman", Times, serif;
-    margin: 10px !important;
+    margin:0;
+    padding-bottom: 70px;
+}
+main{
+    flex: 1;
+
+}
+footer {
+    margin-top: auto;
 }
 .errorMess{
     color: red;
