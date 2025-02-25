@@ -73,3 +73,33 @@ h1{
 .navbar-nav .nav-link {
     color: green !important; /* Bắt buộc màu xanh lá */
 }
+.error-container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.error-icon {
+    font-size: 60px;
+    color: #dc3545;
+}
+
+.error-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.error-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-custom {
+    min-width: 120px;
+    margin: 5px;
+}
