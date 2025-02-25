@@ -1,17 +1,21 @@
-html,body{
-    height: 100%;
+body{
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: "Times New Roman", Times, serif;
-    margin:0;
-    padding-bottom: 70px;
+
 }
 main{
     flex: 1;
 
 }
+header{
+    background-color:gainsboro;
+}
 footer {
     margin-top: auto;
+    position: relative;
+    background-color:gainsboro;
 }
 .errorMess{
     color: red;
@@ -46,7 +50,7 @@ textarea.form-control {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh; /* Đảm bảo chiều cao đầy đủ màn hình */
+    padding-bottom: 100px;
 }
 table {
     width: 100%;
@@ -63,4 +67,9 @@ th, td {
     padding: 8px;
     text-align: left;
 }
-
+h1{
+    font-weight: bolder;
+}
+.navbar-nav .nav-link {
+    color: green !important; /* Bắt buộc màu xanh lá */
+}

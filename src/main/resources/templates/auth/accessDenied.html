@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="/css/allStyle.css">
     <title>AccessDenied</title>
 </head>
 <body>
-<h1>Không thể truy cập được!</h1>
+<!-- Include Header -->
+<div th:replace="home/header.html :: header"></div>
+<!-- Main content -->
+<h3>Không thể truy cập được!</h3>
 <p>Bạn không có quyền truy cập trang này!</p>
 <p> Hãy đăng nhập ở <span ><a href="login"> đây </a></span> để tiếp tục.</p>
+
+<!-- Include Footer -->
+<div th:replace="home/footer.html :: footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

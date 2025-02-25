@@ -9,20 +9,25 @@
     <title>Quản Lý Nông Sản</title>
 </head>
 <body>
-<h1>Quản Lý Nông Sản</h1>
-<p>Chào mừng đến trang quản lý nông sản</p>
+<!--Header-->
+<div th:replace="home/header.html :: header"></div>
+
+<h3>Quản Lý Nông Sản</h3>
+
 <p>Xin chào:
     <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
     <span> đã quay lại</span>
 </p>
-<p>Bấm vào <a href="/home">đây</a> để về trang chủ.</p>
+
 <p>Bấm vào  <a href="/addProduct"><i class="fas fa-plus"></i></a> để tạo mới sản phẩm.</p>
 <p>Role hiện tại: <span th:text="${session.role}"></span></p>
-<h1>Danh sách sản phẩm: <span th:text="${products.size()}"></span></h1>
+<h4>Danh sách sản phẩm: <span th:text="${products.size()}"></span></h4>
 <!-- Hiển thị thông báo xóa thành công -->
 <div th:if="${successMessage}" class="mess">
     <span th:text="${successMessage}"></span>
 </div>
+
+<!--Content-->
 <div class="table-container">
     <table>
         <tr>
@@ -66,6 +71,9 @@
         </tr>
     </table>
 </div>
+
+<!--Include Footer-->
+<div th:replace="home/footer.html :: footer"></div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

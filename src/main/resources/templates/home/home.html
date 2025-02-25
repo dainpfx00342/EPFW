@@ -1,33 +1,53 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-  <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
-  <title>Trang chủ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>newHomepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="/css/allStyle.css">
 </head>
-<body>
-    <h1>Trang chủ</h1>
-    <p>Chào mừng đến trang chủ</p>
-    <p>Xin chào:
-        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
-        <span> ghé thăm trang của chúng tôi</span>
-    </p>
-    <p>Bấm vào <a href="/login">đây</a> để đăng nhập.</p>
-    <input type="submit" value="Đăng nhập" onclick="window.location.href='/login'">
-    <p>Bấm vào <a href="/registry">đây</a> để đăng ký.</p>
-    <p>Role hiện tại: <span th:text="${session.role}"></span></p>
-    <ul>
-        <li th:if="${session.role != null and session.role == 'ADMIN'}">
-            <a href="/manageUser">Quản lý người dùng</a>
-        </li>
 
-        <li th:if="${session.role != null and (session.role=='ADMIN' or session.role == 'FARMER')}">
-            <a href="/manageProduct">Trang nông trại</a>
-        </li>
+<body class="text-center">
+<!-- Header -->
+<!-- Include Header -->
+<div th:replace="home/header.html :: header"></div>
+<!--<nav class="navbar navbar-light navbar-expand-md">-->
+<!--    <div class="container-fluid"><a class="navbar-brand" href="#"><strong>Chợ nông sản sạch</strong></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>-->
+<!--        <div id="navcol-1" class="collapse navbar-collapse">-->
+<!--            <ul class="navbar-nav ml-auto">-->
+<!--                <li class="nav-item"><a class="nav-link active" href="#"><strong>Nông sản</strong></a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#"><strong>Báo Cáo</strong></a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#"><strong>Đặt hàng</strong></a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#"><strong>Liên hệ</strong></a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <button class="btn btn-primary" type="button" onclick="window.location.href='/login'">Đăng nhập</button>-->
+<!--        <button class="btn btn-primary" type="button" onclick="window.location.href='/registry'" style="margin: 10px;">Đăng ký</button>-->
+<!--    </div>-->
+<!--</nav>-->
 
-        <li th:if="${session.role != null and (session.role =='ADMIN' or session.role == 'BUYER')}">
-            <a href="/manageOrder">Quản lý đơn hàng</a>
-        </li>
-    </ul>
+<!-- Main content -->
+<main>
+    <div th:each="product:${products}" id="product" class="jumbotron">
+        <h1 th:text="${product.productName}"></h1>
+        <p th:text="${product.description}"></p>
+        <p><a class="btn btn-primary" role="button">Xem thêm</a></p>
+    </div>
+</main>
+
+<!-- Footer -->
+<!-- Include Footer -->
+<div th:replace="home/footer.html :: footer"></div>
+<!--<div class="fixed-bottom text-center">-->
+<!--    <footer class="text-center bg-light py-3">-->
+<!--        <p>© 2025 Chợ Nông Sản Sạch - Kết nối nông trại và thương lái</p>-->
+<!--    </footer>-->
+<!--</div>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>

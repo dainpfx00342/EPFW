@@ -30,6 +30,7 @@ public class RegistryController {
                            BindingResult result, Model model,
                            @RequestParam("confirmPassword") String confirmPassword,
                            HttpSession session) {
+
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Đăng ký không thành công");
             return "/auth/registry";
