@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"  integrity="sha384-KyZXEJr+H08xv4gDsmvPbsS4v1MZBdFQZGosWKHg+8ec0Wrx1pX5Qifbbl6CfnB2" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -10,50 +11,48 @@
 </head>
 <body>
 <!-- Include Header -->
-<div th:replace="home/header.html :: header"></div>
+<div th:replace="~{home/header :: header}"></div>
 
 <!-- Content -->
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2 class="text-left mb-4">Đăng Nhập</h2>
-      <form th:action="@{/login}" method="post">
+    <div class="col-md-6 col-lg-5">
 
-        <!-- Tên đăng nhập -->
-        <div class="form-group">
-          <label for="username" class="form-label">Tên Đăng Nhập:</label>
-          <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
-        </div>
+        <h2 class="text-center mb-4">Đăng Nhập</h2>
+        <form th:action="@{/login}" method="post">
+          <!-- Tên đăng nhập -->
+          <div class="form-group">
+            <label for="username" class="form-label">Tên Đăng Nhập:</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
+          </div>
 
-        <!-- Mật khẩu -->
-        <div class="form-group">
-          <label for="password" class="form-label">Mật Khẩu:</label>
-          <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
-        </div>
+          <!-- Mật khẩu -->
+          <div class="form-group">
+            <label for="password" class="form-label">Mật Khẩu:</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+          </div>
 
-        <!-- Nút đăng nhập -->
-        <div class="form-group">
-          <label for="btn-dangnhap" class="form-label">
+          <!-- Nút đăng nhập -->
+          <div class="form-group mt-3">
+            <label for="btn-dangnhap" class="form-label"></label>
             <button id="btn-dangnhap" type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
-          </label>
-        </div>
+          </div>
 
-        <!-- Liên kết đến trang đăng ký -->
-        <div class="form-group">
-          <label class="form-label text-right" >
-            <p>Chưa có tài khoản? <a href="/registry">Đăng ký</a> </p>
-          </label>
+          <!-- Liên kết đến trang đăng ký -->
+          <div class="form-group text-center mt-3">
+           <p>Chưa có tài khoản? <a href="/registry">Đăng ký</a></p>
 
-        </div>
+          </div>
 
-        <div class="errorMess" th:if="${errorMess}" th:text="${errorMess}"></div>
-        <div class="mess" th:if="${mess}" th:text="${mess}"></div>
-      </form>
-    </div>
+          <div class="errorMess text-danger text-center mt-2" th:if="${errorMess}" th:text="${errorMess}"></div>
+          <div class="mess text-success text-center mt-2" th:if="${mess}" th:text="${mess}"></div>
+        </form>
+      </div>
+
   </div>
 </div>
 <!-- Include Footer -->
-<div th:replace="home/footer.html :: footer"></div>
+<div th:replace="~{home/footer :: footer}"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-O8x2b1+v0sA+OzzqBhByeBxyPS3yyINfq/hak1olWX5NK7nyXI+G/fFhYYbb3Rfw" crossorigin="anonymous"></script>

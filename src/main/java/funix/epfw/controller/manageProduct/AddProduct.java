@@ -1,5 +1,7 @@
 package funix.epfw.controller.manageProduct;
 
+import funix.epfw.constants.ProductCategory;
+import funix.epfw.constants.Unit;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FramerAuth;
 import funix.epfw.model.product.Product;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @SessionAttributes("loggedInUser")
@@ -34,7 +38,10 @@ public class AddProduct {
         if (accessCheck != null) {
             return accessCheck;
         }
-
+        List<Unit> units = Arrays.asList(Unit.values());// Lấy danh sách đơn vị
+        List<ProductCategory> categories = Arrays.asList(ProductCategory.values());// Lấy danh sách loại sản phẩm
+        model.addAttribute("categories", categories);
+        model.addAttribute("units", units);
         model.addAttribute("product", new Product());
         return "/manage_product/addProduct";
     }

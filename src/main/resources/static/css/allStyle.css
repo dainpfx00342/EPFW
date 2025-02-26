@@ -27,45 +27,43 @@ footer {
 textarea.form-control {
     height: 150px;
 }
-/* Tùy chỉnh giao diện */
-.form-group {
-    margin-bottom: 1rem;
-}
-.form-label {
-    text-align: left;
-}
-.form-control {
-    text-align: left; /* Căn ô nhập liệu sang bên phải */
-}
-.form-group .form-control,
-.form-group .form-label {
-    display: inline-block;
-    width: 75%;
-}
+
 .container {
-    max-width: 800px;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 100px;
+    margin-top: 30px;
 }
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
+
 .table-container {
-    max-height: 300px; /* Giới hạn chiều cao, có thể điều chỉnh */
-    overflow-y: auto;  /* Hiển thị thanh cuộn dọc khi nội dung vượt quá */
-    border: 1px solid #ccc; /* Thêm viền để nhìn rõ */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
+
+h3 {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.table th {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.product-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.btn-action {
+    margin: 2px;
 }
 h1{
     font-weight: bolder;
@@ -102,4 +100,21 @@ h1{
 .btn-custom {
     min-width: 120px;
     margin: 5px;
+}
+/* product.css */
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
