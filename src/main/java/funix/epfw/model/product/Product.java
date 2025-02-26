@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,7 +61,7 @@ public class Product {
     private Unit unit;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Blog> blogs;
+    private List<Blog> blogs = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

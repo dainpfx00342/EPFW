@@ -58,7 +58,7 @@ public class EditProduct {
     public String editProduct(@PathVariable Long id,
                               @Validated @ModelAttribute("product") Product product,
                               BindingResult result,
-                              @RequestParam("imageFile")MultipartFile file,
+                              @RequestParam("imageFile") MultipartFile file,
                               Model model, RedirectAttributes redirectAttributes) {
         // Tìm sản phẩm trong database
         Product productToUpdate = productService.findById(id);
@@ -66,6 +66,16 @@ public class EditProduct {
             redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy sản phẩm cần cập nhật!");
             return "redirect:/manageProduct";
         }
+        // Kiểm tra file ảnh
+        try{
+            String imageUrl = productService.saveImage(file);
+            if(imageUrl != null){
+                productToUpdate.setImageUrl(imageUrl);
+            }
+        }catch (IOException e){
+            model.addAttribute("registrationError", "Lỗi lưu ảnh");
+        }
+
 
         //kiểm tra lỗi nhập liệu
         if (result.hasErrors()) {
@@ -73,16 +83,6 @@ public class EditProduct {
             model.addAttribute("product", product); // Giữ lại thông tin sản phẩm để hiển thị lại form
             return "manage_product/editProduct";
         }
-        // Kiểm tra file ảnh
-            try {
-               String imageUrl = productService.saveImage(file);
-                if (imageUrl != null) {
-                    product.setImageUrl(imageUrl);
-                }
-            } catch (IOException e) {
-                model.addAttribute("errorMessage", "Lỗi khi tải ảnh sản phẩm");
-                return "/manage_product/addProduct";
-            }
 
 
         //cập nhật sản phẩm
@@ -95,6 +95,7 @@ public class EditProduct {
 
         //lưu sản phẩm vào database
         productService.saveProduct(productToUpdate);
+
         redirectAttributes.addFlashAttribute("successMessage", "Cập nhật sản phẩm thành công!");
         //cap nhat lai danh sach san pham
         return "redirect:/manageProduct";

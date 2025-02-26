@@ -71,6 +71,13 @@ h1{
 .navbar-nav .nav-link {
     color: green !important; /* Bắt buộc màu xanh lá */
 }
+.navbar-brand-green {
+    text-decoration: none; /* Loại bỏ gạch chân mặc định */
+}
+
+.navbar-brand-green:hover {
+    text-decoration: none !important; /* Đảm bảo không có gạch chân khi hover */
+}
 .error-container {
     max-width: 500px;
     margin: 80px auto;

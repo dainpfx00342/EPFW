@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,8 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 class="text-left mb-4">Tạo Mới Sản Phẩm</h2>
-      <form th:action="@{/addProduct}" method="post" th:object="${product}" enctype="multipart/form-data">
+      <form th:action="@{/
+      ]}" method="post" th:object="${product}" enctype="multipart/form-data">
         <div class="errorMess" th:if="${registrationError}" th:text ="${registrationError}" ></div>
 
         <!-- Tên sản phẩm -->

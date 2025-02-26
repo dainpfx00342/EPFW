@@ -1,5 +1,4 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -24,7 +23,7 @@
                     <h5 class="card-title" th:text="${product.productName}"></h5>
                     <p class="card-text" th:text="${product.description}"></p>
                     <p class="text-danger font-weight-bold" th:text="'Giá: ' + ${#numbers.formatInteger(product.price,3,'POINT')} + ' VNĐ'"></p>
-                    <a th:href="@{'/product/' + ${product.id}}" class="btn btn-primary">Xem chi tiết</a>
+                    <a th:href="@{'/productDetail/' + ${product.id}}" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>
         </div>

@@ -1,8 +1,11 @@
 package funix.epfw.model.product;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
+@Table
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,4 +20,5 @@ public class Blog {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Product product;
-}
+
+    }
