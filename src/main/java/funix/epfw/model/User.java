@@ -19,6 +19,8 @@ public class User {
 
     @Column(unique = true)
     @Size(min = 5, message = "Username phải có ít nhất 5 ký tự")
+    @Pattern(regexp="^[a-zA-Z-ZÀ-Ỹà-ỹ\\s]*$", message = "Username không được chứa ký tự đặc biệt hoặc số")
+
     private String username;
 
     @Column(nullable = false)
