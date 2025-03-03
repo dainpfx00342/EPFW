@@ -5,6 +5,8 @@ import funix.epfw.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactService {
     private final ContactRepository contactRepository;
@@ -14,8 +16,15 @@ public class ContactService {
         this.contactRepository = contactRepository;
     }
 
+    // Add contact
     public void addContact(Contact contact) {
-        // Add contact
+
         contactRepository.save(contact);
+
+    }
+
+    //Get all contacts
+    public List<Contact> findAll() {
+        return contactRepository.findAll();
     }
 }

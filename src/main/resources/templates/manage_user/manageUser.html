@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="/css/allStyle.css">
     <title>Quản lý người dùng</title>
 </head>
@@ -13,23 +14,21 @@
     <div th:replace="~{home/header :: header}"></div>
 
     <!--Content-->
+    <div class="container-fluid">
+
     <h1>Quản lý người dùng</h1>
     <p>Chào mừng đến trang quản lý người dùng</p>
-    <p>Xin chào:
-        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
-        <span> đã quay lại</span>
-    </p>
-    <p>Bấm vào <a href="/home">đây</a> để về trang chủ.</p>
-    <p>Bấm vào <a href="/registry">đây</a> để đăng ký.</p>
-    <p>Role hiện tại: <span th:text="${session.role}"></span></p>
-    <h1>Danh sách người dùng: <span th:text="${users.size()}"></span></h1>
+
+
+
+    <h3>Danh sách người dùng: <span th:text="${users.size()}"></span></h3>
 
     <!-- Hiển thị thông báo xóa thành công -->
     <div th:if="${successMessage}" class="mess">
         <span th:text="${successMessage}"></span>
     </div>
     <div class="table-container">
-     <table>
+     <table class="table table-bordered table-hover">
          <tr>
              <th>No</th>
              <th>Username</th>
@@ -47,10 +46,14 @@
              <td th:text="${user.address}"></td>
              <td th:text="${user.role}"></td>
              <td>
-                 <a th:href="@{/editUser/{id}(id=${user.id})}" >Edit</a>
+                 <a class="btn btn-warning btn-sm btn-action" th:href="@{/editUser/{id}(id=${user.id})}" >
+                     <i class="fas fa-edit"></i>Edit
+                 </a>
 
-                 <a th:href="@{/deleteUser/{id}(id=${user.id})}"
-                    onclick="return confirm('Bạn có muốn xoá người dùng này?');">Delete</a>
+                 <a class="btn btn-danger btn-sm btn-action" th:href="@{/deleteUser/{id}(id=${user.id})}"
+                    onclick="return confirm('Bạn có muốn xoá người dùng này?');">
+                     <i class="fas fa-trash-alt"></i>Delete
+                 </a>
              </td>
      </table>
     </div>

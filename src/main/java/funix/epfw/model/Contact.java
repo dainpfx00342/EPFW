@@ -1,10 +1,14 @@
 package funix.epfw.model;
 
+import funix.epfw.constants.ContactState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -29,7 +33,23 @@ public class Contact {
     private String message;
 
     @Column(nullable = false)
-   @Pattern(regexp ="0\\d{9}", message = "Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số")
+    @Pattern(regexp ="0\\d{9}", message = "Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số")
     private String phoneNumber;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ContactState state;
+
+    @Column(nullable = false)
+    private LocalDateTime createdTime;
+
+    @Column
+    private LocalDateTime updatedTime;
+
+    @PrePersist
+    protected void onCreate(){
+        createdTime = LocalDateTime.now();
+        state = ContactState.NEW;
+    }
 
 }

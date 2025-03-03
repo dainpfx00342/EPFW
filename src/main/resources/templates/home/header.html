@@ -11,9 +11,34 @@
             </button>
             <div id="navcol-1" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="/manageProduct"><strong>Nông sản</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/manageUser"><strong>Người dùng</strong></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><strong>Đặt hàng</strong></a></li>
+
+                    <!--FARMER -->
+                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
+                        <a class="nav-link" href="/manageProduct"><strong>Quản lý Nông sản</strong></a>
+                    </li>
+                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
+                        <a class="nav-link" href="/manageBlog"><strong>Quản lý Blog</strong></a>
+                    </li>
+
+                    <!--BUYER -->
+                    <li class="nav-item" th:if="${session.role == 'BUYER'}">
+                        <a class="nav-link" href="#"><strong>Đặt hàng</strong></a>
+                    </li>
+                    <li class="nav-item" th:if="${session.role == 'BUYER'}">
+                        <a class="nav-link" href="#"><strong>Quản lý Đơn Đặt hàng</strong></a>
+                    </li>
+
+                    <!--ADMIN -->
+
+                    <li class="nav-item" th:if="${session.role == 'ADMIN'}">
+                        <a class="nav-link" href="/manageUser"><strong>Quản lý Người dùng</strong></a>
+                    </li>
+
+                    <li class="nav-item" th:if="${session.role == 'ADMIN'}">
+                        <a class="nav-link" href="/manageContact"><strong>Quản lý Liên Hệ</strong></a>
+                    </li>
+                    <!-- Common links -->
+                    <li class="nav-item"><a class="nav-link" href="/home"><strong>Trang chủ</strong></a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact"><strong>Liên hệ</strong></a></li>
                 </ul>
             </div>

@@ -1,5 +1,9 @@
 package funix.epfw.constants;
 
+import lombok.Data;
+import lombok.Getter;
+
+@Getter
 public enum ProductCategory {
     AGRICULTURE("Nông sản"),   // Nông sản
     FORESTRY("Lâm sản"),      // Lâm sản
@@ -13,8 +17,4 @@ public enum ProductCategory {
         this.Vietnamese = Vietnamese;
     }
 
-    //Getter
-    public String getVietnamese() {
-        return Vietnamese;
-    }
 }

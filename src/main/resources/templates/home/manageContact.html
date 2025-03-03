@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Quản Lý Blog</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container-fluid">
+    <h3 class="text-center">Quản lý Các liên hệ</h3>
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Nội dung</th>
+                <th>Trạng Thái</th>
+                <th>Ngày tạo</th>
+                <th>Ngày Cập nhật</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contact, status : ${contacts}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${contact.name}"></td>
+                <td th:text="${contact.email}"></td>
+                <td th:text="${contact.phoneNumber}"></td>
+                <td th:text="${contact.message}"></td>
+                <td>
+                    <span class="badge-success" th:if="${contact.state.name() == 'DONE'} ">Đã xử lý</span>
+                    <span class="badge-warning" th:if="${contact.state.name() == 'NEW'}">Chưa xử lý</span>
+                </td>
+                <td th:text="${#temporals.format(contact.createdTime,'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(contact.updatedTime,'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td>
+                    <a th:href="@{/deleteContact/{id}(id=${contact.id})}"
+                       class="btn btn-danger btn-sm btn-action">
+                        <i class="fas fa-trash-alt"></i> Xóa
+                    </a>
+
+                    <a th:href="@{/doneContact/{id}(id=${contact.id})}"
+                       class="btn btn-success btn-sm btn-action">
+                        <i class="fas fa-check-circle"></i> Đã xử lý
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Include Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+</html>

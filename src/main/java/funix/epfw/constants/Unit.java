@@ -1,5 +1,8 @@
 package funix.epfw.constants;
 
+import lombok.Getter;
+
+@Getter
 public enum Unit {
     KG("Kilogram (Kg)"),
     LITRE("Lít"),
@@ -23,10 +26,5 @@ public enum Unit {
     //Contructor
     Unit(String Vietnamese) {
         this.Vietnamese = Vietnamese;
-    }
-
-    //Getter
-    public String getVietnamese() {
-        return Vietnamese;
     }
 }
