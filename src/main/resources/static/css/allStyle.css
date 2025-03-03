@@ -125,3 +125,7 @@ h1{
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
+.blogs-section{
+    max-height: 120px;
+    overflow-y: auto;
+}

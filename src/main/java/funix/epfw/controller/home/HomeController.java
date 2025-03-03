@@ -1,6 +1,8 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.model.product.Blog;
 import funix.epfw.model.product.Product;
+import funix.epfw.service.BlogService;
 import funix.epfw.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +15,19 @@ import java.util.List;
 public class HomeController {
 
     private final ProductService productService;
+    private final BlogService BlogService;
 
     @Autowired
-    public HomeController(ProductService productService) {
+    public HomeController(ProductService productService, BlogService BlogService) {
         this.productService = productService;
+        this.BlogService = BlogService;
     }
 
     @GetMapping({"/","/home"})
     public String gohome(Model model) {
         List<Product> products = productService.findAll();
+        List<Blog> blogs = BlogService.getAllBlogs();
+        model.addAttribute("blogs", blogs);
         model.addAttribute("products", products);
         return "home/home";
     }

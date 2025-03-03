@@ -23,6 +23,17 @@
                     <h5 class="card-title" th:text="${product.productName}"></h5>
                     <p class="card-text" th:text="${product.description}"></p>
                     <p class="text-danger font-weight-bold" th:text="'Giá: ' + ${#numbers.formatInteger(product.price,3,'POINT')} + ' VNĐ'"></p>
+
+                    <!-- Danh sách blog liên quan đến sản phẩm -->
+                    <div class="blogs-section mt-3">
+                        <h6 class="text-primary">Các bài viết liên quan:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li th:each="blog : ${product.blogs}" class="list-group-item">
+                                <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark"></a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <a th:href="@{'/productDetail/' + ${product.id}}" class="btn btn-primary">Xem chi tiết</a>
                 </div>
             </div>

@@ -34,8 +34,9 @@ public class ProductService {
 
     //Get all products
     public List<Product> findAll() {
-         return productRepository.findAll();
+        return productRepository.findAll();
     }
+
     //Delete product by id
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
@@ -55,7 +56,5 @@ public class ProductService {
             return "images/" + fileName; //tra ve duong dan file de luu vao database
         }
         return null;
-
     }
-
 }
