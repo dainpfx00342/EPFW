@@ -45,8 +45,9 @@
                 <td th:text="${#temporals.format(contact.updatedTime,'dd-MM-yyyy HH:mm:ss')}"></td>
                 <td>
                     <a th:href="@{/deleteContact/{id}(id=${contact.id})}"
-                       class="btn btn-danger btn-sm btn-action">
-                        <i class="fas fa-trash-alt"></i> Xóa
+                       class="btn btn-danger btn-sm btn-action"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                       <i class="fas fa-trash-alt"></i> Xóa
                     </a>
 
                     <a th:href="@{/doneContact/{id}(id=${contact.id})}"
