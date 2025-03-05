@@ -1,15 +1,13 @@
 package funix.epfw.controller.manageProduct.manageBlog;
 
-import funix.epfw.model.product.Blog;
-import funix.epfw.service.BlogService;
+import funix.epfw.model.farm.product.Blog;
+import funix.epfw.service.productService.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Base64;
 
 @Controller
 public class EditBlog {

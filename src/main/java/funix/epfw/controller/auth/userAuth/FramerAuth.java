@@ -1,7 +1,7 @@
 package funix.epfw.controller.auth.userAuth;
 
 import funix.epfw.constants.Role;
-import funix.epfw.model.User;
+import funix.epfw.model.user.User;
 import jakarta.servlet.http.HttpSession;
 
 public class FramerAuth implements AuthChecker {

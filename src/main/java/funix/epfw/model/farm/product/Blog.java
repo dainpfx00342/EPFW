@@ -1,4 +1,4 @@
-package funix.epfw.model.product;
+package funix.epfw.model.farm.product;
 
 import jakarta.persistence.*;
 import lombok.Data;

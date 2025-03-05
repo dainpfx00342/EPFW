@@ -1,6 +1,6 @@
 package funix.epfw.controller.auth;
 
-import funix.epfw.model.User;
+import funix.epfw.model.user.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

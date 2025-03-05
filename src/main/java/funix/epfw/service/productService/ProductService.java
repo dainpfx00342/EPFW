@@ -1,8 +1,8 @@
-package funix.epfw.service;
+package funix.epfw.service.productService;
 
-import funix.epfw.model.product.Product;
-import funix.epfw.model.User;
-import funix.epfw.repository.ProductRepository;
+import funix.epfw.model.farm.product.Product;
+import funix.epfw.model.user.User;
+import funix.epfw.repository.productRepo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

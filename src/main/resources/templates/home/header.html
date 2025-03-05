@@ -1,4 +1,4 @@
-<!-- src/main/resources/templates/home/header.html -->
+<!-- src/main/resources/templates/Home/header.html -->
 <header>
     <nav class="navbar navbar-light navbar-expand-md">
         <div class="container-fluid">
@@ -16,9 +16,7 @@
                     <li class="nav-item" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
                         <a class="nav-link" href="/manageProduct"><strong>Quản lý Nông sản</strong></a>
                     </li>
-                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
-                        <a class="nav-link" href="/manageBlog"><strong>Quản lý Blog</strong></a>
-                    </li>
+
 
                     <!--BUYER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER'}">

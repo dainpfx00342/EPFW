@@ -2,7 +2,7 @@ package funix.epfw.controller.manageUser;
 
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.model.User;
+import funix.epfw.model.user.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

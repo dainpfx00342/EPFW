@@ -1,12 +1,16 @@
-package funix.epfw.model;
+package funix.epfw.model.user;
 
 import funix.epfw.constants.Role;
+import funix.epfw.controller.auth.userAuth.FramerAuth;
+import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -41,6 +45,11 @@ public class User {
 
     @Column
     private String address;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn
+    private List<Farm> farms;
+
 
 
 }

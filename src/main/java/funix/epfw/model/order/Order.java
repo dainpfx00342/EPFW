@@ -1,5 +1,6 @@
-package funix.epfw.model;
+package funix.epfw.model.order;
 
+import funix.epfw.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 

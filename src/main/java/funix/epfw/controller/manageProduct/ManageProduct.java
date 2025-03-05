@@ -3,9 +3,9 @@ package funix.epfw.controller.manageProduct;
 import funix.epfw.constants.Role;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FramerAuth;
-import funix.epfw.model.product.Product;
-import funix.epfw.model.User;
-import funix.epfw.service.ProductService;
+import funix.epfw.model.farm.product.Product;
+import funix.epfw.model.user.User;
+import funix.epfw.service.productService.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class ManageProduct {
             return accessCheck;
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
-        if(currentUser.getRole()!= Role.ADMIN) {
+        if(currentUser.getRole() != Role.ADMIN) {
             List<Product> products = productService.getAllProductsByUser(currentUser);
             model.addAttribute("products", products);
             return "/manage_product/manageProduct";

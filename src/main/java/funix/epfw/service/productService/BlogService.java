@@ -1,9 +1,9 @@
-package funix.epfw.service;
+package funix.epfw.service.productService;
 
-import funix.epfw.model.product.Blog;
-import funix.epfw.model.product.Product;
-import funix.epfw.repository.BlogRepository;
-import funix.epfw.repository.ProductRepository;
+import funix.epfw.model.farm.product.Blog;
+import funix.epfw.model.farm.product.Product;
+import funix.epfw.repository.productRepo.BlogRepository;
+import funix.epfw.repository.productRepo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

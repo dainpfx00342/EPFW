@@ -1,8 +1,8 @@
-package funix.epfw.model.product;
+package funix.epfw.model.farm.product;
 
 import funix.epfw.constants.ProductCategory;
 import funix.epfw.constants.Unit;
-import funix.epfw.model.User;
+import funix.epfw.model.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -60,7 +60,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn
     private List<Blog> blogs = new ArrayList<>();
 
     @PrePersist

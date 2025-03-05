@@ -1,10 +1,7 @@
 package funix.epfw.repository;
 
-import funix.epfw.model.User;
-import jakarta.transaction.Transactional;
+import funix.epfw.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

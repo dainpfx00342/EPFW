@@ -1,7 +1,7 @@
-package funix.epfw.repository;
+package funix.epfw.repository.productRepo;
 
-import funix.epfw.model.product.Blog;
-import funix.epfw.model.product.Product;
+import funix.epfw.model.farm.product.Blog;
+import funix.epfw.model.farm.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
