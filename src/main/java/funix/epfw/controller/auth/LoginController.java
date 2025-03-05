@@ -25,7 +25,7 @@ public class LoginController {
     public String showLoginForm(HttpSession session, Model model) {
         //Xoá session cũ
        session.invalidate();
-        return "/auth/login"; // Trả về trang đăng nhập
+        return "/user/auth/login"; // Trả về trang đăng nhập
     }
 
     @PostMapping("/login")
@@ -40,7 +40,7 @@ public class LoginController {
             return "redirect:/home";
         }
         model.addAttribute("errorMess", "Sai tên đăng nhập hoặc mật khẩu");
-        return "/auth/login";
+        return "/user/auth/login";
     }
 }
 

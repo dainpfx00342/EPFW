@@ -1,47 +1,102 @@
-body{
+/* Tổng thể */
+body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: "Times New Roman", Times, serif;
-
 }
-main{
+
+.logo{
+    font-family: "Snell Roundhand", cursive;
+    font-size: 50px;
+    font-weight: bolder;
+}
+main {
     flex: 1;
-
-}
-header{
-    background-color:gainsboro;
-}
-footer {
-    margin-top: auto;
-    position: relative;
-    background-color:gainsboro;
-}
-.errorMess{
-    color: red;
-}
-.mess{
-    color: green;
 }
 
-textarea.form-control {
-    height: 150px;
+/* Header và Footer */
+header, footer {
+    background-color: gainsboro;
+    padding: 10px 0;
+    text-align: center;
 }
 
-.container {
-    margin-top: 30px;
+/* Navbar */
+.navbar-nav .nav-link {
+    color: green !important; /* Màu xanh lá */
 }
 
+.navbar-brand-green {
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+.navbar-brand-green:hover {
+    text-decoration: none !important;
+}
+
+/* Card Blog */
+.homecard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Nội dung bài viết */
+.card-text-container {
+    max-height: 80px;
+    overflow-y: auto;
+    padding-right: 5px; /* Tránh che mất nội dung bởi thanh cuộn */
+}
+
+.card-text {
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+/* Hình ảnh trong bài viết */
+.card-text img {
+    max-width: 100%;
+    max-height: 80px;
+    height: auto;
+    display: block;
+    margin: 5px auto;
+    border-radius: 5px;
+}
+
+/* Tiêu đề bài viết */
+.card-title a {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Nút Xem chi tiết */
+.btn-sm {
+    align-self: flex-end;
+    min-width: 100px;
+}
+
+/* Bảng sản phẩm */
 .table-container {
     background: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-    font-weight: bold;
-    color: #28a745;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .table th {
@@ -62,29 +117,25 @@ h3 {
     object-fit: cover;
 }
 
-.btn-action {
-    margin: 2px;
-}
-h1{
-    font-weight: bolder;
-}
-.navbar-nav .nav-link {
-    color: green !important; /* Bắt buộc màu xanh lá */
-}
-.navbar-brand-green {
-    text-decoration: none; /* Loại bỏ gạch chân mặc định */
+/* Nút chung */
+.btn {
+    min-width: 120px;
+    text-align: center;
 }
 
-.navbar-brand-green:hover {
-    text-decoration: none !important; /* Đảm bảo không có gạch chân khi hover */
+.gap-3 {
+    gap: 1rem;
 }
+
+/* Trang lỗi */
 .error-container {
     max-width: 500px;
     margin: 80px auto;
     padding: 30px;
     background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    text-align: center;
 }
 
 .error-icon {
@@ -107,25 +158,4 @@ h1{
 .btn-custom {
     min-width: 120px;
     margin: 5px;
-}
-/* product.css */
-.card {
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-.blogs-section{
-    max-height: 120px;
-    overflow-y: auto;
 }

@@ -4,6 +4,7 @@ import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -26,9 +27,11 @@ public class Farm {
     private String address;
 
     @Column(nullable = false)
+    @Size(min = 5, message = "Mô tả trang trại phải có ít nhất 5 ký tự")
     private String description;
 
     @Column(nullable = false)
+    @Pattern(regexp = "0[0-9]{9}", message = "Số điện thoại không hợp lệ")
     private String contact;
 
     @ManyToOne

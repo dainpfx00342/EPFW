@@ -2,7 +2,7 @@
 <header>
     <nav class="navbar navbar-light navbar-expand-md">
         <div class="container-fluid">
-            <a class="navbar-brand-green" href="/home"><h1>Chợ nông sản sạch</h1></a>
+            <a class="navbar-brand-green" href="/home"><h1 class="logo">Đặc sản quê hương</h1></a>
 
             <!-- Button for mobile devices -->
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
@@ -12,9 +12,24 @@
             <div id="navcol-1" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
 
-                    <!--FARMER -->
-                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
-                        <a class="nav-link" href="/manageProduct"><strong>Quản lý Nông sản</strong></a>
+                    <!--FARMER hoặc ADMIN mới thấy menu  -->
+                    <li class="nav-item dropdown" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
+                        <a class="nav-link dropdown-toggle" href="/manageFarm" id="farmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Quản lý Nông Trại</strong></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/manageFarm">
+                                <i class="fas fa-tachometer-alt text-primary"></i> Tổng Quan
+                            </a>
+                            <a class="dropdown-item" href="/manageProduct">
+                                <i class="fas fa-box text-success"></i> Quản lý Sản Phẩm
+                            </a>
+                            <a class="dropdown-item" href="/manageTour">
+                                <i class="fas fa-leaf text-warning"></i> Quản lý Tour
+                            </a>
+                            <a class="dropdown-item" href="/manageLiveStream">
+                                <i class="fas fa-video text-danger"></i> Quản lý Lịch LiveStream
+                            </a>
+                        </div>
                     </li>
 
 

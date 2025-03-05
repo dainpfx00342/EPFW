@@ -23,6 +23,6 @@ public class BlogDetail {
         Blog blog = blogService.findById(id);
         model.addAttribute("blog", blog);
 
-        return "manage_product/manage_blog/blogDetail";
+        return "/farm/manage_product/manage_blog/blogDetail";
     }
 }

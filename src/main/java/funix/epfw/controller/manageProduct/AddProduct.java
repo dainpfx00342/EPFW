@@ -67,8 +67,8 @@ public class AddProduct {
         }
         // Kiểm tra nếu form có lỗi validation
         if (result.hasErrors()) {
-            model.addAttribute("registrationError", "Vui lòng nhập đầy đủ và chính xác thông tin.");
-            return "/manage_product/addProduct";
+            model.addAttribute("errorMess", "Vui lòng nhập đầy đủ và chính xác thông tin.");
+            return "/farm/manage_product/addProduct";
         }
         // Gán người tạo sản phẩm
         product.setCreatedBy(user);

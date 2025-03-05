@@ -20,4 +20,8 @@ public class FarmService {
     public List<Farm> findByUserId(Long userId) {
         return farmRepository.findByUserId(userId);
     }
+
+    public void saveFarm(Farm farm) {
+        farmRepository.save(farm);
+    }
 }
