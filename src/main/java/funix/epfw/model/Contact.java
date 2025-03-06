@@ -28,8 +28,8 @@ public class Contact {
     @Email(message="Email phải đúng định dạng")
     private String email;
 
-    @Column(nullable = false)
-    @Size(min = 5, message="Message phải có ít nhất 5 ký tự")
+    @Column(nullable = false, columnDefinition = "TEXT")
+    @Size(min = 5, max = 1000, message="Message phải có ít nhất 5 ký tự đến 1000 ký tự")
     private String message;
 
     @Column(nullable = false)

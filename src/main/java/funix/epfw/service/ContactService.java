@@ -19,9 +19,7 @@ public class ContactService {
 
     // Add contact
     public void addContact(Contact contact) {
-
         contactRepository.save(contact);
-
     }
 
     //Get all contacts
@@ -37,5 +35,9 @@ public class ContactService {
         Contact contact = contactRepository.findById(id).orElseThrow(() -> new IllegalStateException("Contact with id " + id + " does not exist"));
         contact.setState(ContactState.DONE);
         contactRepository.save(contact);
+    }
+
+    public Contact getContactById(Long id) {
+        return contactRepository.findById(id).orElseThrow(() -> new IllegalStateException("Contact with id " + id + " does not exist"));
     }
 }

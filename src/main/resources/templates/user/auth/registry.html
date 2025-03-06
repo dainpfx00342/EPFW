@@ -14,45 +14,46 @@
 <div th:replace="~{home/header :: header}"></div>
 
 <!-- Content -->
-<div class="container">
+<div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2 class="text-left mb-4">Đăng Ký Tài Khoản</h2>
+    <div class="col-md-6 col-lg-5">
+
+      <h2 class="text-center mb-4">Đăng Ký Tài Khoản</h2>
       <form th:action="@{/registry}" method="post" th:object="${user}">
-        <div class="errorMess" th:if="${registrationError}" th:text ="${registrationError}" ></div>
+        <div class="text-danger" th:if="${registrationError}" th:text ="${registrationError}" ></div>
         <!-- Tên đăng nhập -->
         <div class="form-group">
           <label for="username" class="form-label">Tên Đăng Nhập: </label>
           <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Nhập tên đăng nhập" required>
-          <div class="errorMess" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+          <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
 
         <!-- Email -->
         <div class="form-group">
           <label for="email" class="form-label">Email: </label>
           <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required>
-          <div class="errorMess" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+          <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
 
         <!-- Số điện thoại -->
         <div class="form-group">
           <label for="phone" class="form-label">Số Điện Thoại: </label>
           <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required>
-          <div class="errorMess" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+          <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
         </div>
 
         <!-- Mật khẩu -->
         <div class="form-group">
           <label for="password" class="form-label">Mật Khẩu: </label>
           <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu" required>
-          <div class="errorMess" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+          <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
 
         <!-- Xác nhận mật khẩu -->
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Xác Nhận Mật Khẩu: </label>
           <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
-          <div class="errorMess" th:if="${confirmpassError}" th:text="${confirmpassError}"></div>
+          <div class="text-danger" th:if="${confirmpassError}" th:text="${confirmpassError}"></div>
         </div>
 
         <!-- Địa chỉ -->
@@ -68,7 +69,7 @@
             <option value="FARMER">Nông trại</option>
             <option value="BUYER">Thương Lái</option>
            </select>
-          <div class="errorMess" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+          <div class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
         </div>
         <!-- Nút đăng ký -->
         <div class="form-group">

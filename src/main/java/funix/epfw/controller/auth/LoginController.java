@@ -39,7 +39,7 @@ public class LoginController {
             session.setAttribute("role", user.getRole().name());
             return "redirect:/home";
         }
-        model.addAttribute("errorMess", "Sai tên đăng nhập hoặc mật khẩu");
+        model.addAttribute("errorMess", "Sai tên đăng nhập hoặc mật khẩu, vui lòng thử lại");
         return "/user/auth/login";
     }
 }

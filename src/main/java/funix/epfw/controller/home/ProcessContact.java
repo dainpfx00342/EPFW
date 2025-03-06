@@ -1,10 +1,13 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.model.Contact;
 import funix.epfw.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class ProcessContact {
@@ -23,6 +26,8 @@ public class ProcessContact {
 
     @GetMapping("/doneContact/{id}")
     public String doneContact(@PathVariable Long id) {
+        Contact contact = contactService.getContactById(id);
+        contact.setUpdatedTime(LocalDateTime.now());
         contactService.doneContact(id);
         return "redirect:/manageContact";
     }

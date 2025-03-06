@@ -32,7 +32,7 @@ public class ManageUser {
         }
         List<User> users = userService.findAllUserOrderByUsername();
         model.addAttribute("users", users);
-        return "/manage_user/manageUser";
+        return "/user/manageUser";
     }
 
 

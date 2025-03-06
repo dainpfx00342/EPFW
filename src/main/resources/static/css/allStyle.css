@@ -1,9 +1,9 @@
 /* Tổng thể */
-body {
+html,body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif; !important;
 }
 
 .logo{
@@ -14,9 +14,14 @@ body {
 main {
     flex: 1;
 }
-
+footer {
+    margin-top: auto;
+    background-color: gainsboro;
+    padding: 10px 0;
+    text-align: center;
+}
 /* Header và Footer */
-header, footer {
+header {
     background-color: gainsboro;
     padding: 10px 0;
     text-align: center;
@@ -97,6 +102,21 @@ header, footer {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Contact*/
+/* Giới hạn nội dung hiển thị 2 dòng */
+td.message-truncate {
+   max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Khoảng cách giữa các nút */
+.btn-action {
+    margin-bottom: 5px;
+    display: inline-block;
 }
 
 .table th {
