@@ -1,5 +1,6 @@
-package funix.epfw.controller.manageUser;
+package funix.epfw.controller.user;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.user.User;
@@ -32,7 +33,7 @@ public class ManageUser {
         }
         List<User> users = userService.findAllUserOrderByUsername();
         model.addAttribute("users", users);
-        return "/user/manageUser";
+        return ViewPaths.MANAGE_USER;
     }
 
 

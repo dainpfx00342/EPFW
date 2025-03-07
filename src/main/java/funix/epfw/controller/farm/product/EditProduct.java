@@ -1,8 +1,8 @@
-package funix.epfw.controller.manageProduct;
+package funix.epfw.controller.farm.product;
 
 
 import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FramerAuth;
+import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.productService.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -29,7 +29,7 @@ public class EditProduct {
     @GetMapping("/editProduct")
     public String showEditProductForm(HttpSession session) {
         // Kiểm tra quyền truy cập
-        AuthChecker authChecker = new FramerAuth();
+        AuthChecker authChecker = new FarmerAuth();
         String accessCheck = authChecker.checkAuth(session);
         if(accessCheck != null) {
             return accessCheck;
@@ -40,7 +40,7 @@ public class EditProduct {
     @GetMapping("/editProduct/{id}")
     public String showEditProductForm(@PathVariable Long id, Model model, HttpSession session) {
         // Kiểm tra quyền truy cập
-        AuthChecker authChecker = new FramerAuth();
+        AuthChecker authChecker = new FarmerAuth();
         String accessCheck = authChecker.checkAuth(session);
         if(accessCheck != null) {
             return accessCheck;

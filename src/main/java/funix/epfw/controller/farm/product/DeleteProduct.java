@@ -1,8 +1,8 @@
-package funix.epfw.controller.manageProduct;
+package funix.epfw.controller.farm.product;
 
 import funix.epfw.constants.Role;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FramerAuth;
+import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.user.User;
 import funix.epfw.service.productService.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +25,7 @@ public class DeleteProduct {
     // Show page Delete product
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable Long id, RedirectAttributes model, HttpSession session) {
-        AuthChecker authChecker = new FramerAuth();
+        AuthChecker authChecker = new FarmerAuth();
         String accessCheck = authChecker.checkAuth(session);
         if(accessCheck != null) {
             return accessCheck;
@@ -39,7 +39,7 @@ public class DeleteProduct {
         //Cap nhat lai danh sach san pham
         User currentUser = (User) session.getAttribute("loggedInUser");
         if(currentUser.getRole()!= Role.ADMIN) {
-            model.addFlashAttribute("products", productService.getAllProductsByUser(currentUser));
+
             return "redirect:/manageProduct"; // Chuyển hướng về danh sách sản phẩm
         }
         model.addFlashAttribute("products", productService.findAll());

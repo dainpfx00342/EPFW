@@ -4,7 +4,7 @@ import funix.epfw.constants.Role;
 import funix.epfw.model.user.User;
 import jakarta.servlet.http.HttpSession;
 
-public class FramerAuth implements AuthChecker {
+public class FarmerAuth implements AuthChecker {
     @Override
     public String checkAuth(HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");

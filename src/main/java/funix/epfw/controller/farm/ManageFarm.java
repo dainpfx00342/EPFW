@@ -1,7 +1,7 @@
-package funix.epfw.controller.manageFarm;
+package funix.epfw.controller.farm;
 
 import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FramerAuth;
+import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.user.User;
 import funix.epfw.service.productService.FarmService;
@@ -27,7 +27,7 @@ public class ManageFarm {
 
     @GetMapping("/manageFarm")
     public String manageFarm(Model model, HttpSession session) {
-        AuthChecker authChecker = new FramerAuth();
+        AuthChecker authChecker = new FarmerAuth();
         String accessCheck = authChecker.checkAuth(session);
         if (accessCheck != null) {
             return accessCheck;

@@ -1,5 +1,6 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.productService.BlogService;
@@ -29,7 +30,7 @@ public class HomeController {
         List<Blog> blogs = BlogService.getAllBlogs();
         model.addAttribute("blogs", blogs);
         model.addAttribute("products", products);
-        return "home/home";
+        return ViewPaths.HOME;
     }
 
 }

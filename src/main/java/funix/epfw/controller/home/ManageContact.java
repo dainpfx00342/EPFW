@@ -1,5 +1,6 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.Contact;
@@ -31,7 +32,7 @@ public class ManageContact {
         }
         List<Contact> contacts = contactService.findAll();
         model.addAttribute("contacts", contacts);
-        return "home/manageContact";
+        return ViewPaths.MANAGE_CONTACT;
     }
 
 }

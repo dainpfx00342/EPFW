@@ -1,5 +1,6 @@
-package funix.epfw.controller.manageUser;
+package funix.epfw.controller.user;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.user.User;
@@ -47,7 +48,7 @@ public class EditUser {
             return "redirect:/login";
         }
         model.addAttribute("user", user);
-        return "/manage_user/editUser";
+        return ViewPaths.MANAGE_USER;
     }
 
     @PostMapping("/editUser/{id}")
@@ -64,7 +65,7 @@ public class EditUser {
         if(result.hasErrors()) {
             model.addAttribute("errorMessage", "Cập nhật người dùng không thành công!");
             model.addAttribute("user", user); // Giữ lại thông tin user để hiển thị lại form
-            return "/manage_user/editUser";
+            return ViewPaths.EDIT_USER;
         }
 
 

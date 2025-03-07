@@ -1,4 +1,4 @@
-package funix.epfw.controller.manageProduct.manageBlog;
+package funix.epfw.controller.farm.product.manageBlog;
 
 import funix.epfw.service.productService.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;

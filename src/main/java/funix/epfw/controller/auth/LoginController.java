@@ -1,5 +1,6 @@
 package funix.epfw.controller.auth;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.user.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public class LoginController {
     public String showLoginForm(HttpSession session, Model model) {
         //Xoá session cũ
        session.invalidate();
-        return "/user/auth/login"; // Trả về trang đăng nhập
+        return ViewPaths.LOGIN; // Trả về trang đăng nhập
     }
 
     @PostMapping("/login")
@@ -40,7 +41,7 @@ public class LoginController {
             return "redirect:/home";
         }
         model.addAttribute("errorMess", "Sai tên đăng nhập hoặc mật khẩu, vui lòng thử lại");
-        return "/user/auth/login";
+        return ViewPaths.LOGIN;
     }
 }
 

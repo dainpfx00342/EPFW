@@ -1,5 +1,6 @@
 package funix.epfw.controller.auth;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.user.User;
 import funix.epfw.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -15,14 +16,17 @@ import org.springframework.web.bind.annotation.*;
 public class RegistryController {
 
     private final UserService userService;
+
     @Autowired
     public RegistryController(UserService userService) {
+
         this.userService = userService;
     }
+
     @GetMapping("/registry")
     public String registry(Model model) {
         model.addAttribute("user", new User());
-        return "/user/auth/registry";
+        return ViewPaths.REGISTER;
     }
 
     @PostMapping("/registry")
@@ -33,21 +37,21 @@ public class RegistryController {
 
         if (result.hasErrors()) {
             model.addAttribute("registrationError", "Đăng ký không thành công");
-            return "/user/auth/registry";
+            return ViewPaths.REGISTER;
         }
         if(userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
-            return "/user/auth/registry";
+            return ViewPaths.REGISTER;
         }
         if(!user.getPassword().equals(confirmPassword)) {
             model.addAttribute("confirmpassError", "Mật khẩu không khớp");
-            return "user/auth/registry";
+            return ViewPaths.REGISTER;
         }
         userService.saveUser(user);
 
         session.setAttribute("loggedInUser", user);
         session.setAttribute("role", user.getRole().name());
-        return "/home/home";
+        return "redirect:/home";
     }
 
 

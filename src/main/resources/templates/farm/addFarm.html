@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-left mb-4">Tạo Farm mới</h2>
-            <form th:action="@{/addFarm}" method="post" th:object="${farm}" enctype="multipart/form-data">
+            <form th:action="@{/addFarm}" method="post" th:object="${farm}">
                 <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 
                 <!-- Tên Farm -->
@@ -33,11 +33,21 @@
                     <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                 </div>
+                <!-- Mô tả -->
+                <div class="form-group">
+                    <label for="description" class="form-label">Mô tả: </label>
+                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập mô tả về trang trại của bạn" required></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
                 <!-- Phương thức liên hệ -->
                 <div class="form-group">
                     <label for="contact" class="form-label">Số điện thoại/Zalo: </label>
                     <input type="text" id="contact" name="contact" th:field="*{contact}" class="form-control" placeholder="Nhập số điện thoại hoặc Zalo" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></div>
+                </div>
+                <!-- Nut submit -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Tạo Farm</button>
                 </div>
             </form>
         </div>

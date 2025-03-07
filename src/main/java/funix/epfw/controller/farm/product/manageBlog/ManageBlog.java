@@ -1,4 +1,4 @@
-package funix.epfw.controller.manageProduct.manageBlog;
+package funix.epfw.controller.farm.product.manageBlog;
 
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;

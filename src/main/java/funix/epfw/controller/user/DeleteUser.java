@@ -1,4 +1,4 @@
-package funix.epfw.controller.manageUser;
+package funix.epfw.controller.user;
 
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;

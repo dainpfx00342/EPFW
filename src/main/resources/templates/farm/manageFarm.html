@@ -27,7 +27,7 @@
 
     </div>
     <h4 class="text-center">Danh sách Trang Trại</h4>
-   <p>Tên chủ trang trại: <span class="mess" th:text="${user.username}"></span></p>
+   <h4>Tên chủ trang trại: <strong class="text-success"><span class="mess" th:text="${user.username}"></span></strong></h4>
     <!-- Hiển thị thông báo thành công -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
@@ -65,9 +65,9 @@
                     <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
                         <i class="fas fa-edit"></i> Thêm Lịch liveStream
                     </a>
-                    <a th:href="@{/deleteBlog/{id}(id=${blog.id}, productId=${productId})}"
+                    <a th:href="@{/deleteFarm/{id}(id=${farm.id})}"
                        class="btn btn-danger btn-sm btn-action"
-                       onclick="return confirm('Bạn có muốn xoá blog này?');">
+                       onclick="return confirm('Bạn có muốn xoá trang trại này?');">
                         <i class="fas fa-trash-alt"></i> Xóa
                     </a>
                 </td>

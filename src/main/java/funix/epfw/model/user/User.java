@@ -1,7 +1,6 @@
 package funix.epfw.model.user;
 
 import funix.epfw.constants.Role;
-import funix.epfw.controller.auth.userAuth.FramerAuth;
 import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
 
@@ -23,8 +22,7 @@ public class User {
 
     @Column(unique = true)
     @Size(min = 5, message = "Username phải có ít nhất 5 ký tự")
-    @Pattern(regexp="^[a-zA-Z-ZÀ-Ỹà-ỹ\\s]*$", message = "Username không được chứa ký tự đặc biệt hoặc số")
-
+    @Pattern(regexp="^[a-zA-Z0-9]+$", message = "Username không được chứa ký tự đặc biệt")
     private String username;
 
     @Column(nullable = false)
@@ -46,8 +44,7 @@ public class User {
     @Column
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Farm> farms;
 
 

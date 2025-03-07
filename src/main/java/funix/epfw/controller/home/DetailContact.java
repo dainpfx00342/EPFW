@@ -1,5 +1,6 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.Contact;
 import funix.epfw.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class ContactDetail {
+public class DetailContact {
     private final ContactService contactService;
 
     @Autowired
-    public ContactDetail(ContactService contactService) {
+    public DetailContact(ContactService contactService) {
         this.contactService = contactService;
     }
 
@@ -23,7 +24,7 @@ public class ContactDetail {
     public String detailContact(@PathVariable Long id, Model model) {
         Contact contact = contactService.getContactById(id);
         model.addAttribute("contact", contact);
-        return "home/detailContact";
+        return ViewPaths.DETAIT_CONTACT;
     }
 
     @PostMapping("/doneContact/{id}")

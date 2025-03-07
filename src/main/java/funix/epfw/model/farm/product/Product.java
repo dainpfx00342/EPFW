@@ -2,7 +2,7 @@ package funix.epfw.model.farm.product;
 
 import funix.epfw.constants.ProductCategory;
 import funix.epfw.constants.Unit;
-import funix.epfw.model.user.User;
+import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -43,10 +43,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User createdBy;
-
     @Column
     private LocalDateTime createdTimes;
 
@@ -63,6 +59,10 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn
     private List<Blog> blogs = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name ="farm_id",nullable = false)
+    private Farm farm;
 
     @PrePersist
     protected void onCreate() {
