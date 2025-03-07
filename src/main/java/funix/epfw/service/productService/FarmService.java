@@ -26,9 +26,12 @@ public class FarmService {
     public void saveFarm(Farm farm) {
         farmRepository.save(farm);
     }
-    // Tim farm theo farm_id
-    public Optional<Farm> findById(Long id) {
-      return farmRepository.findById(id);
+//    // Tim farm theo farm_id
+//    public Optional<Farm> findById(Long id) {
+//      return farmRepository.findById(id);
+//    }
+    public Farm findById(Long id){
+        return farmRepository.findById(id).orElse(null);
     }
 
 }

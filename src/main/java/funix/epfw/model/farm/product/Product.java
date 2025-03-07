@@ -57,11 +57,10 @@ public class Product {
     private Unit unit;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn
     private List<Blog> blogs = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name ="farm_id",nullable = false)
+    @JoinColumn(nullable = false)
     private Farm farm;
 
     @PrePersist

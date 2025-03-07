@@ -46,8 +46,8 @@ public class AddProduct {
         }
 
         // Lấy thông tin trang trại
-        Optional<Farm> farm = farmService.findById(id);
-        if (farm.isEmpty()) {
+        Farm farm = farmService.findById(id);
+        if (farm==null) {
             model.addAttribute("errorMess", "Không thể tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
         }
@@ -58,7 +58,7 @@ public class AddProduct {
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
         model.addAttribute("product", new Product());
-        model.addAttribute("farm", farm.get()); // ✅ Đảm bảo `farm` được truyền vào model
+        model.addAttribute("farm", farm); // ✅ Đảm bảo `farm` được truyền vào model
 
         return ViewPaths.ADD_PRODUCT;
     }
@@ -69,9 +69,15 @@ public class AddProduct {
                               BindingResult result,@PathVariable Long id,
                               @RequestParam("imageFile") MultipartFile file,
                               Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        AuthChecker autherChecker = new FarmerAuth();
+        String authError = autherChecker.checkAuth(session);
+        if(authError != null) {
+            return authError;
+        }
         // Kiểm tra nếu farm không tồn tại
-        Optional<Farm> farm = farmService.findById(id);
-        if (farm.isEmpty()) {
+       Farm farm = farmService.findById(id);
+        if (farm==null) {
             model.addAttribute("errorMess", "Không tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
         }
@@ -83,18 +89,14 @@ public class AddProduct {
         }catch (IOException e){
             model.addAttribute("errorMess", "Lỗi lưu ảnh");
         }
-        // Kiểm tra xác thực người dùng
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user == null) {
-            return "redirect:/login";
-        }
+
         // Kiểm tra nếu form có lỗi validation
         if (result.hasErrors()) {
             model.addAttribute("errorMess", "Vui lòng nhập đầy đủ và chính xác thông tin.");
             return ViewPaths.ADD_PRODUCT;
         }
         // Lấy thông tin farm
-        newProduct.setFarm(farm.get()); // Gán farm vào sản phẩm
+        newProduct.setFarm(farm); // Gán farm vào sản phẩm
         // Lưu vào DB
         productService.saveProduct(newProduct);
 
