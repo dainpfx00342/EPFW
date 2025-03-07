@@ -7,7 +7,6 @@ import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
-import funix.epfw.model.user.User;
 import funix.epfw.service.productService.FarmService;
 import funix.epfw.service.productService.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @SessionAttributes("loggedInUser")
@@ -37,8 +36,8 @@ public class AddProduct {
         this.farmService = farmService;
     }
 
-    @GetMapping("/addProduct/{id}")
-    public String addProduct(Model model, HttpSession session, @PathVariable Long id) {
+    @GetMapping("/addProduct/{farmId}")
+    public String addProduct(Model model, HttpSession session,  @PathVariable Long farmId) {
         AuthChecker authoChecker = new FarmerAuth();
         String accessCheck = authoChecker.checkAuth(session);
         if (accessCheck != null) {
@@ -46,7 +45,7 @@ public class AddProduct {
         }
 
         // Lấy thông tin trang trại
-        Farm farm = farmService.findById(id);
+        Farm farm = farmService.findById(farmId);
         if (farm==null) {
             model.addAttribute("errorMess", "Không thể tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
@@ -58,7 +57,7 @@ public class AddProduct {
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
         model.addAttribute("product", new Product());
-        model.addAttribute("farm", farm); // ✅ Đảm bảo `farm` được truyền vào model
+        model.addAttribute("farm", farm); //  Đảm bảo `farm` được truyền vào model
 
         return ViewPaths.ADD_PRODUCT;
     }
@@ -66,10 +65,10 @@ public class AddProduct {
 
     @PostMapping("/addProduct/{farmId}")
     public String addProduct(@Validated @ModelAttribute("product") Product newProduct,
-                             BindingResult result,
+                             BindingResult result,@PathVariable Long farmId,
                              @RequestParam("imageFile") MultipartFile file,
-                             Model model, HttpSession session, @PathVariable Long farmId) {
-        User user = (User) session.getAttribute("loggedInUser");
+                             Model model, HttpSession session ) {
+
         AuthChecker autherChecker = new FarmerAuth();
         String authError = autherChecker.checkAuth(session);
         if(authError != null) {
@@ -92,11 +91,15 @@ public class AddProduct {
 
         // Kiểm tra nếu form có lỗi validation
         if (result.hasErrors()) {
+            model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+            model.addAttribute("units", Arrays.asList(Unit.values()));
+            model.addAttribute("farm", farm);
             model.addAttribute("errorMess", "Vui lòng nhập đầy đủ và chính xác thông tin.");
+
             return ViewPaths.ADD_PRODUCT;
         }
-       newProduct.setFarm(farm);
-        productService.saveOrUpdateProduct(newProduct);
+        newProduct.setFarm(farm); //Gan farm vao san pham
+        productService.saveOrUpdateProduct(newProduct); // luu san pham moi
 
         return "redirect:/manageProduct";
 
