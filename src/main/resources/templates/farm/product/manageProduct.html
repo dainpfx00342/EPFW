@@ -45,7 +45,7 @@
                 <th>Số lượng tồn kho</th>
                 <th>Mô tả</th>
                 <th>Trạng thái</th>
-                <th>Người tạo</th>
+                <th>Trang Trai</th>
                 <th>Ngày tạo</th>
                 <th>Hình ảnh</th>
                 <th>Nhóm hàng</th>
@@ -65,7 +65,7 @@
                     <span class="badge badge-success" th:if="${product.status}">Còn hàng</span>
                     <span class="badge badge-danger" th:unless="${product.status}">Hết hàng</span>
                 </td>
-                <td th:text="${product.createdBy.username}"></td>
+                <td th:text="${product.farm.getFarmName()}"></td>
                 <td th:text="${#temporals.format(product.createdTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
                 <td>
                     <img th:src="@{${product.imageUrl}}" class="product-img" alt="Hình ảnh sản phẩm">

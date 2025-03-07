@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm.product;
 
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.product.Product;
@@ -51,7 +52,7 @@ public class EditProduct {
             return "redirect:/login";
         }
         model.addAttribute("product", product);
-        return "/manage_product/editProduct";
+        return ViewPaths.EDIT_PRODUCT;
     }
 
     @PostMapping("/editProduct/{id}")
@@ -81,7 +82,7 @@ public class EditProduct {
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Cập nhật sản phẩm không thành công! Dữ liệu nhập vào không hơợp lệ ");
             model.addAttribute("product", product); // Giữ lại thông tin sản phẩm để hiển thị lại form
-            return "manage_product/editProduct";
+            return ViewPaths.EDIT_PRODUCT;
         }
 
 

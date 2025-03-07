@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm.product;
 
 import funix.epfw.constants.Role;
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.user.User;
@@ -43,7 +44,7 @@ public class DeleteProduct {
             return "redirect:/manageProduct"; // Chuyển hướng về danh sách sản phẩm
         }
         model.addFlashAttribute("products", productService.findAll());
-        return "/manage_product/manageProduct";
+        return ViewPaths.MANAGE_PRODUCT;
     }
 
 }

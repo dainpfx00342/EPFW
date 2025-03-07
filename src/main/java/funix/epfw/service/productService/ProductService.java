@@ -3,6 +3,7 @@ package funix.epfw.service.productService;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.user.User;
 import funix.epfw.repository.productRepo.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ public class ProductService {
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
+
         this.productRepository = productRepository;
     }
 
@@ -42,6 +44,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    @Transactional
+    public void saveOrUpdateProduct(Product product) {
+        productRepository.save(product); // This will use saveOrUpdate internally
+    }
     //save image to database
     public String saveImage(MultipartFile file) throws IOException {
         if(file != null && !file.isEmpty()) {

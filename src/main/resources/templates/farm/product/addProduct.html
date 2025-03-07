@@ -20,7 +20,7 @@
       <h2 class="text-center mb-4">Tạo Mới Sản Phẩm</h2>
       <div th:object="${farm}">
       <form th:action="@{/addProduct/{id} (id=${farm.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
-
+      <input type="hidden" th:value="${farm.id}"/>
         <!-- Example Thymeleaf template -->
         <div th:if="${farm != null}">
           <p th:text="${farm.id}">Farm ID</p>

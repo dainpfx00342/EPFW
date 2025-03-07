@@ -64,11 +64,11 @@ public class AddProduct {
     }
 
 
-    @PostMapping("/addProduct/{id}")
-    public String addProduct( @Validated @ModelAttribute("product") Product newProduct,
-                              BindingResult result,@PathVariable Long id,
-                              @RequestParam("imageFile") MultipartFile file,
-                              Model model, HttpSession session) {
+    @PostMapping("/addProduct/{farmId}")
+    public String addProduct(@Validated @ModelAttribute("product") Product newProduct,
+                             BindingResult result,
+                             @RequestParam("imageFile") MultipartFile file,
+                             Model model, HttpSession session, @PathVariable Long farmId) {
         User user = (User) session.getAttribute("loggedInUser");
         AuthChecker autherChecker = new FarmerAuth();
         String authError = autherChecker.checkAuth(session);
@@ -76,7 +76,7 @@ public class AddProduct {
             return authError;
         }
         // Kiểm tra nếu farm không tồn tại
-       Farm farm = farmService.findById(id);
+       Farm farm = farmService.findById(farmId);
         if (farm==null) {
             model.addAttribute("errorMess", "Không tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
@@ -95,10 +95,8 @@ public class AddProduct {
             model.addAttribute("errorMess", "Vui lòng nhập đầy đủ và chính xác thông tin.");
             return ViewPaths.ADD_PRODUCT;
         }
-        // Lấy thông tin farm
-        newProduct.setFarm(farm); // Gán farm vào sản phẩm
-        // Lưu vào DB
-        productService.saveProduct(newProduct);
+       newProduct.setFarm(farm);
+        productService.saveOrUpdateProduct(newProduct);
 
         return "redirect:/manageProduct";
 
