@@ -13,6 +13,7 @@ public class ViewPaths {
     //user Views
     public static final String MANAGE_USER = "user/manageUser";
     public static final String EDIT_USER = "user/editUser";
+    public static final String EDIT_PROFILE = "user/profile";
 
     //user/auth Views
     public static final String LOGIN = "user/auth/login";

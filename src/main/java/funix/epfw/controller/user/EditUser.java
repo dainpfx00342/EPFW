@@ -48,7 +48,7 @@ public class EditUser {
             return "redirect:/login";
         }
         model.addAttribute("user", user);
-        return ViewPaths.MANAGE_USER;
+        return ViewPaths.EDIT_USER;
     }
 
     @PostMapping("/editUser/{id}")
