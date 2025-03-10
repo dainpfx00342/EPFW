@@ -1,0 +1,181 @@
+/* Tổng thể */
+html,body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Times New Roman", Times, serif; !important;
+}
+
+.logo{
+    font-family: "Snell Roundhand", cursive;
+    font-size: 50px;
+    font-weight: bolder;
+}
+main {
+    flex: 1;
+}
+footer {
+    margin-top: auto;
+    background-color: gainsboro;
+    padding: 10px 0;
+    text-align: center;
+}
+/* Header và Footer */
+header {
+    background-color: gainsboro;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar-nav .nav-link {
+    color: green !important; /* Màu xanh lá */
+}
+
+.navbar-brand-green {
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+.navbar-brand-green:hover {
+    text-decoration: none !important;
+}
+
+/* Card Blog */
+.homecard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Nội dung bài viết */
+.card-text-container {
+    max-height: 80px;
+    overflow-y: auto;
+    padding-right: 5px; /* Tránh che mất nội dung bởi thanh cuộn */
+}
+
+.card-text {
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+/* Hình ảnh trong bài viết */
+.card-text img {
+    max-width: 100%;
+    max-height: 80px;
+    height: auto;
+    display: block;
+    margin: 5px auto;
+    border-radius: 5px;
+}
+
+/* Tiêu đề bài viết */
+.card-title a {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Nút Xem chi tiết */
+.btn-sm {
+    align-self: flex-end;
+    min-width: 100px;
+}
+
+/* Bảng sản phẩm */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Contact*/
+/* Giới hạn nội dung hiển thị 2 dòng */
+td.message-truncate {
+   max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Khoảng cách giữa các nút */
+.btn-action {
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.table th {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.product-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Nút chung */
+.btn {
+    min-width: 120px;
+    text-align: center;
+}
+
+.gap-3 {
+    gap: 1rem;
+}
+
+/* Trang lỗi */
+.error-container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 60px;
+    color: #dc3545;
+}
+
+.error-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.error-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-custom {
+    min-width: 120px;
+    margin: 5px;
+}

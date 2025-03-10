@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <title>Quản Lý Farm</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <h3 class="text-center">Quản Lý Nông trại</h3>
+    <p class="text-center">
+        Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
+        Chào mừng bạn đã quay lại!
+    </p>
+    <!-- Các nút thêm mới -->
+    <div class="d-flex justify-content-center flex-wrap gap-3 my-3">
+        <a th:href="@{/addFarm}" class="btn btn-primary btn-lg mx-2">
+            <i class="fas fa-plus"></i> Thêm Trang Trại
+        </a>
+
+    </div>
+    <h4 class="text-center">Danh sách Trang Trại</h4>
+   <h4>Tên chủ trang trại: <strong class="text-success"><span class="mess" th:text="${user.username}"></span></strong></h4>
+    <!-- Hiển thị thông báo thành công -->
+    <div th:if="${successMess}" class="alert alert-success text-center">
+        <span th:text="${successMess}"></span>
+    </div>
+
+    <!-- Danh sách Blog -->
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên Trang trại</th>
+                <th>Mô tả</th>
+                <th>Địa chỉ</th>
+                <th>Phương thức liên lạc</th>
+                <th>Chủ trang trại</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="farm, status : ${farms}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${farm.farmName}"></td>
+                <td th:utext="${farm.description}"></td>
+                <td th:text="${farm.address}"></td>
+                <td th:text="${farm.contact}"></td>
+                <td th:text="${farm.user.username}"></td>
+                <td>
+                    <a th:href="@{/addProduct/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
+                        <i class="fas fa-edit"></i> Thêm Sản phẩm
+                    </a>
+                    <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
+                        <i class="fas fa-edit"></i> Thêm Book Tour
+                    </a>
+                    <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
+                        <i class="fas fa-edit"></i> Thêm Lịch liveStream
+                    </a>
+                    <a th:href="@{/deleteFarm/{id}(id=${farm.id})}"
+                       class="btn btn-danger btn-sm btn-action"
+                       onclick="return confirm('Bạn có muốn xoá trang trại này?');">
+                        <i class="fas fa-trash-alt"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+<!-- Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

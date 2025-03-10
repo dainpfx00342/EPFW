@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <title>Quản Lý Nông Sản</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <h3 class="text-center">Quản Lý Nông Sản</h3>
+
+    <p class="text-center">
+        Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
+        Chào mừng bạn đã quay lại!
+    </p>
+
+    <p class="text-center">
+        <a href="/addProduct" class="btn btn-success"><i class="fas fa-plus"></i> Thêm sản phẩm mới</a>
+    </p>
+
+    <p class="text-center">Vai trò hiện tại: <strong th:text="${session.role}"></strong></p>
+
+    <h4 class="text-center">Danh sách các sản phẩm</h4>
+
+    <!-- Hiển thị thông báo xóa thành công -->
+    <div th:if="${successMessage}" class="alert alert-success text-center">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng tồn kho</th>
+                <th>Mô tả</th>
+                <th>Trạng thái</th>
+                <th>Trang Trai</th>
+                <th>Ngày tạo</th>
+                <th>Hình ảnh</th>
+                <th>Nhóm hàng</th>
+                <th>Giá bán</th>
+                <th>Ngày cập nhật</th>
+                <th>Đơn vị bán</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product, status : ${products}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.numberOfStock}"></td>
+                <td th:text="${product.description}"></td>
+                <td>
+                    <span class="badge badge-success" th:if="${product.status}">Còn hàng</span>
+                    <span class="badge badge-danger" th:unless="${product.status}">Hết hàng</span>
+                </td>
+                <td th:text="${product.farm.getFarmName()}"></td>
+                <td th:text="${#temporals.format(product.createdTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td>
+                    <img th:src="@{${product.imageUrl}}" class="product-img" alt="Hình ảnh sản phẩm">
+                </td>
+                <td>
+                        <span th:switch="${product.productCategory.name()}">
+                            <span th:case="'AGRICULTURE'">Nông sản</span>
+                            <span th:case="'FORESTRY'">Lâm sản</span>
+                            <span th:case="'FISHERY'">Thủy sản</span>
+                            <span th:case="'LIVESTOCK'">Chăn nuôi</span>
+                            <span th:case="*">Không xác định</span>
+                        </span>
+                </td>
+                <td th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
+                <td th:text="${#temporals.format(product.updatedTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td th:text="${product.unit}"></td>
+                <td>
+                    <a th:href="@{/editProduct/{id}(id=${product.id})}" class="btn btn-warning btn-sm btn-action">
+                        <i class="fas fa-edit"></i> Sửa
+                    </a>
+                    <a th:href="@{/deleteProduct/{id}(id=${product.id})}"
+                       class="btn btn-danger btn-sm btn-action"
+                       onclick="return confirm('Bạn có muốn xoá sản phẩm này?');">
+                        <i class="fas fa-trash-alt"></i> Xóa
+                    </a>
+
+                    <a th:href="@{/addBlog/{id}(id=${product.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-plus"></i> Thêm Blog
+                    </a>
+                    <a th:href="@{/manageBlog/{id} (id=${product.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-list"></i> Danh sách Blog
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+<!-- Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa người dùng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/allStyle.css">
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+
+    <h1>Chỉnh Sửa người dùng</h1>
+    <p>Chào mừng đến trang chỉnh sửa người dùng</p>
+    <p>Xin chào:
+        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
+        <span> ghé thăm trang của chúng tôi</span>
+    </p>
+
+    <h1>Chi tiết người dùng: </h1>
+
+    <!-- Hiển thị thông báo sửa thành công -->
+    <div th:if="${successMessage}" class="mess">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <!-- Hiển thị thông báo lỗi -->
+    <div th:if="${errorMessage}" class="text-danger">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mb-4">Cập nhật người dùng</h2>
+                <form th:action="@{/editUser/{id} (id=${user.id})}" method="post" th:object="${user}">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="text-danger" th:if="${registrationError}" th:text ="${registrationError}" ></div>
+                    <!-- Tên đăng nhập -->
+                    <div class="form-group">
+                        <label class="form-label">Tên Đăng Nhập:  <span th:text="${user.username}" class="mess"></span></label>
+
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email: </label>
+                        <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+
+                    <!-- Số điện thoại -->
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Số Điện Thoại: </label>
+                        <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                    </div>
+
+                    <!-- Địa chỉ -->
+                    <div class="form-group">
+                        <label for="address" class="form-label">Địa Chỉ: </label>
+                        <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="form-label">Vai trò: </label>
+                        <select id="role" name="role" th:field="*{role}" class="form-control" required>
+                            <option value="ADMIN" >ADMIN</option>
+                            <option value="FARMER">Nông trại</option>
+                            <option value="BUYER" >Thương Lái</option>
+                        </select>
+
+                        <div class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                    </div>
+                    <!-- Nút đăng ký -->
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary"
+                        onclick ="return confirm('Bạn có muốn cập nhật thông tin người dùng này!? ')">Save</button>
+                    </div>
+
+                    <!-- Liên kết đến trang đăng nhập -->
+                    <p class="text-center mt-3">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

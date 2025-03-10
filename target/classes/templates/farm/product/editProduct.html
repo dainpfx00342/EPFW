@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Sản Phẩm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/allStyle.css">
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+<h1>Chỉnh Sửa Sản Phẩm</h1>
+<p>Chào mừng đến trang chỉnh sửa sản phẩm</p>
+<p>Xin chào:
+    <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
+    <span> ghé thăm trang của chúng tôi</span>
+</p>
+<p>Bấm vào <a href="/login">đây</a> để đăng nhập.</p>
+<p>Bấm vào <a href="/registry">đây</a> để đăng ký.</p>
+<p>Role hiện tại: <span th:text="${session.role}"></span></p>
+<h1>Chi tiết sản phẩm: </h1>
+
+<!-- Hiển thị thông báo sửa thành công -->
+<div th:if="${successMessage}" class="mess">
+    <span th:text="${successMessage}"></span>
+</div>
+<!-- Hiển thị thông báo lỗi -->
+<div th:if="${errorMessage}" class="text-danger">
+    <span th:text="${errorMessage}"></span>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Cập nhật sản phẩm</h2>
+            <form th:action="@{/editProduct/{id} (id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}">
+                <!-- hien thi loi -->
+                <div th:if="${#fields.hasErrors('*')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" style="color: red;"></li>
+                    </ul>
+                </div>
+                <!-- Tên san pham -->
+                <div class="form-group">
+                    <label for="productName" class="form-label">Tên Sản phẩm:</label>
+                    <input type="text" id="productName" name="productName" th:field="*{productName}" class="form-control" placeholder="Tên sản phẩm" >
+                    <div class="text-danger" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></div>
+                </div>
+
+                <!-- So luong ton kho -->
+                <div class="form-group">
+                    <label for="numberOfStock" class="form-label">Số lượng tồn kho Sản Phẩm: </label>
+                    <input type="text" maxlength="12" id="numberOfStock" name="numberOfStock" th:field="*{numberOfStock}" class="form-control" placeholder="Số lượng tồn kho sản phẩm" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('numberOfStock')}" th:errors="*{numberOfStock}"></div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="desc" class="form-label">Mô Tả Sản Phẩm: </label>
+                    <input type="text" id="desc" name="email" th:field="*{description}" class="form-control" placeholder="Mô tả sản phẩm" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+
+                <!-- Trang thai -->
+                <div class="form-group">
+                    <label for="status" class="form-label">Trạng thái: </label>
+                    <select id="status" name="status" th:field="*{status}" class="form-control" required>
+                        <option value="true" >Còn hàng</option>
+                        <option value="false">Hết hàng</option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+                </div>
+
+                <!-- Gia -->
+                <div class="form-group">
+                    <label for="price" class="form-label">Giá Sản Phẩm: </label>
+                    <input type="text" maxlength="12" id="price" name="price" th:field="*{price}" class="form-control" placeholder="Giá sản phẩm" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                </div>
+
+                <!-- Nhom san pham -->
+                <div class="form-group">
+                    <label for="productCategory" class="form-label">Loại sản phẩm: </label>
+                    <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required>
+                        <option value="" selected >Chọn nhóm sản phẩm</option>
+                        <option value="AGRICULTURE">Nông sản</option>
+                        <option value="FORESTRY">Lâm sản</option>
+                        <option value="FISHERY">Thủy sản</option>
+                        <option value="LIVESTOCK">Chăn nuôi</option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('productCategory')}" th:errors="*{productCategory}"> </div>
+                </div>
+                <!-- doi anh-->
+                <div class="form-group">
+                    <label for="file" class="form-label">Hình ảnh sản phẩm: </label>
+                    <input type="file" id="file" name="imageFile" class="form-control"  placeholder="Hình sản phẩm">
+
+                </div>
+
+
+                <!-- Nút cap nhat-->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary w-100"
+                            onclick ="return confirm('Bạn có muốn cập nhật thông tin sản phẩm này!? ')">Save</button>
+                </div>
+
+                <!-- Liên kết đến trang đăng nhập -->
+                <p class="text-center mt-3">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
