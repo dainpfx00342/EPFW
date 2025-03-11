@@ -56,7 +56,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy="product",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Blog> blogs = new ArrayList<>();
 
     @ManyToOne

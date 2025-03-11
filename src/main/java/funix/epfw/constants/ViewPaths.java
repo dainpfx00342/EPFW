@@ -34,7 +34,7 @@ public class ViewPaths {
     public static final String MANAGE_BLOG = "farm/product/blog/manageBlog";
     public static final String ADD_BLOG = "farm/product/blog/addBlog";
     public static final String EDIT_BLOG = "farm/product/blog/editBlog";
-    public static final String DETAIL_BLOG = "farm/product/blog/blogDetail";
+    public static final String DETAIL_BLOG = "farm/product/blog/detailBlog";
 
 }
 

@@ -25,19 +25,26 @@ public class AddBlog {
         this.productService = productService;
     }
 
-    @GetMapping("/addBlog/{id}")
-    public String showAddBlogForm(Model model, @PathVariable Long id) {
-        Product product = productService.findById(id);
-        model.addAttribute("product", product);
+    @GetMapping("/addBlog/{productId}")
+    public String showAddBlogForm(Model model, @PathVariable Long productId) {
+        Product currentProduct = productService.findById(productId);
+        model.addAttribute("product", currentProduct);
         model.addAttribute("blog", new Blog());
         return ViewPaths.ADD_BLOG;
     }
 
 
-    @PostMapping("/addBlog/{id}")
-    public String addBlog(@ModelAttribute("blog") Blog blog, @PathVariable Long id) {
-        Product product = productService.findById(id);
-        blogService.saveBlog(product,blog);
+    @PostMapping("/addBlog/{productId}")
+    public String addBlog(@ModelAttribute("blog") Blog blog, @PathVariable Long productId ,
+                          Model model)  {
+        //kiem tra neu product khong ton tai
+        Product product = productService.findById(productId);
+        if(product==null){
+            model.addAttribute("errorMess", "Không tìm thấy san pham.");
+            return ViewPaths.ADD_BLOG;
+        }
+
+        blogService.saveBlog(product, blog);
         return "redirect:/manageProduct";
     }
 }

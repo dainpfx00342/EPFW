@@ -43,4 +43,6 @@ public class Farm {
 
     @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tour> tours;
+
+
 }

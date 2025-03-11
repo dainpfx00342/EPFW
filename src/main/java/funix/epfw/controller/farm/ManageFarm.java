@@ -1,5 +1,7 @@
 package funix.epfw.controller.farm;
 
+import funix.epfw.constants.Role;
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
@@ -33,11 +35,17 @@ public class ManageFarm {
             return accessCheck;
         }
         User user = (User) session.getAttribute("loggedInUser");
+        List<Farm> farms;
+        if(user.getRole()== Role.ADMIN){
+            farms = farmService.findAll();
+        }else {
+            farms = farmService.findByUserId(user.getId());
+        }
         //get all farm by user id
-        List<Farm> farm = farmService.findByUserId(user.getId());
+
         model.addAttribute("user", user);
-        model.addAttribute("farms", farm);
-        return "farm/manageFarm";
+        model.addAttribute("farms", farms);
+        return ViewPaths.MANAGE_FRAM;
     }
 
 }

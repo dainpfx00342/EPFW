@@ -1,7 +1,7 @@
 package funix.epfw.service.productService;
 
+import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
-import funix.epfw.model.user.User;
 import funix.epfw.repository.productRepo.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -34,6 +35,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    //get product by fram
+    @Transactional
+    public List<Product> findByFarms(List<Farm> farms) {
+        List<Long> farmIds = farms.stream().map(Farm::getId).collect(Collectors.toList());
+        return productRepository.findByFarmIdIn(farmIds);
+    }
     //Delete product by id
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);

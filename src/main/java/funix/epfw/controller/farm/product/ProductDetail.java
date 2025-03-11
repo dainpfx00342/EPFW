@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.product;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.productService.BlogService;
@@ -29,6 +30,6 @@ public class ProductDetail {
         List<Blog> blogs = blogService.getBlogsByProduct(id);
         model.addAttribute("product", product);
         model.addAttribute("blogs", blogs);
-        return "manage_product/productDetail";
+        return ViewPaths.DETAIL_PRODUCT;
     }
 }

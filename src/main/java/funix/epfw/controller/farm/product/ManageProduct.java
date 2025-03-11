@@ -4,8 +4,10 @@ import funix.epfw.constants.Role;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
+import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.user.User;
+import funix.epfw.service.UserService;
 import funix.epfw.service.productService.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,12 @@ import java.util.List;
 @SessionAttributes("loggedInUser")
 public class ManageProduct {
     private final ProductService productService;
+    private final UserService userService;
 
     @Autowired
-    public ManageProduct(ProductService productService) {
+    public ManageProduct(ProductService productService, UserService userService) {
         this.productService = productService;
+        this.userService = userService;
     }
 
     @GetMapping("/manageProduct")
@@ -34,12 +38,16 @@ public class ManageProduct {
             return accessCheck;
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
-        if(currentUser.getRole() != Role.ADMIN) {
+        currentUser = userService.findByUsername(currentUser.getUsername());
+        List<Product> products;
+        if(currentUser.getRole() == Role.ADMIN){
+            products = productService.findAll();
 
-
-            return ViewPaths.MANAGE_PRODUCT;
+        }else {
+            List <Farm> farms = currentUser.getFarms();
+            products = productService.findByFarms(farms);
         }
-        List<Product> products = productService.findAll();
+
         model.addAttribute("products", products);
         return ViewPaths.MANAGE_PRODUCT;
 

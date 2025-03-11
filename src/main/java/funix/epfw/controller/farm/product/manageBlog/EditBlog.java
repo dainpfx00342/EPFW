@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.product.manageBlog;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.service.productService.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class EditBlog {
         Blog blog = blogService.findById(id);
         model.addAttribute("blog", blog);
 
-        return "manage_product/manage_blog/editBlog";
+        return ViewPaths.EDIT_BLOG;
     }
 
     @PostMapping("/editBlog/{id}")

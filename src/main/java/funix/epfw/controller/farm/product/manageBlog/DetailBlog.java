@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.product.manageBlog;
 
+import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.service.productService.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class BlogDetail {
+public class DetailBlog {
 
     private final BlogService blogService;
 
     @Autowired
-    public BlogDetail(BlogService blogService) {
+    public DetailBlog(BlogService blogService) {
         this.blogService = blogService;
     }
 
-    @GetMapping("/blogDetail/{id}")
-    public String blogDetail(@PathVariable Long id, Model model) {
-        Blog blog = blogService.findById(id);
+    @GetMapping("/blogDetail/{blogId}")
+    public String blogDetail(@PathVariable Long blogId, Model model) {
+        Blog blog = blogService.findById(blogId);
         model.addAttribute("blog", blog);
 
-        return "/farm/manage_product/manage_blog/blogDetail";
+        return ViewPaths.DETAIL_BLOG;
     }
 }
