@@ -36,5 +36,10 @@ public class ViewPaths {
     public static final String EDIT_BLOG = "farm/product/blog/editBlog";
     public static final String DETAIL_BLOG = "farm/product/blog/detailBlog";
 
+    //farm/tour Views
+    public static final String ADD_TOUR = "farm/tour/addTour";
+    public static final String EDIT_TOUR = "farm/tour/editTour";
+    public static final String DETAIL_TOUR = "farm/tour/detailTour";
+    public static final String MANAGE_TOUR = "farm/tour/manageTour";
 }
 

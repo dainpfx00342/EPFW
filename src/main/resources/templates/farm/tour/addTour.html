@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <title>Tạo Tour mới</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-left mb-4">Tạo Tour mới</h2>
+            <div th:object="${currFarm}">
+            <form th:action="@{/addTour/{id} (id=${currFarm.id})} " method="post" th:object="${tour}">
+                <input type="hidden" th:if="${currFarm != null}" th:value="${currFarm.id}" />
+                <p th:if="${currFarm == null}" style="color:red;">Không tìm thấy trang trại</p>
+                <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
+                <!-- Example Thymeleaf template -->
+                <div th:if="${currFarm != null}">
+                    <p th:text="${currFarm.id}">Farm ID </p>
+                </div>
+
+                <!-- Tên Farm -->
+                <div class="form-group">
+                    <label for="farmName" class="form-label">Tên Tour: </label>
+                    <input type="text" id="farmName" name="farmName" th:field="*{tourName}" class="form-control" placeholder="Nhập tên Tour" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('tourName')}" th:errors="*{tourName}"></div>
+                </div>
+                <!-- Dia chi -->
+                <div class="form-group">
+                    <label for="description" class="form-label">Mô tả tour: </label>
+                    <textarea  id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập Mô tả" required></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+                <!-- Số ngày/chuyến -->
+                <div class="form-group">
+                    <label for="timeDurration" class="form-label">Số ngày/chuyến là: </label>
+                    <input type="number" id="timeDurration" name="timeDurration" th:field="*{timeDuration}" class="form-control" placeholder="Nhập số ngày/chuyến" required/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('timeDuration')}" th:errors="*{timeDuration}"></div>
+                </div>
+                <!-- Chọn loại hình du lịch -->
+                <div class="form-group">
+                    <label for="tourType" class="form-label">Loại tour: </label>
+                    <select id="tourType" name="contact" th:field="*{tourType}" class="form-control" required>
+                        <option th:each="tourType :${tourTypes}" th:value="${tourType}" th:text="${tourType}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('tourType')}" th:errors="*{tourType}"></div>
+                </div>
+                <!-- Số người tối đa cho mỗi loại-->
+                <div class="form-group">
+                    <label for="guestNo" class="form-label">Số người tối đa được tham gia?: </label>
+                    <input type="number" id="guestNo" name="guestNo" th:field="*{guestNo}" class="form-control" placeholder="Nhập số người tối đa có thể tham gia/tour" required/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('guestNo')}" th:errors="*{guestNo}"></div>
+                </div>
+                <!-- Ngày bắt đầu -->
+                <div class="form-group">
+                    <label for="startDate" class="form-label">Ngày bắt đầu nhận Tour</label>
+                    <input type="date" id="startDate" name="startDate" th:field="*{startTourDate}" class="form-control" required/>
+                </div>
+                <!-- Ngày kết thúc đầu -->
+                <div class="form-group">
+                    <label for="endDate" class="form-label">Ngày kết thúc nhận Tour</label>
+                    <input type="date" id="endDate" name="endTourDate" th:field="*{endTourDate}" class="form-control" required/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('endTourDate')}" th:errors="*{endTourDate}"></div>
+                </div>
+                <!-- Giá vé vào cổng -->
+                <div class="form-group">
+                    <label for="ticketPrice" class="form-label">Giá vé vào cổng:</label>
+                    <label for="ticketOption"></label>
+                    <select id="ticketOption" class="form-control" onchange="togglePriceInput()">
+                        <option value="free">Miễn phí</option>
+                        <option value="paid">Nhập số tiền (VND)</option>
+                    </select>
+                </div>
+
+                <!-- Ô nhập giá vé, ẩn mặc định -->
+                <div class="form-group" id="priceInput" style="display: none;">
+                    <label for="ticketPrice" class="form-label">Nhập giá vé (VND):</label>
+                    <input type="number" id="ticketPrice" name="ticketPrice" th:field="*{ticketPrice}" class="form-control" min="0" placeholder="Nhập giá vé">
+                    <div class="text-danger" th:if="${#fields.hasErrors('ticketPrice')}" th:errors="*{ticketPrice}"></div>
+                </div>
+                <!-- Nut submit -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Tạo Tour</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Include Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+<!-- Script -->
+<script>
+    function togglePriceInput() {
+        var option = document.getElementById("ticketOption").value;
+        var priceInput = document.getElementById("priceInput");
+
+        if (option === "paid") {
+            priceInput.style.display = "block";
+            document.getElementById("ticketPrice").required = true; // Bắt buộc nhập giá
+        } else {
+            priceInput.style.display = "none";
+            document.getElementById("ticketPrice").value =0; // Xóa giá nếu chọn miễn phí
+            document.getElementById("ticketPrice").required = false;
+        }
+    }
+</script>
+<!-- Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

@@ -4,12 +4,11 @@ import funix.epfw.constants.TourStatus;
 import funix.epfw.constants.TourType;
 import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -36,11 +35,22 @@ public class Tour {
     private int guestNo; // Số người đăng ký
 
     @Column(nullable = false)
-    private LocalDateTime startTourDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startTourDate;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future(message="Ngày kết thúc phải lớn hơn ngày hiện tại")
-    private LocalDateTime endTourDate;
+    private LocalDate endTourDate;
+
+    @Column
+    @Min(value=1, message ="Thời gian tham quan tối thiểu 1 ngày/chuyến")
+    @Max(value=30, message="Thời gian tham quan tối đa là 1 tháng/chuyến")
+    private int timeDuration;
+
+    @Column
+    @Min(value=0,message="Giá vé tối thiểu = 0 (free)")
+    private int ticketPrice;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Product {
 
     @Column(nullable = false)
     @Size(max = 12, message = "Giá sản phẩm khoảng từ 0 đến 999 tỉ")
-    @Pattern(regexp = "^[0-9]*$", message = "Giá sản phẩm phải là số")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "Giá sản phẩm phải là số")
     private String price;
 
     @Column(nullable = false)
@@ -61,6 +63,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @ToString.Exclude
     private Farm farm;
 
     @PrePersist

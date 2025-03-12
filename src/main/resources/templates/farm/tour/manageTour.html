@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/allStyle.css">
+  <title>Quản Lý Nông Sản</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+  <h3 class="text-center">Quản Lý Tour</h3>
+
+  <p class="text-center">
+    Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
+    Chào mừng bạn đã quay lại!
+  </p>
+  <p class="text-center">Vai trò hiện tại: <strong th:text="${session.role}"></strong></p>
+
+  <h4 class="text-center">Danh sách các Tours </h4>
+
+  <!-- Hiển thị thông báo xóa thành công -->
+  <div th:if="${successMess}" class="alert alert-success text-center">
+    <span th:text="${successMess}"></span>
+  </div>
+
+  <!-- Danh sách sản phẩm -->
+  <div class="table-container">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên Tour</th>
+        <th>Mô Tả</th>
+        <th>Loại tour</th>
+        <th>Số người tối đa /tour</th>
+        <th>Ngày bắt đầu đón khách</th>
+        <th>Ngày kết thúc đón khách</th>
+        <th>Thời gian /tour (Ngày)</th>
+        <th>Giá vé</th>
+        <th>Trạng thái tour</th>
+        <th>Thuộc trang trại</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="tour, status : ${tours}">
+        <td th:text="${status.index + 1}"></td>
+        <td th:text="${tour.tourName}"></td>
+        <td th:text="${tour.description}"></td>
+        <td th:text="${tour.tourType.vietnamese}"></td>
+        <td th:text="${tour.guestNo}"></td>
+        <td th:text="${#temporals.format(tour.startTourDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#temporals.format(tour.endTourDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${tour.timeDuration}"></td>
+        <td th:if="${tour.ticketPrice == 0}">Miễn Phí vào cổng</td>
+        <td th:unless="${tour.ticketPrice == 0}" th:text="${#numbers.formatInteger(tour.ticketPrice,3,'POINT')}"></td>
+        <td th:text="${tour.status}"></td>
+        <td th:text="${tour.farm.getFarmName()}"></td>
+        <td>
+          <a th:href="@{/editTour/{id}(id=${tour.id})}" class="btn btn-warning btn-sm btn-action">
+            <i class="fas fa-edit"></i> Sửa Tour
+          </a>
+          <a th:href="@{/deleteTour/{id}(id=${tour.id})}"
+             class="btn btn-danger btn-sm btn-action"
+             onclick="return confirm('Bạn có muốn xoá sản phẩm này?');">
+            <i class="fas fa-trash-alt"></i> Xóa Tour
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+<!-- Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+</body>
+</html>
