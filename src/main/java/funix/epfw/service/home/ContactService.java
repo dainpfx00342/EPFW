@@ -1,8 +1,8 @@
-package funix.epfw.service;
+package funix.epfw.service.home;
 
 import funix.epfw.constants.ContactState;
 import funix.epfw.model.Contact;
-import funix.epfw.repository.ContactRepository;
+import funix.epfw.repository.home.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

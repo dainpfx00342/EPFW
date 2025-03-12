@@ -1,8 +1,9 @@
 package funix.epfw.controller.user;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.user.User;
-import funix.epfw.service.UserService;
+import funix.epfw.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,14 +37,14 @@ public class EditProfile {
                                Model model,
                                HttpSession session) {
         if (result.hasErrors()) {
-            model.addAttribute("errorMess", "Thay đổi thông tin không thành công");
+            model.addAttribute(Message.ERROR_MESS, "Thay đổi thông tin không thành công");
             return ViewPaths.EDIT_PROFILE;
         }
 
         // Lấy user từ session
         User sessionUser = (User) session.getAttribute("loggedInUser");
         if (sessionUser == null) {
-            model.addAttribute("errorMess", "Không tìm thấy người dùng");
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy người dùng");
             return ViewPaths.EDIT_PROFILE;
         }
         // Cập nhật thông tin từ form vào session user
@@ -54,7 +55,7 @@ public class EditProfile {
 
         session.setAttribute("loggedInUser", sessionUser);
         userService.saveUser(sessionUser);
-        model.addAttribute("successMess", "Cập nhật người dùng thành công");
+        model.addAttribute(Message.SUCCESS_MESS, "Cập nhật người dùng thành công");
 
 
         return ViewPaths.EDIT_PROFILE;

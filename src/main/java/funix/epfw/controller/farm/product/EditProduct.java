@@ -1,11 +1,12 @@
 package funix.epfw.controller.farm.product;
 
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.product.Product;
-import funix.epfw.service.productService.ProductService;
+import funix.epfw.service.farm.product.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,7 @@ public class EditProduct {
         if(accessCheck != null) {
             return accessCheck;
         }
+
         Product product = productService.findById(id);
         if(product == null) {
             // Handle error
@@ -64,7 +66,7 @@ public class EditProduct {
         // Tìm sản phẩm trong database
         Product productToUpdate = productService.findById(id);
         if (productToUpdate == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy sản phẩm cần cập nhật!");
+            redirectAttributes.addFlashAttribute(Message.ERROR_MESS, "Không tìm thấy sản phẩm cần cập nhật!");
             return "redirect:/manageProduct";
         }
         // Kiểm tra file ảnh
@@ -74,13 +76,13 @@ public class EditProduct {
                 productToUpdate.setImageUrl(imageUrl);
             }
         }catch (IOException e){
-            model.addAttribute("registrationError", "Lỗi lưu ảnh");
+            model.addAttribute(Message.ERROR_MESS, "Lỗi lưu ảnh");
         }
 
 
         //kiểm tra lỗi nhập liệu
         if (result.hasErrors()) {
-            model.addAttribute("errorMessage", "Cập nhật sản phẩm không thành công! Dữ liệu nhập vào không hơợp lệ ");
+            model.addAttribute(Message.ERROR_MESS, "Cập nhật sản phẩm không thành công! Dữ liệu nhập vào không hơợp lệ ");
             model.addAttribute("product", product); // Giữ lại thông tin sản phẩm để hiển thị lại form
             return ViewPaths.EDIT_PRODUCT;
         }
@@ -97,7 +99,7 @@ public class EditProduct {
         //lưu sản phẩm vào database
         productService.saveProduct(productToUpdate);
 
-        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật sản phẩm thành công!");
+        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Cập nhật sản phẩm thành công!");
         //cap nhat lai danh sach san pham
         return "redirect:/manageProduct";
     }

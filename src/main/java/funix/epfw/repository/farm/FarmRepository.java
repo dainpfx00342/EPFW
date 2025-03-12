@@ -1,4 +1,4 @@
-package funix.epfw.repository.productRepo;
+package funix.epfw.repository.farm;
 
 import funix.epfw.model.farm.Farm;
 import org.springframework.data.jpa.repository.JpaRepository;

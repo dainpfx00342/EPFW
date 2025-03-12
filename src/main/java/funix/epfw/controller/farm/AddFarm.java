@@ -2,12 +2,13 @@ package funix.epfw.controller.farm;
 /*
 * Controller for add new farm
 * */
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.user.User;
-import funix.epfw.service.productService.FarmService;
+import funix.epfw.service.farm.FarmService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.swing.text.View;
 
 @Controller
 public class AddFarm {
@@ -46,7 +45,7 @@ public class AddFarm {
             return authError;
         }
         if (result.hasErrors()) {
-            model.addAttribute("errorMess","Tạo trang trại không thành công");
+            model.addAttribute(Message.ERROR_MESS,"Tạo trang trại không thành công");
             return ViewPaths.ADD_FARM;
         }
         farm.setUser(user);

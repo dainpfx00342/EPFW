@@ -1,8 +1,9 @@
 package funix.epfw.controller.auth;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.user.User;
-import funix.epfw.service.UserService;
+import funix.epfw.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,11 @@ public class RegistryController {
                            HttpSession session) {
 
         if (result.hasErrors()) {
-            model.addAttribute("registrationError", "Đăng ký không thành công");
+            model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công");
             return ViewPaths.REGISTER;
         }
         if(userService.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
+            model.addAttribute(Message.ERROR_MESS, "Tên đăng nhập đã tồn tại");
             return ViewPaths.REGISTER;
         }
         if(!user.getPassword().equals(confirmPassword)) {

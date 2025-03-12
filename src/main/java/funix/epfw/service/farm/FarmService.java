@@ -1,7 +1,7 @@
-package funix.epfw.service.productService;
+package funix.epfw.service.farm;
 
 import funix.epfw.model.farm.Farm;
-import funix.epfw.repository.productRepo.FarmRepository;
+import funix.epfw.repository.farm.FarmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -25,10 +25,7 @@ public class FarmService {
     public void saveFarm(Farm farm) {
         farmRepository.save(farm);
     }
-//    // Tim farm theo farm_id
-//    public Optional<Farm> findById(Long id) {
-//      return farmRepository.findById(id);
-//    }
+
     public Farm findById(Long id){
         return farmRepository.findById(id).orElse(null);
     }

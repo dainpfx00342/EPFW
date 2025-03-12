@@ -1,8 +1,9 @@
 package funix.epfw.controller.auth;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.user.User;
-import funix.epfw.service.UserService;
+import funix.epfw.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class LoginController {
             session.setAttribute("role", user.getRole().name());
             return "redirect:/home";
         }
-        model.addAttribute("errorMess", "Sai tên đăng nhập hoặc mật khẩu, vui lòng thử lại");
+        model.addAttribute(Message.ERROR_MESS, "Sai tên đăng nhập hoặc mật khẩu, vui lòng thử lại");
         return ViewPaths.LOGIN;
     }
 }

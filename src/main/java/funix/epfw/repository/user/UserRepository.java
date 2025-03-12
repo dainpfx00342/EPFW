@@ -1,4 +1,4 @@
-package funix.epfw.repository;
+package funix.epfw.repository.user;
 
 import funix.epfw.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -20,7 +20,7 @@
 
       <h2 class="text-center mb-4">Đăng Ký Tài Khoản</h2>
       <form th:action="@{/registry}" method="post" th:object="${user}">
-        <div class="text-danger" th:if="${registrationError}" th:text ="${registrationError}" ></div>
+        <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
         <!-- Tên đăng nhập -->
         <div class="form-group">
           <label for="username" class="form-label">Tên Đăng Nhập: </label>

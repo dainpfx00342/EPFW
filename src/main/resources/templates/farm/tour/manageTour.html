@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/allStyle.css">
-  <title>Quản Lý Nông Sản</title>
+  <title>Quản Lý Chuyến tham quan</title>
 </head>
 <body>
 <!-- Include Header -->
@@ -13,7 +13,7 @@
 
 <!-- Content -->
 <div class="container-fluid">
-  <h3 class="text-center">Quản Lý Tour</h3>
+  <h3 class="text-center">Quản Lý Chuyến tham quan</h3>
 
   <p class="text-center">
     Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
@@ -23,11 +23,14 @@
 
   <h4 class="text-center">Danh sách các Tours </h4>
 
-  <!-- Hiển thị thông báo xóa thành công -->
+  <!-- Hiển thị thông báo sửa/xóa thành công -->
   <div th:if="${successMess}" class="alert alert-success text-center">
     <span th:text="${successMess}"></span>
   </div>
-
+  <!-- Hiển thị thông báo sửa/xóa không thành công -->
+  <div th:if="${errorMess}" class="alert alert-error text-center">
+    <span th:text="${errorMess}"></span>
+  </div>
   <!-- Danh sách sản phẩm -->
   <div class="table-container">
     <table class="table table-bordered table-hover">
@@ -37,10 +40,10 @@
         <th>Tên Tour</th>
         <th>Mô Tả</th>
         <th>Loại tour</th>
-        <th>Số người tối đa /tour</th>
+        <th>Số người tối đa/tour</th>
         <th>Ngày bắt đầu đón khách</th>
         <th>Ngày kết thúc đón khách</th>
-        <th>Thời gian /tour (Ngày)</th>
+        <th>Thời gian/tour (Ngày)</th>
         <th>Giá vé</th>
         <th>Trạng thái tour</th>
         <th>Thuộc trang trại</th>

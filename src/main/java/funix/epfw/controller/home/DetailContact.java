@@ -2,7 +2,7 @@ package funix.epfw.controller.home;
 
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.Contact;
-import funix.epfw.service.ContactService;
+import funix.epfw.service.home.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

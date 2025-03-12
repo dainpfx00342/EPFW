@@ -1,7 +1,7 @@
-package funix.epfw.service;
+package funix.epfw.service.user;
 
 import funix.epfw.model.user.User;
-import funix.epfw.repository.UserRepository;
+import funix.epfw.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

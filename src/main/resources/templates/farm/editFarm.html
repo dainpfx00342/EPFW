@@ -1,0 +1,64 @@
+!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/allStyle.css">
+    <title>Tạo Farm mới</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-left mb-4">Tạo Farm mới</h2>
+            <form th:action="@{/addFarm}" method="post" th:object="${farm}">
+                <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
+
+                <!-- Tên Farm -->
+                <div class="form-group">
+                    <label for="farmName" class="form-label">Tên Farm: </label>
+                    <input type="text" id="farmName" name="farmName" th:field="*{farmName}" class="form-control" placeholder="Nhập tên Farm" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('farmName')}" th:errors="*{farmName}"></div>
+                </div>
+                <!-- Dia chi -->
+                <div class="form-group">
+                    <label for="address" class="form-label">Địa chỉ: </label>
+                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+                </div>
+                <!-- Mô tả -->
+                <div class="form-group">
+                    <label for="description" class="form-label">Mô tả: </label>
+                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập mô tả về trang trại của bạn" required></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+                <!-- Phương thức liên hệ -->
+                <div class="form-group">
+                    <label for="contact" class="form-label">Số điện thoại/Zalo: </label>
+                    <input type="text" id="contact" name="contact" th:field="*{contact}" class="form-control" placeholder="Nhập số điện thoại hoặc Zalo" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></div>
+                </div>
+                <!-- Nut submit -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Sửa trang trại</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Include Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+<!-- Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

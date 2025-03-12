@@ -4,7 +4,7 @@ import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.Contact;
-import funix.epfw.service.ContactService;
+import funix.epfw.service.home.ContactService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

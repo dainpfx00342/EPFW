@@ -1,8 +1,8 @@
-package funix.epfw.service.productService;
+package funix.epfw.service.farm.tour;
 
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
-import funix.epfw.repository.productRepo.TourRepository;
+import funix.epfw.repository.farm.tour.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +15,12 @@ public class TourService {
 
     @Autowired
     public TourService(TourRepository tourRepository) {
+
         this.tourRepository = tourRepository;
     }
 
-    // Lây ra tất cả các tour của một nông trại
-    public List<Tour> getToursByFarm(Farm farm) {
-        return tourRepository.findByFarmId(farm.getId());
-    }
-
     public void addTour(Tour tour) {
+
         tourRepository.save(tour);
     }
 
@@ -34,5 +31,9 @@ public class TourService {
 
     public List<Tour> findAll() {
         return tourRepository.findAll();
+    }
+
+    public Tour findById(Long tourId) {
+        return tourRepository.findById(tourId).orElse(null);
     }
 }

@@ -1,13 +1,14 @@
 package funix.epfw.controller.farm.tour;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.TourType;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
-import funix.epfw.service.productService.FarmService;
-import funix.epfw.service.productService.TourService;
+import funix.epfw.service.farm.FarmService;
+import funix.epfw.service.farm.tour.TourService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class AddTour {
         System.out.println(farmId);
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
-            model.addAttribute("errorMess","Khong tim thay trang trai");
+            model.addAttribute(Message.ERROR_MESS,"Khong tim thay trang trai");
             return ViewPaths.ADD_TOUR;
         }
 
@@ -75,13 +76,13 @@ public class AddTour {
         // kiểm tra nếu farm không tồn tại
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
-            model.addAttribute("errorMess", "Không tìm thấy trang trại để thêm?");
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy trang trại để thêm?");
             return ViewPaths.ADD_TOUR ;
         }
 
         //Kiểm tra nếu form có lỗi validation
         if(result.hasErrors()){
-            model.addAttribute("errorMess", "Thêm mới không thành công");
+            model.addAttribute(Message.ERROR_MESS, "Thêm mới không thành công");
             model.addAttribute("tourTypes", Arrays.asList(TourType.values()));
             model.addAttribute("currFarm", currFarm);
 

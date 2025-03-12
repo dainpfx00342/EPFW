@@ -1,6 +1,6 @@
 package funix.epfw.controller.farm.product.manageBlog;
 
-import funix.epfw.service.productService.BlogService;
+import funix.epfw.service.farm.product.blog.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

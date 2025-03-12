@@ -1,10 +1,11 @@
 package funix.epfw.controller.farm.product.manageBlog;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
-import funix.epfw.service.productService.BlogService;
-import funix.epfw.service.productService.ProductService;
+import funix.epfw.service.farm.product.blog.BlogService;
+import funix.epfw.service.farm.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class AddBlog {
         //kiem tra neu product khong ton tai
         Product product = productService.findById(productId);
         if(product==null){
-            model.addAttribute("errorMess", "Không tìm thấy san pham.");
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy san pham.");
             return ViewPaths.ADD_BLOG;
         }
 

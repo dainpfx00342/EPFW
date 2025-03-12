@@ -1,8 +1,9 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.Contact;
-import funix.epfw.service.ContactService;
+import funix.epfw.service.home.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +33,11 @@ public class AddContact {
     @PostMapping("/contact")
     public String contactPost(@Validated @ModelAttribute("contact") Contact contact, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("errorMess", "Gửi thông tin không thành công");
+            model.addAttribute(Message.ERROR_MESS, "Gửi thông tin không thành công");
             return ViewPaths.ADD_CONTACT;
         }
         contactService.addContact(contact);
-        model.addAttribute("successMess", "Gửi thông tin thành công");
+        model.addAttribute(Message.SUCCESS_MESS, "Gửi thông tin thành công");
         return ViewPaths.ADD_CONTACT;
     }
 

@@ -1,4 +1,4 @@
-package funix.epfw.repository.productRepo;
+package funix.epfw.repository.farm.tour;
 
 import funix.epfw.model.farm.tour.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;

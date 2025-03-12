@@ -57,13 +57,17 @@
                 <td th:text="${farm.user.username}"></td>
                 <td>
                     <a th:href="@{/addProduct/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i> Thêm Sản phẩm
+                        <i class="fas fa-plus"></i> Thêm Sản phẩm
                     </a>
-                    <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i> Thêm Book Tour
+                    <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-plus"></i> Thêm Book Tour
                     </a>
-                    <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i> Thêm Lịch liveStream
+                    <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-plus"></i> Thêm Lịch liveStream
+                    </a>
+                    <a th:href="@{/editFarm/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-edit"></i>Sửa trang trại
+
                     </a>
                     <a th:href="@{/deleteFarm/{id}(id=${farm.id})}"
                        class="btn btn-danger btn-sm btn-action"

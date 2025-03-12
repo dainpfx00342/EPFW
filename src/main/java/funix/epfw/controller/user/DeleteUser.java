@@ -1,10 +1,11 @@
 package funix.epfw.controller.user;
 
+import funix.epfw.constants.Message;
 import funix.epfw.controller.auth.userAuth.AdminAuth;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.user.User;
-import funix.epfw.service.productService.ProductService;
-import funix.epfw.service.UserService;
+import funix.epfw.service.farm.product.ProductService;
+import funix.epfw.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class DeleteUser {
         }
         //Xoa user trong bang users
         userService.deleteUserById(id);
-        model.addFlashAttribute("successMessage", "Xóa người dùng thành công!");
+        model.addFlashAttribute(Message.SUCCESS_MESS, "Xóa người dùng thành công!");
 
         //Cap nhat lai danh sach user
         List<User> users = userService.findAllUserOrderByUsername();

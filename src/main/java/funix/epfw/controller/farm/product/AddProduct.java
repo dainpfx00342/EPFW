@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.product;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ProductCategory;
 import funix.epfw.constants.Unit;
 import funix.epfw.constants.ViewPaths;
@@ -7,8 +8,8 @@ import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
-import funix.epfw.service.productService.FarmService;
-import funix.epfw.service.productService.ProductService;
+import funix.epfw.service.farm.FarmService;
+import funix.epfw.service.farm.product.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class AddProduct {
         // Lấy thông tin trang trại
         Farm farm = farmService.findById(farmId);
         if (farm==null) {
-            model.addAttribute("errorMess", "Không thể tìm thấy trang trại.");
+            model.addAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
         }
 
@@ -77,7 +78,7 @@ public class AddProduct {
         // Kiểm tra nếu farm không tồn tại
        Farm farm = farmService.findById(farmId);
         if (farm==null) {
-            model.addAttribute("errorMess", "Không tìm thấy trang trại.");
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy trang trại.");
             return ViewPaths.ADD_PRODUCT;
         }
         try{
@@ -86,7 +87,7 @@ public class AddProduct {
                 newProduct.setImageUrl(imageUrl);
             }
         }catch (IOException e){
-            model.addAttribute("errorMess", "Lỗi lưu ảnh");
+            model.addAttribute(Message.ERROR_MESS, "Lỗi lưu ảnh");
         }
 
         // Kiểm tra nếu form có lỗi validation
@@ -94,7 +95,7 @@ public class AddProduct {
             model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
             model.addAttribute("units", Arrays.asList(Unit.values()));
             model.addAttribute("farm", farm);
-            model.addAttribute("errorMess", "Vui lòng nhập đầy đủ và chính xác thông tin.");
+            model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ và chính xác thông tin.");
 
             return ViewPaths.ADD_PRODUCT;
         }
