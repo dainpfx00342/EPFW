@@ -26,6 +26,9 @@ public class EditProfile {
     @GetMapping("/editProfile")
     public String editProfile(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
+        if(user== null){
+            return ViewPaths.ACCESS_DENIED;
+        }
         model.addAttribute("user", user);
 
         return ViewPaths.EDIT_PROFILE;

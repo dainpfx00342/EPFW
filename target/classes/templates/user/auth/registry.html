@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"  integrity="sha384-KyZXEJr+H08xv4gDsmvPbsS4v1MZBdFQZGosWKHg+8ec0Wrx1pX5Qifbbl6CfnB2" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="/css/allStyle.css">
+  <th:block th:replace="script :: scripts"/>
+  
   <title>Trang Đăng Ký</title>
 </head>
 <body>
@@ -20,7 +18,7 @@
 
       <h2 class="text-center mb-4">Đăng Ký Tài Khoản</h2>
       <form th:action="@{/registry}" method="post" th:object="${user}">
-        <div class="text-danger" th:if="${registrationError}" th:text ="${registrationError}" ></div>
+        <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
         <!-- Tên đăng nhập -->
         <div class="form-group">
           <label for="username" class="form-label">Tên Đăng Nhập: </label>
@@ -89,9 +87,6 @@
 </div>
 <!-- Include Footer -->
 <div th:replace="~{home/footer :: footer}"></div>
-<!-- Bootstrap & jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
 </body>
 </html>

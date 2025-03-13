@@ -1,9 +1,8 @@
 package funix.epfw.controller.user;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AdminAuth;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.user.User;
 import funix.epfw.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -26,22 +25,11 @@ public class EditUser {
         this.userService = userService;
     }
 
-    @GetMapping("/editUser")
-    public String showEditForm(HttpSession session) {
-        AuthChecker authChecker = new AdminAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
-        }
-        return "redirect:/manageUser";
-    }
-
     @GetMapping("/editUser/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
-        AuthChecker authChecker = new AdminAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = AuthUtil.checkAdminAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         User user = userService.findById(id);
         if(user == null) {

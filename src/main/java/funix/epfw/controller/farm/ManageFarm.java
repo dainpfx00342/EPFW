@@ -30,9 +30,9 @@ public class ManageFarm {
     @GetMapping("/manageFarm")
     public String manageFarm(Model model, HttpSession session) {
         AuthChecker authChecker = new FarmerAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if (accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authChecker.checkAuth(session);
+        if (checkAuth != null) {
+            return checkAuth;
         }
         User user = (User) session.getAttribute("loggedInUser");
         List<Farm> farms;

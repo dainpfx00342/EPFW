@@ -28,9 +28,9 @@ public class DeleteProduct {
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable Long id, RedirectAttributes model, HttpSession session) {
         AuthChecker authChecker = new FarmerAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
 
         //Xoa san pham trong bang products

@@ -33,9 +33,9 @@ public class ManageProduct {
     @GetMapping("/manageProduct")
     public String manageProduct(HttpSession session, Model model) {
         AuthChecker authoChecker = new FarmerAuth();
-        String accessCheck = authoChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authoChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
         currentUser = userService.findByUsername(currentUser.getUsername());

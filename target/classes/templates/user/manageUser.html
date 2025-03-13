@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/allStyle.css">
+    <th:block th:replace="script :: scripts"/>
     <title>Quản lý người dùng</title>
 </head>
 <body>
@@ -15,12 +12,9 @@
 
     <!--Content-->
     <div class="container-fluid">
-
-    <h1>Quản lý người dùng</h1>
-    <p>Chào mừng đến trang quản lý người dùng</p>
-
-    <!-- Hiển thị thông báo xóa thành công -->
-    <div th:if="${successMess}" class="mess">
+    <h2 class="text-center"> Trang Quản lý người dùng</h2>
+       <!-- Hiển thị thông báo xóa thành công -->
+    <div th:if="${successMess}" class="text-success">
         <span th:text="${successMess}"></span>
     </div>
     <div class="table-container">
@@ -58,7 +52,6 @@
     </div>
     <!-- Include Footer -->
     <div th:replace="~{home/footer :: footer}"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

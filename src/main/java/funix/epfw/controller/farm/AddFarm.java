@@ -49,7 +49,7 @@ public class AddFarm {
             return ViewPaths.ADD_FARM;
         }
         farm.setUser(user);
-        farmService.saveFarm(farm);
+        farmService.addFarm(farm);
         return "redirect:/manageFarm";
     }
 }

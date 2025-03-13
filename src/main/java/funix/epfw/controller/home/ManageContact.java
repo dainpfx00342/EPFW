@@ -26,9 +26,9 @@ public class ManageContact {
     @GetMapping("/manageContact")
     public String manageContact(Model model, HttpSession session) {
         AuthChecker authChecker = new AdminAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         List<Contact> contacts = contactService.findAll();
         model.addAttribute("contacts", contacts);

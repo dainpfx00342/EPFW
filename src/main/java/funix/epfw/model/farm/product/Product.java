@@ -34,7 +34,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private boolean status;
+    private Boolean status;
 
     @Column(nullable = false)
     @Size(max = 12, message = "Giá sản phẩm khoảng từ 0 đến 999 tỉ")

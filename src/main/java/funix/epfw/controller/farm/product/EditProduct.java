@@ -32,9 +32,9 @@ public class EditProduct {
     public String showEditProductForm(HttpSession session) {
         // Kiểm tra quyền truy cập
         AuthChecker authChecker = new FarmerAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         return "redirect:/manageProduct";
     }
@@ -43,9 +43,9 @@ public class EditProduct {
     public String showEditProductForm(@PathVariable Long id, Model model, HttpSession session) {
         // Kiểm tra quyền truy cập
         AuthChecker authChecker = new FarmerAuth();
-        String accessCheck = authChecker.checkAuth(session);
-        if(accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
 
         Product product = productService.findById(id);
@@ -94,6 +94,7 @@ public class EditProduct {
         productToUpdate.setNumberOfStock(product.getNumberOfStock());
         productToUpdate.setDescription(product.getDescription());
         productToUpdate.setUpdatedTimes(LocalDateTime.now());
+        productToUpdate.setStatus(product.getStatus());
 
 
         //lưu sản phẩm vào database

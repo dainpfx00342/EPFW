@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-left mb-4">Tạo Farm mới</h2>
-            <form th:action="@{/addFarm}" method="post" th:object="${farm}">
+            <form th:action="@{/editFarm/{id} (id=${farm.id})}" method="post" th:object="${farm}">
                 <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 
                 <!-- Tên Farm -->

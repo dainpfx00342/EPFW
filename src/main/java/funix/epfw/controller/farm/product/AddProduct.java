@@ -40,9 +40,9 @@ public class AddProduct {
     @GetMapping("/addProduct/{farmId}")
     public String addProduct(Model model, HttpSession session,  @PathVariable Long farmId) {
         AuthChecker authoChecker = new FarmerAuth();
-        String accessCheck = authoChecker.checkAuth(session);
-        if (accessCheck != null) {
-            return accessCheck;
+        String checkAuth = authoChecker.checkAuth(session);
+        if (checkAuth != null) {
+            return checkAuth;
         }
 
         // Lấy thông tin trang trại

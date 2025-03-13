@@ -1,5 +1,7 @@
 package funix.epfw.controller.farm;
 
+import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.service.farm.FarmService;
@@ -26,21 +28,36 @@ public class EditFarm {
 
     @GetMapping("/editFarm/{farmId}")
     public String editFarm (@PathVariable Long farmId, Model model, HttpSession session) {
-
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if (checkAuth != null) {
+            return checkAuth;
+        }
         Farm farm = farmService.findById(farmId);
         model.addAttribute("farm", farm);
 
         return ViewPaths.EDIT_FARM;
     }
     @PostMapping("/editFarm/{farmId}")
-    public String editFarm(@Validated @ModelAttribute("farm") Farm farmToUpDate,
+    public String editFarm(@Validated @ModelAttribute("farm") Farm currFarm,
                            BindingResult result, @PathVariable Long farmId,
-                           Model model, HttpSession session,
+                           Model model,
                            RedirectAttributes redirectAttributes) {
 
+        Farm farmToUpDate = farmService.findById(farmId);
+        if(result.hasErrors()) {
+            model.addAttribute("farm", currFarm);// gửi lại dữ liệu khi người dùng nhập sai
+            model.addAttribute(Message.ERROR_MESS,"Sửa sản phẩm không thành công vui lòng thử lại!");
+            return ViewPaths.EDIT_FARM;
+        }
+        farmToUpDate.setFarmName(currFarm.getFarmName());
+        farmToUpDate.setDescription(currFarm.getDescription());
+        farmToUpDate.setAddress(currFarm.getAddress());
+        farmToUpDate.setContact(currFarm.getContact());
+
+        farmService.addFarm(farmToUpDate);
 
 
-        redirectAttributes.addFlashAttribute("sucessMess", "Cập nhật thông tin farm thành công");
-        return ViewPaths.MANAGE_FRAM;
+        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Cập nhật thông tin farm thành công");
+        return "redirect:/manageFarm";
     }
 }

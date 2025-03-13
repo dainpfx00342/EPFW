@@ -15,17 +15,6 @@
 <div class="container-fluid">
     <h3 class="text-center">Quản Lý Nông Sản</h3>
 
-    <p class="text-center">
-        Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
-        Chào mừng bạn đã quay lại!
-    </p>
-
-    <p class="text-center">
-        <a href="/addProduct" class="btn btn-success"><i class="fas fa-plus"></i> Thêm sản phẩm mới</a>
-    </p>
-
-    <p class="text-center">Vai trò hiện tại: <strong th:text="${session.role}"></strong></p>
-
     <h4 class="text-center">Danh sách các sản phẩm</h4>
 
     <!-- Hiển thị thông báo xóa thành công -->
