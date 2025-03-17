@@ -20,7 +20,8 @@ public class DeleteFarm {
     }
 
     @GetMapping("/deleteFarm/{farmId}")
-    public String deleteFarm(@PathVariable Long farmId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteFarm(@PathVariable Long farmId, HttpSession session,
+                             RedirectAttributes redirectAttributes) {
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;

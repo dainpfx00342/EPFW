@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:replace="script :: scripts"/>
-    <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+    <script th:replace="~{script :: scripts}"></script>
+    <script src="/ckeditor/ckeditor4-4.21.0/ckeditor.js"></script>
     <title>Thêm Blog cho Sản Phẩm</title>
 </head>
 <body>
@@ -44,7 +44,10 @@
     </div>
 </div>
 <script>
-    CKEDITOR.replace('content');  // Kích hoạt CKEditor cho textarea "content"
+    CKEDITOR.replace('content', {
+        extraPlugins: 'embed,autoembed'
+    });
+    // Kích hoạt CKEditor cho textarea "content" với plugin video embed
 </script>
 </body>
 </html>

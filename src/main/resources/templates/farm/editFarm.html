@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:replace="script :: scripts"/>
+    <script th:replace="~{script :: scripts}"></script>
 
     <title>Tạo Farm mới</title>
 </head>
@@ -15,7 +15,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-left mb-4">Tạo Farm mới</h2>
+            <h2 class="text-left mb-4">Cập nhật thông tin Farm </h2>
             <form th:action="@{/editFarm/{id} (id=${farm.id})}" method="post" th:object="${farm}">
                 <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 

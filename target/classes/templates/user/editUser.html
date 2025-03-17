@@ -13,17 +13,7 @@
 <div th:replace="~{home/header :: header}"></div>
 
 <!-- Content -->
-
-    <h1>Chỉnh Sửa người dùng</h1>
-    <p>Chào mừng đến trang chỉnh sửa người dùng</p>
-    <p>Xin chào:
-        <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
-        <span> ghé thăm trang của chúng tôi</span>
-    </p>
-
-    <h1>Chi tiết người dùng: </h1>
-
-    <!-- Hiển thị thông báo sửa thành công -->
+        <!-- Hiển thị thông báo sửa thành công -->
     <div th:if="${successMess}" class="mess">
         <span th:text="${successMess}"></span>
     </div>
@@ -34,7 +24,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="text-center mb-4">Cập nhật người dùng</h2>
+                <h2 class="text-center mb-4">Cập nhật thông tin người dùng</h2>
                 <form th:action="@{/editUser/{id} (id=${user.id})}" method="post" th:object="${user}">
                     <input type="hidden" th:field="*{id}">
                     <div class="text-danger" th:if="${registrationError}" th:text ="${registrationError}" ></div>
