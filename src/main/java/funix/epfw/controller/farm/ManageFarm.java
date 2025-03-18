@@ -1,9 +1,8 @@
 package funix.epfw.controller.farm;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Role;
 import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.user.User;
 import funix.epfw.service.farm.FarmService;
@@ -29,8 +28,7 @@ public class ManageFarm {
 
     @GetMapping("/manageFarm")
     public String manageFarm(Model model, HttpSession session) {
-        AuthChecker authChecker = new FarmerAuth();
-        String checkAuth = authChecker.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }
@@ -41,7 +39,7 @@ public class ManageFarm {
         }else {
             farms = farmService.findByUserId(user.getId());
         }
-        //get all farm by user id
+
 
         model.addAttribute("user", user);
         model.addAttribute("farms", farms);

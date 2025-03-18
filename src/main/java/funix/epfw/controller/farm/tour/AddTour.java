@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.tour;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.TourType;
 import funix.epfw.constants.ViewPaths;
@@ -39,13 +40,11 @@ public class AddTour {
         public String toAddTour(@PathVariable("farmId") Long farmId, Model model, HttpSession session) {
 
         AuthChecker authChecker = new FarmerAuth();
-        String authError = authChecker.checkAuth(session);
-        if(authError != null) {
-            return authError;
+        String checkAuth = authChecker.checkAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
 
-        //lấy thông tin trang trại
-        System.out.println(farmId);
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
             model.addAttribute(Message.ERROR_MESS,"Khong tim thay trang trai");
@@ -68,10 +67,9 @@ public class AddTour {
                            @PathVariable Long farmId,
                            Model model,HttpSession session) {
 
-        AuthChecker authChecker = new FarmerAuth();
-        String authError = authChecker.checkAuth(session);
-        if(authError != null) {
-            return authError;
+         String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         // kiểm tra nếu farm không tồn tại
         Farm currFarm = farmService.findById(farmId);
@@ -89,8 +87,8 @@ public class AddTour {
             return ViewPaths.ADD_TOUR;
         }
         newTour.setFarm(currFarm);
-        tourService.addTour(newTour);
-        return ViewPaths.MANAGE_TOUR;
+        tourService.saveTour(newTour);
+        return "redirect:/manageTour";
     }
 
 

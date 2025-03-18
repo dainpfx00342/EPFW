@@ -68,7 +68,7 @@
                 </td>
                 <td th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
                 <td th:text="${#temporals.format(product.updatedTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
-                <td th:text="${product.unit}"></td>
+                <td th:text="${product.unit.vietnamese}"></td>
                 <td>
                     <a th:href="@{/editProduct/{id}(id=${product.id})}" class="btn btn-warning btn-sm btn-action">
                         <i class="fas fa-edit"></i> Sửa

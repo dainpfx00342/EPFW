@@ -1,4 +1,4 @@
-package funix.epfw.controller.farm.product.manageBlog;
+package funix.epfw.controller.farm.product.blog;
 
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
@@ -22,8 +22,11 @@ public class DetailBlog {
     @GetMapping("/blogDetail/{blogId}")
     public String blogDetail(@PathVariable Long blogId, Model model) {
         Blog blog = blogService.findById(blogId);
+        Long productId = blog.getProduct().getId();
         model.addAttribute("blog", blog);
+        model.addAttribute("productId", productId);
 
         return ViewPaths.DETAIL_BLOG;
     }
+
 }

@@ -54,7 +54,7 @@ public class EditFarm {
         farmToUpDate.setAddress(currFarm.getAddress());
         farmToUpDate.setContact(currFarm.getContact());
 
-        farmService.addFarm(farmToUpDate);
+        farmService.saveFarm(farmToUpDate);
 
 
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Cập nhật thông tin farm thành công");

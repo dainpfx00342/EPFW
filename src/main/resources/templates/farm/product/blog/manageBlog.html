@@ -13,12 +13,6 @@
 <!-- Content -->
 <div class="container-fluid">
     <h3 class="text-center">Quản Lý Blog</h3>
-
-    <p class="text-center">
-        Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
-        Chào mừng bạn đã quay lại!
-    </p>
-
     <p class="text-center">
         <a th:href="@{/addBlog/{id}(id=${productId})}" class="btn btn-success">
             <i class="fas fa-plus"></i> Thêm Blog mới
@@ -52,7 +46,7 @@
                     <a th:href="@{/editBlog/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
                         <i class="fas fa-edit"></i> Sửa
                     </a>
-                    <a th:href="@{/deleteBlog/{id}(id=${blog.id}, productId=${productId})}"
+                    <a th:href="@{/deleteBlog/{id}(id=${blog.id})}"
                        class="btn btn-danger btn-sm btn-action"
                        onclick="return confirm('Bạn có muốn xoá blog này?');">
                         <i class="fas fa-trash-alt"></i> Xóa

@@ -65,7 +65,7 @@ public class EditTour {
 
         BeanUtils.copyProperties(currTour,tourToUpdate,"id","farm");
 
-        tourService.addTour(tourToUpdate);
+        tourService.saveTour(tourToUpdate);
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"cập nhật chuyến du lịch thành công");
         return "redirect:/manageTour";
     }

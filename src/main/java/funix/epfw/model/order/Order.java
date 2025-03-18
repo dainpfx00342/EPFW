@@ -5,16 +5,17 @@ import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 
 @Entity
 @Data
-@Table
+@Table(name="orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +25,7 @@ public class Order {
     private LocalDate orderDate;
    
     @Column(nullable = false)
-    private String status;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User user;
-
-    @Column(nullable = false)
-    @Min(value=5,message = "Địa chỉ có ít nhất 5 ký tự.")
+    @Size(min=5,message = "Địa chỉ có ít nhất 5 ký tự.")
     private String address;
 
     @Column(nullable = false)
@@ -58,11 +52,18 @@ public class Order {
 
     @ManyToOne
     @JoinColumn
+    @ToString.Exclude // Loại bỏ product khỏi toString()
     private Product product;
 
     @ManyToOne
     @JoinColumn
+    @ToString.Exclude // Loại bỏ product khỏi toString()
     private Tour tour;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @ToString.Exclude // Loại bỏ product khỏi toString()
+    private User user;
 
 
     @PrePersist

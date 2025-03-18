@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -36,12 +37,15 @@ public class Farm {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @ToString.Exclude
     private User user;
 
-    @OneToMany(mappedBy ="farm",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="farm",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Product> products;
 
-    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Tour> tours;
 
 

@@ -2,6 +2,7 @@ package funix.epfw.model.farm.product;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ public class Blog {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @ToString.Exclude
     private Product product;
 
     }

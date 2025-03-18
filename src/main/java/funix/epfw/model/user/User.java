@@ -2,11 +2,13 @@ package funix.epfw.model.user;
 
 import funix.epfw.constants.Role;
 import funix.epfw.model.farm.Farm;
+import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -44,8 +46,13 @@ public class User {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Farm> farms;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Order> orders;
 
 
 

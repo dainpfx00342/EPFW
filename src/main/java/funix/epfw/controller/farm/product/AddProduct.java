@@ -1,11 +1,6 @@
 package funix.epfw.controller.farm.product;
 
-import funix.epfw.constants.Message;
-import funix.epfw.constants.ProductCategory;
-import funix.epfw.constants.Unit;
-import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
+import funix.epfw.constants.*;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.farm.FarmService;
@@ -39,8 +34,7 @@ public class AddProduct {
 
     @GetMapping("/addProduct/{farmId}")
     public String addProduct(Model model, HttpSession session,  @PathVariable Long farmId) {
-        AuthChecker authoChecker = new FarmerAuth();
-        String checkAuth = authoChecker.checkAuth(session);
+        String checkAuth =  AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }
@@ -70,10 +64,9 @@ public class AddProduct {
                              @RequestParam("imageFile") MultipartFile file,
                              Model model, HttpSession session ) {
 
-        AuthChecker autherChecker = new FarmerAuth();
-        String authError = autherChecker.checkAuth(session);
-        if(authError != null) {
-            return authError;
+        String checkAuth = AuthUtil.checkFarmerAuth(session); //AuthUtil.checkFarmerAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
         // Kiểm tra nếu farm không tồn tại
        Farm farm = farmService.findById(farmId);

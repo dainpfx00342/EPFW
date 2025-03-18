@@ -20,6 +20,7 @@ public class AddContact {
 
     @Autowired
     public AddContact(ContactService contactService) {
+
         this.contactService = contactService;
     }
 
@@ -31,7 +32,9 @@ public class AddContact {
 
     // post method
     @PostMapping("/contact")
-    public String contactPost(@Validated @ModelAttribute("contact") Contact contact, BindingResult result, Model model) {
+    public String contactPost(@Validated @ModelAttribute("contact") Contact contact,
+                              BindingResult result,
+                              Model model) {
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Gửi thông tin không thành công");
             return ViewPaths.ADD_CONTACT;

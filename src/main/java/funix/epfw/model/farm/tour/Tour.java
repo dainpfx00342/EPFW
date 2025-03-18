@@ -52,13 +52,12 @@ public class Tour {
     @Min(value=0,message="Giá vé tối thiểu = 0 (free)")
     private int ticketPrice;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TourStatus status = TourStatus.PENDING; // Trạng thái tour
-
     @ManyToOne
     @JoinColumn(nullable = false)
     private Farm farm;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TourStatus status = TourStatus.PENDING; // Trạng thái tour
 
-}
+   }

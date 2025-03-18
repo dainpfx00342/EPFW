@@ -1,11 +1,13 @@
-package funix.epfw.controller.farm.product.manageBlog;
+package funix.epfw.controller.farm.product.blog;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.farm.product.blog.BlogService;
 import funix.epfw.service.farm.product.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,11 @@ public class AddBlog {
     }
 
     @GetMapping("/addBlog/{productId}")
-    public String showAddBlogForm(Model model, @PathVariable Long productId) {
+    public String showAddBlogForm(Model model, @PathVariable Long productId, HttpSession session) {
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if(checkAuth!=null){
+            return checkAuth;
+        }
         Product currentProduct = productService.findById(productId);
         model.addAttribute("product", currentProduct);
         model.addAttribute("blog", new Blog());
@@ -44,8 +50,9 @@ public class AddBlog {
             model.addAttribute(Message.ERROR_MESS, "Không tìm thấy san pham.");
             return ViewPaths.ADD_BLOG;
         }
+        blog.setProduct(product);
 
-        blogService.saveBlog(product, blog);
+        blogService.saveBlog(blog);
         return "redirect:/manageProduct";
     }
 }

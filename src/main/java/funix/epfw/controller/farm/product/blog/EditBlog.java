@@ -1,4 +1,4 @@
-package funix.epfw.controller.farm.product.manageBlog;
+package funix.epfw.controller.farm.product.blog;
 
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
@@ -33,7 +33,7 @@ public class EditBlog {
         blogToUpdate.setTitle(blog.getTitle());
         blogToUpdate.setContent(blog.getContent());
 
-        blogService.saveBlog(blogToUpdate.getProduct(), blogToUpdate);
+        blogService.saveBlog(blogToUpdate);
 
         return "redirect:/manageBlog/" + blogToUpdate.getProduct().getId();
     }

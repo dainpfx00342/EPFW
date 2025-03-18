@@ -1,54 +1,35 @@
 package funix.epfw.service.farm.product.blog;
 
 import funix.epfw.model.farm.product.Blog;
-import funix.epfw.model.farm.product.Product;
 import funix.epfw.repository.farm.product.blog.BlogRepository;
-import funix.epfw.repository.farm.product.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BlogService {
 
     private final BlogRepository blogRepository;
-    private final ProductRepository productRepository;
+
 
     @Autowired
-    public BlogService(BlogRepository blogRepository, ProductRepository productRepository) {
+    public BlogService(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
-        this.productRepository = productRepository;
+
     }
 
     // Lưu một blog vào một sản phẩm
-    @Transactional
-    public void saveBlog(Product product, Blog blog) {
-        Product managedProduct = productRepository.findById(product.getId()).orElseThrow(() ->
-                new RuntimeException("Product không tồn tại!")
-        );
 
-        blog.setProduct(managedProduct);
-
-        if (blog.getId() != null) {
-            Blog existingBlog = blogRepository.findById(blog.getId()).orElseThrow(() ->
-                    new RuntimeException("Blog không tồn tại!")
-            );
-
-            existingBlog.setTitle(blog.getTitle());
-            existingBlog.setContent(blog.getContent());
-            existingBlog.setProduct(managedProduct);
-
-            blogRepository.save(existingBlog);
-        } else {
-            blogRepository.save(blog);
-        }
+    public void saveBlog(Blog blog) {
+       blogRepository.save(blog);
     }
 
     // Lấy ra tất cả các blog của một sản phẩm
     public List<Blog> getBlogsByProduct(Long productId) {
+
         return blogRepository.findByProductId(productId);
     }
 
@@ -59,11 +40,13 @@ public class BlogService {
     }
 
     public void deleteBlog(Long id) {
+
         blogRepository.deleteById(id);
     }
 
     //get all blogs
     public List<Blog> getAllBlogs() {
+
         return blogRepository.findAll();
     }
 }

@@ -2,12 +2,14 @@ package funix.epfw.service.farm;
 
 import funix.epfw.model.farm.Farm;
 import funix.epfw.repository.farm.FarmRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 
 @Service
+@Transactional
 public class FarmService {
     private final FarmRepository farmRepository;
 
@@ -24,7 +26,7 @@ public class FarmService {
         return farmRepository.findByUserId(userId);
     }
 
-    public void addFarm(Farm farm) {
+    public void saveFarm(Farm farm) {
 
         farmRepository.save(farm);
     }
@@ -40,6 +42,7 @@ public class FarmService {
     }
 
     public void deleteFarmById(Long farmId) {
+
         farmRepository.deleteById(farmId);
     }
 }

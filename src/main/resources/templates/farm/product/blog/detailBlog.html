@@ -23,11 +23,10 @@
                     <p class="card-text" th:utext="${blog.content}"></p>
                     <p class="text-info">Liên hệ nông trại</p>
 
-                    <!-- Nút Đặt trước để gửi yêu cầu liên hệ -->
-                    <form th:action="@{/requestContact}" method="post">
-                        <input type="hidden" name="blogId" th:value="${blog.id}" />
-                        <button type="submit" class="btn btn-warning text-center">Đặt trước (Yêu cầu liên hệ)</button>
-                    </form>
+                    <a th:href="@{/addOrder/product/{id} (id=${productId})}" class="btn btn-warning text-center">
+                        Đặt trước (Yêu cầu liên hệ)
+                    </a>
+
                 </div>
             </div>
         </div>

@@ -23,10 +23,9 @@
                 <input type="hidden" th:if="${currFarm != null}" th:value="${currFarm.id}" />
                 <p th:if="${currFarm == null}" style="color:red;">Không tìm thấy trang trại</p>
                 <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
-                <!-- Example Thymeleaf template -->
-                <div th:if="${currFarm != null}">
-                    <p th:text="${currFarm.id}">Farm ID </p>
-                </div>
+
+                <h4>Tên trang trại:<span class="text-info" th:text="${currFarm.farmName}"></span> </h4>
+
 
                 <!-- Tên Farm -->
                 <div class="form-group">
@@ -50,7 +49,7 @@
                 <div class="form-group">
                     <label for="tourType" class="form-label">Loại tour: </label>
                     <select id="tourType" name="contact" th:field="*{tourType}" class="form-control" required>
-                        <option th:each="tourType :${tourTypes}" th:value="${tourType}" th:text="${tourType}"></option>
+                        <option th:each="tourType :${tourTypes}" th:value="${tourType}" th:text="${tourType.vietnamese}"></option>
                     </select>
                     <div class="text-danger" th:if="${#fields.hasErrors('tourType')}" th:errors="*{tourType}"></div>
                 </div>

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ProductService {
     private final ProductRepository productRepository;
 
@@ -27,31 +28,35 @@ public class ProductService {
 
     //save product to database
     public void saveProduct(Product product) {
+
         productRepository.save(product);
     }
 
     //Get all products
     public List<Product> findAll() {
+
         return productRepository.findAll();
     }
 
     //get product by fram
-    @Transactional
+
     public List<Product> findByFarms(List<Farm> farms) {
         List<Long> farmIds = farms.stream().map(Farm::getId).collect(Collectors.toList());
         return productRepository.findByFarmIdIn(farmIds);
     }
     //Delete product by id
     public void deleteProductById(Long id) {
+
         productRepository.deleteById(id);
     }
 
     //Find product by id
     public Product findById(Long id) {
+
         return productRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+
     public void saveOrUpdateProduct(Product product) {
         productRepository.save(product); // This will use saveOrUpdate internally
     }

@@ -11,13 +11,9 @@
 <!-- Include Header -->
 <div th:replace="~{home/header :: header}"></div>
 <h1>Chỉnh Sửa Sản Phẩm</h1>
-<p>Chào mừng đến trang chỉnh sửa sản phẩm</p>
-<p>Xin chào:
-    <span class="mess" th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></span>
-    <span> ghé thăm trang của chúng tôi</span>
-</p>
 
-<h1>Chi tiết sản phẩm: </h1>
+
+<h3>Chi tiết sản phẩm: </h3>
 
 <!-- Hiển thị thông báo sửa thành công -->
 <div th:if="${successMess}" class="mess">

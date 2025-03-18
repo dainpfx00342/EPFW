@@ -1,10 +1,12 @@
-package funix.epfw.controller.farm.product.manageBlog;
+package funix.epfw.controller.farm.product.blog;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.farm.product.blog.BlogService;
 import funix.epfw.service.farm.product.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +42,12 @@ public class ManageBlog {
 //    }
 
     @GetMapping("/manageBlog/{id}")
-    public String manageBlog(@PathVariable Long id, Model model) {
+    public String manageBlog(@PathVariable Long id, Model model, HttpSession session) {
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if(checkAuth!=null){
+            return checkAuth;
+        }
+
         Product product = productService.findById(id);
         List<Blog> blogs = blogService.getBlogsByProduct(id);
         model.addAttribute("blogs",blogs);

@@ -3,6 +3,7 @@ package funix.epfw.model.farm.product;
 import funix.epfw.constants.ProductCategory;
 import funix.epfw.constants.Unit;
 import funix.epfw.model.farm.Farm;
+import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -58,8 +59,14 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
-    @OneToMany(mappedBy="product",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy="product",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Blog> blogs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<>();
+
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -72,6 +79,5 @@ public class Product {
         this.status = true;
 
     }
-
 
 }

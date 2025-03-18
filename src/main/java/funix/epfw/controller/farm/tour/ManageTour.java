@@ -1,9 +1,8 @@
 package funix.epfw.controller.farm.tour;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Role;
 import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
@@ -30,8 +29,8 @@ public class ManageTour {
 
     @GetMapping("/manageTour")
     public String manageTour(HttpSession session, Model model) {
-        AuthChecker authoChecker = new FarmerAuth();
-        String checkAuth = authoChecker.checkAuth(session);
+
+        String checkAuth =  AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }

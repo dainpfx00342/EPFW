@@ -42,6 +42,10 @@ public class ViewPaths {
     public static final String EDIT_TOUR = "farm/tour/editTour";
     public static final String DETAIL_TOUR = "farm/tour/detailTour";
     public static final String MANAGE_TOUR = "farm/tour/manageTour";
-
+    //order/view
+    public static final String MANAGE_ORDER = "order/manageOrder";
+    public static final String DETAIL_ORDER = "order/detailOrder";
+    public static final String EDIT_ORDER = "order/editOrder";
+    public static final String ADD_ORDER = "order/addOrder";
 }
 
