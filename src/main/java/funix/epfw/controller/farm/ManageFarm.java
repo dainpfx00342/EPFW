@@ -40,7 +40,6 @@ public class ManageFarm {
             farms = farmService.findByUserId(user.getId());
         }
 
-
         model.addAttribute("user", user);
         model.addAttribute("farms", farms);
         return ViewPaths.MANAGE_FRAM;

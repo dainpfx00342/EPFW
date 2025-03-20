@@ -2,13 +2,16 @@ package funix.epfw.controller.order;
 
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
+import funix.epfw.constants.OrderStatus;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.order.Order;
 import funix.epfw.model.user.User;
 import funix.epfw.service.farm.product.ProductService;
 import funix.epfw.service.order.OrderService;
+
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +19,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @SessionAttributes("loggedInUser")
+@Slf4j // Giúp log lỗi dễ hơn
 public class AddOrder {
     private final ProductService productService;
     private final OrderService orderService;
@@ -46,36 +52,49 @@ public class AddOrder {
         return ViewPaths.ADD_ORDER;
     }
 
-    @PostMapping("addOrder/product/{id}")
-    public String addOrder(@PathVariable Long id,@Validated @ModelAttribute("order") Order newOrder,
-                           BindingResult result,
-                           Model model, HttpSession session) {
+    // Xử lý đặt hàng
+    @PostMapping("/addOrder/product/{productId}")
+    public String processOrder(@PathVariable Long productId,
+                               @Validated @ModelAttribute("order") Order newOrder,
+                               BindingResult result,
+                               Model model, HttpSession session) {
 
-        String checkAuth = AuthUtil.checkBuyerAuth(session);
-        if(checkAuth != null) {
-            return checkAuth;
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            model.addAttribute(Message.ERROR_MESS, "Bạn chưa đăng nhập!");
+            return "redirect:/login";
         }
-            Product currentProduct = productService.findById(id);
-            if(currentProduct == null) {
-                model.addAttribute(Message.ERROR_MESS,"Không tìm thấy sản phẩm");
-                return ViewPaths.ADD_ORDER;
-            }
-            newOrder.setProduct(currentProduct);
 
-        if(result.hasErrors()) {
-            model.addAttribute(Message.ERROR_MESS,"Vui lòng điền đầy đủ và chính xác thông tin liên hệ");
-            model.addAttribute("order", newOrder);
-            model.addAttribute("product", currentProduct);
+        if (result.hasErrors()) {
+            model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ dữ liệu!");
             return ViewPaths.ADD_ORDER;
         }
-        User currentUser = (User) session.getAttribute("loggedInUser");
-        if(currentUser == null) {
-            return ViewPaths.LOGIN;
+
+        Product product = productService.findById(productId);
+        if (product == null) {
+            model.addAttribute("error", "Sản phẩm không tồn tại!");
+            return ViewPaths.ADD_ORDER;
         }
-        newOrder.setUser(currentUser);
 
-        orderService.saveOrder(newOrder);
+        // Gán thông tin vào đơn hàng
+        newOrder.setUser(loggedInUser);
+        if (newOrder.getProducts() == null) {
+            newOrder.setProducts(new ArrayList<>()); // Tránh lỗi NullPointerException
+        }
+        newOrder.getProducts().add(product);
+        product.getOrders().add(newOrder); //Cập nhật 2 chiều
+        newOrder.setOrderType("PRODUCT");
+        newOrder.setOrderStatus(OrderStatus.PENDING);
 
-        return ViewPaths.HOME;
+        // Lưu đơn hàng vào database
+        try {
+            orderService.saveOrder(newOrder);
+        } catch (Exception e) {
+            log.error("Lỗi khi lưu đơn hàng: ", e);
+            model.addAttribute(Message.ERROR_MESS, "Lỗi hệ thống! Vui lòng thử lại sau.");
+            return ViewPaths.ADD_ORDER;
+        }
+
+        return "redirect:/home";
     }
 }

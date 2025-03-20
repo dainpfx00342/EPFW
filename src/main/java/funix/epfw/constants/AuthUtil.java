@@ -1,9 +1,6 @@
 package funix.epfw.constants;
 
-import funix.epfw.controller.auth.userAuth.AdminAuth;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.BuyerAuth;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
+import funix.epfw.controller.auth.userAuth.*;
 import jakarta.servlet.http.HttpSession;
 
 public class AuthUtil {
@@ -25,4 +22,10 @@ public class AuthUtil {
         AuthChecker  authChecker = new BuyerAuth();
          return authChecker.checkAuth(session);
     }
+
+    public static String checkAuth(HttpSession session) {
+        AuthChecker authChecker = new UserAuth();
+        return authChecker.checkAuth(session);
+    }
+
 }

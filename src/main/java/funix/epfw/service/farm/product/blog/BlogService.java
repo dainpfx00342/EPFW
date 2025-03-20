@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -14,39 +14,49 @@ public class BlogService {
 
     private final BlogRepository blogRepository;
 
-
     @Autowired
     public BlogService(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
-
     }
 
-    // Lưu một blog vào một sản phẩm
-
+    /**
+     * Lưu một blog vào database
+     */
     public void saveBlog(Blog blog) {
-       blogRepository.save(blog);
+        blogRepository.save(blog);
     }
 
-    // Lấy ra tất cả các blog của một sản phẩm
-    public List<Blog> getBlogsByProduct(Long productId) {
-
-        return blogRepository.findByProductId(productId);
+    /**
+     * Lấy ra tất cả các blog có liên kết với danh sách sản phẩm
+     * @param productIds Danh sách ID của sản phẩm
+     * @return Danh sách Blog liên kết với các sản phẩm
+     */
+    public List<Blog> getBlogsByProduct(List<Long> productIds) {
+        return blogRepository.findByProductIds(productIds);
     }
 
-    // Lấy ra một blog theo id
+    /**
+     * Lấy Blog theo ID
+     */
     public Blog findById(Long id) {
-        Optional<Blog> blog = blogRepository.findById(id);
-        return blog.orElse(null);
+        return blogRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Xóa Blog theo ID
+     */
     public void deleteBlog(Long id) {
-
         blogRepository.deleteById(id);
     }
 
-    //get all blogs
+    /**
+     * Lấy tất cả Blog từ database
+     */
     public List<Blog> getAllBlogs() {
-
         return blogRepository.findAll();
+    }
+
+    public List<Blog> getBlogsByProductId(Long productId) {
+        return blogRepository.findByProducts_Id(productId);
     }
 }

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @Table(name="blog")
@@ -18,9 +21,8 @@ public class Blog {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToMany(mappedBy = "blogs",fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Product product;
+    private List<Product> products= new ArrayList<>();
 
     }

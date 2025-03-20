@@ -35,6 +35,6 @@ public class EditBlog {
 
         blogService.saveBlog(blogToUpdate);
 
-        return "redirect:/manageBlog/" + blogToUpdate.getProduct().getId();
+        return "redirect:/manageBlog/"+blog.getProducts().getFirst().getId();
     }
 }

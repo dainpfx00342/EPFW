@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+
 @Controller
 public class AddBlog {
 
@@ -50,9 +52,15 @@ public class AddBlog {
             model.addAttribute(Message.ERROR_MESS, "Không tìm thấy san pham.");
             return ViewPaths.ADD_BLOG;
         }
-        blog.setProduct(product);
+        // Liên kết blog với product
+        if (blog.getProducts() == null) {
+            blog.setProducts(new ArrayList<>()); // Khởi tạo danh sách nếu chưa có
+        }
+        blog.getProducts().add(product); // Thêm product vào danh sách Products của Blog
+        product.getBlogs().add(blog); // Thêm blog vào danh sách Blogs của Product
 
+       // Lưu Blog (JPA sẽ tự động cập nhật quan hệ với Product)
         blogService.saveBlog(blog);
-        return "redirect:/manageProduct";
+        return "redirect:/manageBlog/"+productId;
     }
 }

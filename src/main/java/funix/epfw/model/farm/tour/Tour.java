@@ -3,12 +3,16 @@ package funix.epfw.model.farm.tour;
 import funix.epfw.constants.TourStatus;
 import funix.epfw.constants.TourType;
 import funix.epfw.model.farm.Farm;
+import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -52,12 +56,21 @@ public class Tour {
     @Min(value=0,message="Giá vé tối thiểu = 0 (free)")
     private int ticketPrice;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Farm farm;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TourStatus status = TourStatus.PENDING; // Trạng thái tour
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "farm_id")
+    @ToString.Exclude
+    private Farm farm;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tour_has_orders",
+    joinColumns = @JoinColumn(name = "tour_id"),
+    inverseJoinColumns = @JoinColumn(name = "orders_id")
+    )
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<>();
 
    }

@@ -6,6 +6,7 @@ import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
+import funix.epfw.service.farm.FarmService;
 import funix.epfw.service.user.UserService;
 import funix.epfw.service.farm.tour.TourService;
 import jakarta.servlet.http.HttpSession;
@@ -20,11 +21,13 @@ import java.util.List;
 public class ManageTour {
     private final TourService tourService;
     private final UserService userService;
+    private final FarmService farmService;
 
     @Autowired
-    public ManageTour(TourService tourService, UserService userService) {
+    public ManageTour(TourService tourService, UserService userService, FarmService farmService) {
         this.tourService = tourService;
         this.userService = userService;
+        this.farmService = farmService;
     }
 
     @GetMapping("/manageTour")
@@ -43,7 +46,7 @@ public class ManageTour {
             tours = tourService.findAll();
 
         }else {
-            List<Farm> farms = currentUser.getFarms();
+            List<Farm> farms = farmService.findByUserId(currentUser.getId());
             tours = tourService.findByFarms(farms);
 
         }

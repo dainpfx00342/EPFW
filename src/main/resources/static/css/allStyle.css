@@ -179,3 +179,9 @@ td.message-truncate {
     min-width: 120px;
     margin: 5px;
 }
+select {
+    width:auto !important;
+    min-width:800px !important;
+    white-space: normal; /* Cho phép hiển thị đầy đủ */
+    overflow: visible;
+}

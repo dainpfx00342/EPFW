@@ -30,29 +30,19 @@ public class ManageBlog {
 
     }
 
-//    @GetMapping("/manageBlog")
-//    public String manageBlog(HttpSession session, Model model) {
-//        User currentUser = (User) session.getAttribute("loggedInUser");
-//
-//
-//        List<Blog> blogs = blogService.getAllBlogs();
-//
-//        model.addAttribute("blogs", blogs);
-//        return ViewPaths.MANAGE_BLOG;
-//    }
 
-    @GetMapping("/manageBlog/{id}")
-    public String manageBlog(@PathVariable Long id, Model model, HttpSession session) {
+    @GetMapping("/manageBlog/{productId}")
+    public String manageBlog(@PathVariable Long productId, Model model, HttpSession session) {
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth!=null){
             return checkAuth;
         }
 
-        Product product = productService.findById(id);
-        List<Blog> blogs = blogService.getBlogsByProduct(id);
+        Product product = productService.findById(productId);
+        List<Blog> blogs = blogService.getBlogsByProductId(productId);
         model.addAttribute("blogs",blogs);
         model.addAttribute("product",product);
-        model.addAttribute("productId",id);
+        model.addAttribute("productId",productId);
         return ViewPaths.MANAGE_BLOG;
     }
 }

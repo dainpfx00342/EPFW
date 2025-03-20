@@ -59,21 +59,29 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
-    @OneToMany(mappedBy="product",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "farm_id")
+   @ToString.Exclude
+   private Farm farm;
+
+   @ManyToMany
+   @JoinTable(
+           name = "product_has_orders",
+           joinColumns = @JoinColumn(name = "product_id"),
+           inverseJoinColumns = @JoinColumn(name = "orders_id")
+   )
+   @ToString.Exclude
+   private List<Order> orders = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_has_blog",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "blog_id")
+    )
     @ToString.Exclude
     private List<Blog> blogs = new ArrayList<>();
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Order> orders = new ArrayList<>();
-
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    @ToString.Exclude
-    private Farm farm;
-
-    @PrePersist
+   @PrePersist
     protected void onCreate() {
         this.createdTimes = LocalDateTime.now();
         this.status = true;

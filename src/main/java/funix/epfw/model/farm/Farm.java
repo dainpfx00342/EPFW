@@ -35,18 +35,18 @@ public class Farm {
     @Pattern(regexp = "0[0-9]{9}", message = "Số điện thoại không hợp lệ")
     private String contact;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
 
-    @OneToMany(mappedBy ="farm",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Product> products;
-
-    @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "farm",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Tour> tours;
+
+    @OneToMany(mappedBy = "farm",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Product> products;
 
 
 }

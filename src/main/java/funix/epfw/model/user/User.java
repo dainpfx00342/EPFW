@@ -9,14 +9,14 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
+
 
 import java.util.List;
 
 @Entity
 @Data
-@Validated
-@Table
+
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,14 +46,12 @@ public class User {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Farm> farms;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Order> orders;
-
-
 
 }

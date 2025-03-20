@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -48,23 +50,25 @@ public class Order {
 
     @Column(nullable = false)
     private String orderType;
-    //PRODUCE hoặc TOUR
+    //PRODUCT hoặc TOUR
 
-    @ManyToOne
-    @JoinColumn
-    @ToString.Exclude // Loại bỏ product khỏi toString()
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn
-    @ToString.Exclude // Loại bỏ product khỏi toString()
-    private Tour tour;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    @ToString.Exclude // Loại bỏ product khỏi toString()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private User user;
 
+    @ManyToMany
+    @JoinTable(
+            name = "product_has_orders",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products = new ArrayList<>();
+
+
+    @ManyToMany(mappedBy = "orders",fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Tour> tours = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

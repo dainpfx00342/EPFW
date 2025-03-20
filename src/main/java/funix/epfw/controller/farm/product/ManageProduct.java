@@ -6,6 +6,7 @@ import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.user.User;
+import funix.epfw.service.farm.FarmService;
 import funix.epfw.service.user.UserService;
 import funix.epfw.service.farm.product.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -22,11 +23,13 @@ import java.util.List;
 public class ManageProduct {
     private final ProductService productService;
     private final UserService userService;
+    private final FarmService farmService;
 
     @Autowired
-    public ManageProduct(ProductService productService, UserService userService) {
+    public ManageProduct(ProductService productService, UserService userService, FarmService farmService) {
         this.productService = productService;
         this.userService = userService;
+        this.farmService = farmService;
     }
 
     @GetMapping("/manageProduct")
@@ -44,7 +47,7 @@ public class ManageProduct {
             products = productService.findAll();
 
         }else {
-            List <Farm> farms = currentUser.getFarms();
+            List <Farm> farms = farmService.findByUserId(currentUser.getId());
             products = productService.findByFarms(farms);
         }
         for(Product product : products) {
