@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 
 @Controller
-public class AddBlog {
+public class AddBlogProduct {
 
     private final BlogService blogService;
     private final ProductService productService;
 
     @Autowired
-    public AddBlog(BlogService blogService, ProductService productService) {
+    public AddBlogProduct(BlogService blogService, ProductService productService) {
         this.blogService = blogService;
         this.productService = productService;
     }
 
-    @GetMapping("/addBlog/{productId}")
+    @GetMapping("/addBlog/product/{productId}")
     public String showAddBlogForm(Model model, @PathVariable Long productId, HttpSession session) {
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth!=null){
@@ -39,11 +39,12 @@ public class AddBlog {
         Product currentProduct = productService.findById(productId);
         model.addAttribute("product", currentProduct);
         model.addAttribute("blog", new Blog());
+        model.addAttribute("productId", productId);
         return ViewPaths.ADD_BLOG;
     }
 
 
-    @PostMapping("/addBlog/{productId}")
+    @PostMapping("/addBlog/prodcut/{productId}")
     public String addBlog(@ModelAttribute("blog") Blog blog, @PathVariable Long productId ,
                           Model model)  {
         //kiem tra neu product khong ton tai
@@ -61,6 +62,6 @@ public class AddBlog {
 
        // Lưu Blog (JPA sẽ tự động cập nhật quan hệ với Product)
         blogService.saveBlog(blog);
-        return "redirect:/manageBlog/"+productId;
+        return "redirect:/manageBlog/product/"+productId;
     }
 }

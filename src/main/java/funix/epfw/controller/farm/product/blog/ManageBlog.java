@@ -4,8 +4,10 @@ import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
+import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.service.farm.product.blog.BlogService;
 import funix.epfw.service.farm.product.ProductService;
+import funix.epfw.service.farm.tour.TourService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,17 +23,18 @@ import java.util.List;
 public class ManageBlog {
     private final BlogService blogService;
     private final ProductService productService;
+    private final TourService tourService;
 
 
     @Autowired
-    public ManageBlog(BlogService blogService, ProductService productService) {
+    public ManageBlog(BlogService blogService, ProductService productService, TourService tourService) {
         this.blogService = blogService;
         this.productService = productService;
-
+        this.tourService = tourService;
     }
 
 
-    @GetMapping("/manageBlog/{productId}")
+    @GetMapping("/manageBlog/product/{productId}")
     public String manageBlog(@PathVariable Long productId, Model model, HttpSession session) {
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth!=null){
@@ -44,5 +47,18 @@ public class ManageBlog {
         model.addAttribute("product",product);
         model.addAttribute("productId",productId);
         return ViewPaths.MANAGE_BLOG;
+    }
+    @GetMapping("/manageBlog/tour/{tourId}")
+    public String manageBlogTour(@PathVariable Long tourId, Model model, HttpSession session) {
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if(checkAuth!=null){
+            return checkAuth;
+        }
+        Tour tour = tourService.findById(tourId);
+        List<Blog> blogs = blogService.getBlogsByTourId(tourId);
+        model.addAttribute("blogs",blogs);
+        model.addAttribute("tour",tour);
+        model.addAttribute("tourId",tourId);
+        return ViewPaths.MANAGE_BLOG_TOUR;
     }
 }

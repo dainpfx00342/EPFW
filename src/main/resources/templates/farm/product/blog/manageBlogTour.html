@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script th:replace="~{script :: scripts}"></script>
+  <title>Quản Lý Blog</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+  <h3 class="text-center">Quản Lý Blog</h3>
+  <p class="text-center">
+    <a th:href="@{/addBlog/tour/{id}(id=${tourId})}" class="btn btn-success">
+      <i class="fas fa-plus"></i> Thêm Blog mới
+    </a>
+  </p>
+
+  <h4 class="text-center">Danh sách Blog</h4>
+  <p > Sản phẩm hiện tại: <span th:text="${tour.tourName}"></span></p>
+  <!-- Hiển thị thông báo thành công -->
+  <div th:if="${successMess}" class="alert alert-success text-center">
+    <span th:text="${successMess}"></span>
+  </div>
+
+  <!-- Danh sách Blog -->
+  <div class="table-container">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tiêu đề</th>
+        <th>Nội dung</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="blog, status : ${blogs}">
+        <td th:text="${status.index + 1}"></td>
+        <td th:text="${blog.title}"></td>
+        <td th:utext="${blog.content}"></td>
+        <td>
+          <a th:href="@{/editBlog/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
+            <i class="fas fa-edit"></i> Sửa
+          </a>
+          <a th:href="@{/deleteBlog/{id}(id=${blog.id})}"
+             class="btn btn-danger btn-sm btn-action"
+             onclick="return confirm('Bạn có muốn xoá blog này?');">
+            <i class="fas fa-trash-alt"></i> Xóa
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+</html>

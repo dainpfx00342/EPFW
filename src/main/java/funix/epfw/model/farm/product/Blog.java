@@ -1,5 +1,6 @@
 package funix.epfw.model.farm.product;
 
+import funix.epfw.model.farm.tour.Tour;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -24,5 +25,9 @@ public class Blog {
     @ManyToMany(mappedBy = "blogs",fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Product> products= new ArrayList<>();
+
+    @ManyToMany(mappedBy = "blogs",fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Tour> tours= new ArrayList<>();
 
     }

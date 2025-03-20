@@ -16,4 +16,6 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 
     //Lấy tất cả blog trong 1 sản phẩm
     List<Blog> findByProducts_Id(long productsId);
+
+    List<Blog> findByTours_id(Long toursId);
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script th:replace="~{script :: scripts}"></script>
+  <script src="/ckeditor/ckeditor4-4.21.0/ckeditor.js"></script>
+  <title>Thêm Blog cho Chuyến tham quan</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-left mb-4">Tạo Mới Blog</h2>
+      <form th:action="@{/addBlog/tour/{id} (id=${tour.id})}" method="post" th:object="${blog}">
+        <!-- Chọn sản phẩm liên kết -->
+
+        <div class="form-group">
+          <label for="product" class="form-label"> Tên Tour </label>
+          <p id="product" th:text="${tour.tourName}"></p>
+        </div>
+
+        <!-- Tiêu đề Blog -->
+        <div class="form-group">
+          <label for="title">Tiêu đề:</label>
+          <input type="text" id="title" name="title" class="form-control" th:field="*{title}" required>
+        </div>
+
+        <!-- Nội dung Blog -->
+        <div class="form-group">
+          <label for="content">Nội dung:</label>
+          <textarea id="content" name="content" class="form-control" th:field="*{content}"></textarea>
+        </div>
+
+
+        <!-- Nút Lưu -->
+        <button type="submit" class="btn btn-success">Lưu Blog</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  CKEDITOR.replace('content', {
+    extraPlugins: 'embed,autoembed'
+  });
+  // Kích hoạt CKEditor cho textarea "content" với plugin video embed
+</script>
+</body>
+</html>

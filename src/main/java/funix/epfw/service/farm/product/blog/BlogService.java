@@ -59,4 +59,8 @@ public class BlogService {
     public List<Blog> getBlogsByProductId(Long productId) {
         return blogRepository.findByProducts_Id(productId);
     }
+
+    public List<Blog> getBlogsByTourId(Long tourId){
+        return  blogRepository.findByTours_id(tourId);
+    }
 }

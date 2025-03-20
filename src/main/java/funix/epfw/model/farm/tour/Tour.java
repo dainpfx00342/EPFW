@@ -3,6 +3,7 @@ package funix.epfw.model.farm.tour;
 import funix.epfw.constants.TourStatus;
 import funix.epfw.constants.TourType;
 import funix.epfw.model.farm.Farm;
+import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -72,5 +73,13 @@ public class Tour {
     )
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tour_has_blog",
+    joinColumns = @JoinColumn(name = "tour_id"),
+    inverseJoinColumns = @JoinColumn(name = "blog_id")
+    )
+    @ToString.Exclude
+    private List<Blog> blogs = new ArrayList<>();
 
    }
