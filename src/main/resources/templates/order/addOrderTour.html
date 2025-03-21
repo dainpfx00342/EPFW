@@ -26,7 +26,7 @@
             <div th:if="${errorMess}" class="text-danger">
                 <span th:text="${errorMess}"></span>
             </div>
-            <form th:action="@{/addOrder/product/{productId} (productId =${product.id}) }" method="post" th:object="${order}">
+            <form th:action="@{/addOrder/tour/{tourId} (tourId =${tour.id}) }" method="post" th:object="${order}">
                 <!-- Tên người mua -->
                 <div class="form-group">
                     <label for="buyerName" class="form-label">Địa chỉ:</label>
@@ -67,15 +67,16 @@
 
                 <!-- Giá mong muốn -->
                 <div class="form-group">
-                    <label class="form-label"> Giá hiện tại: <span th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></span>VNĐ/<span th:text="${product.unit.vietnamese}"></span></label>
+                    <label class="form-label"> Giá vào cửa hiện tại: <span th:text="${#numbers.formatInteger(tour.ticketPrice,3,'POINT')}"></span>VNĐ</label>
                     <p></p>
-                    <label for="expectedPrice" class="form-label">Giá Mong Muốn:</label>
-                    <input type="number" id="expectedPrice" name="expectedPrice" th:field="*{expectedPrice}" class="form-control" placeholder="Nhập giá mong muốn"
-                           th:value="${order.expectedPrice != null and order.expectedPrice > 0 ? order.expectedPrice : product.price}">
+                    <label for="expectedPrice" class="form-label">Giá vào cửa mong muốn:</label>
+                    <input type="number" id="expectedPrice" name="expectedPrice" th:field="*{expectedPrice}" class="form-control" step="0.01" placeholder="Nhập giá"
+                           th:value="${order.expectedPrice != null and order.expectedPrice > 0 ? order.expectedPrice : tour.ticketPrice}">
                     <div class="text-danger" th:if="${#fields.hasErrors('expectedPrice')}" th:errors="*{expectedPrice}"></div>
                 </div>
 
-               <!-- Ghi chú -->
+
+                <!-- Ghi chú -->
                 <div class="form-group">
                     <label for="note" class="form-label">Ghi Chú cho chủ trang trại:</label>
                     <textarea id="note" name="note" th:field="*{note}" class="form-control" placeholder="Nhập ghi chú" rows="3"></textarea>

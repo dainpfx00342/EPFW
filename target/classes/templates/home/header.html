@@ -21,10 +21,10 @@
                                 <i class="fas fa-tachometer-alt text-primary"></i> Quản lý Trang Trại
                             </a>
                             <a class="dropdown-item text-success" href="/manageProduct">
-                                <i class="fas fa-box text-success"></i> Quản lý Sản Phẩm
+                                <i class="fas fa-box text-warning"></i> Quản lý Sản Phẩm
                             </a>
                             <a class="dropdown-item text-success" href="/manageTour">
-                                <i class="fas fa-leaf text-warning"></i> Quản lý Tour
+                                <i class="fas fa-leaf text-success"></i> Quản lý Tour
                             </a>
                             <a class="dropdown-item text-success" href="/manageLiveStream">
                                 <i class="fas fa-video text-danger"></i> Quản lý Lịch LiveStream
@@ -55,7 +55,8 @@
                         <a class="nav-link" href="/manageContact"><strong>Quản lý Liên Hệ</strong></a>
                     </li>
                     <!-- Common links -->
-                    <li class="nav-item"><a class="nav-link" href="/contact"><strong>Liên hệ</strong></a></li>
+                    <li class="nav-item" th:if="${session.role != 'ADMIN'}">
+                        <a class="nav-link" href="/contact"><strong>Liên hệ</strong></a></li>
 
                 </ul>
             </div>

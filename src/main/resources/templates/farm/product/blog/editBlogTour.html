@@ -15,12 +15,12 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-left mb-4">Chỉnh Sửa Blog</h2>
-            <form th:action="@{/editBlog/product/{id} (id=${blog.id})}" method="post" th:object="${blog}">
+            <h2 class="text-left mb-4">Chỉnh Sửa Blog Tour</h2>
+            <form th:action="@{/editBlog/tour/{id} (id=${blog.id})}" method="post" th:object="${blog}">
                 <!-- Chọn sản phẩm liên kết -->
                 <div class="form-group">
-                    <label for="product" class="form-label">Tên sản phẩm</label>
-                    <p id="product" th:text="${product.productName}"></p>
+                    <label for="product" class="form-label">Tên Tour</label>
+                    <p id="product" th:text="${tour.tourName}"></p>
                 </div>
 
                 <!-- Tiêu đề Blog -->

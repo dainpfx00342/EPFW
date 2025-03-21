@@ -18,7 +18,16 @@
                 <div class="card-body">
                     <!-- Tiêu đề bài viết -->
                     <h5 class="card-title">
-                        <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark"></a>
+                        <!-- Kiểm tra nếu blog có tour -->
+                        <i th:if="${not #lists.isEmpty(blog.tours)}" class="fas fa-leaf text-success d-inline"></i>
+
+                        <!-- Kiểm tra nếu blog có product -->
+                        <i th:if="${not #lists.isEmpty(blog.products)}" class="fas fa-box text-warning d-inline"></i>
+
+                        <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark d-inline">
+
+
+                        </a>
                     </h5>
 
                     <!-- Nội dung ngắn -->

@@ -4,6 +4,7 @@ import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
+import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.service.farm.product.blog.BlogService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 
 @Controller
 public class DetailBlog {
@@ -31,10 +31,19 @@ public class DetailBlog {
             return checkAuth;
         }
         Blog blog = blogService.findById(blogId);
-        List<Product> products = blog.getProducts();
-        Long productId = products.getFirst().getId();
+        if(blog!=null){
+
+            if(blog.getProducts()!=null&&!blog.getProducts().isEmpty()){
+                Product product = blog.getProducts().getFirst();
+                model.addAttribute("productId", product.getId());
+
+            }else if(blog.getTours()!=null&&!blog.getTours().isEmpty()){
+                Tour tour = blog.getTours().getFirst();
+                model.addAttribute("tourId", tour.getId());
+            }
+        }
         model.addAttribute("blog", blog);
-        model.addAttribute("productId", productId);
+
 
         return ViewPaths.DETAIL_BLOG;
     }

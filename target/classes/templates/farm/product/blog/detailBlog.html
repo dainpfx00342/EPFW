@@ -22,8 +22,10 @@
                     <h3 class="card-title text-primary" th:text="${blog.title}"></h3>
                     <p class="card-text" th:utext="${blog.content}"></p>
                     <p class="text-info">Liên hệ nông trại</p>
-
-                    <a th:href="@{/addOrder/product/{id} (id=${productId})}" class="btn btn-warning text-center">
+                    <a th:if="${productId}" th:href="@{/addOrder/product/{id} (id=${productId})}" class="btn btn-warning text-center" >
+                        Đặt trước (Yêu cầu liên hệ)
+                    </a>
+                    <a th:if="${tourId}" th:href="@{/addOrder/tour/{id} (id=${tourId})}" class="btn btn-warning text-center">
                         Đặt trước (Yêu cầu liên hệ)
                     </a>
 

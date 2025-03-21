@@ -24,12 +24,12 @@ import java.util.ArrayList;
 @Controller
 @SessionAttributes("loggedInUser")
 @Slf4j // Giúp log lỗi dễ hơn
-public class AddOrder {
+public class AddOrderProduct {
     private final ProductService productService;
     private final OrderService orderService;
 
     @Autowired
-    public AddOrder(OrderService orderService, ProductService productService) {
+    public AddOrderProduct(OrderService orderService, ProductService productService) {
         this.orderService = orderService;
         this.productService = productService;
 
@@ -67,12 +67,14 @@ public class AddOrder {
 
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ dữ liệu!");
+            model.addAttribute("order", newOrder);
+            model.addAttribute("product", productService.findById(productId));
             return ViewPaths.ADD_ORDER;
         }
 
         Product product = productService.findById(productId);
         if (product == null) {
-            model.addAttribute("error", "Sản phẩm không tồn tại!");
+            model.addAttribute(Message.ERROR_MESS, "Sản phẩm không tồn tại!");
             return ViewPaths.ADD_ORDER;
         }
 
@@ -85,6 +87,9 @@ public class AddOrder {
         product.getOrders().add(newOrder); //Cập nhật 2 chiều
         newOrder.setOrderType("PRODUCT");
         newOrder.setOrderStatus(OrderStatus.PENDING);
+        if(newOrder.getExpectedPrice()==0){
+            newOrder.setExpectedPrice(product.getPrice());
+        }
 
         // Lưu đơn hàng vào database
         try {

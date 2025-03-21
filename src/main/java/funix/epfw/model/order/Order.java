@@ -5,6 +5,8 @@ import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -25,6 +27,11 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDate orderDate;
+
+    @Column(nullable=false)
+    @Size(min=2, message = "Tên người đặt không được ít hơn 2 ký tự")
+    @Pattern(regexp = "^[a-zA-Z-ZÀ-Ỹà-ỹ\\s]*$", message = "Tên không được chứa ký tự đặc biệt hoặc số")
+    private String buyerName;
    
     @Column(nullable = false)
     @Size(min=5,message = "Địa chỉ có ít nhất 5 ký tự.")
@@ -33,6 +40,10 @@ public class Order {
     @Column(nullable = false)
     @Pattern(regexp = "0\\d{9}", message = "Số điện thoại bắt đầu bằng 0 và có 10 số.")
     private String phone;
+
+    @Column
+    @Email(message = "Email phải đúng định dạng")
+    private String email;
     
     @Column(nullable = false)
     private String paymentMethod;
@@ -46,7 +57,8 @@ public class Order {
 
     //Gia mong muốn
     @Column(nullable = false)
-    private Double expectedPrice;
+    @Min(value = 1000 ,message = "Giá mong đợi không thể thấp hơn 1000 VNĐ")
+    private int expectedPrice;
 
     @Column(nullable = false)
     private String orderType;

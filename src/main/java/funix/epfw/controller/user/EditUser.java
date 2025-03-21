@@ -25,41 +25,49 @@ public class EditUser {
         this.userService = userService;
     }
 
-    @GetMapping("/editUser/{id}")
-    public String showEditForm(@PathVariable Long id, Model model, HttpSession session) {
+    @GetMapping("/editUser/{userId}")
+    public String showEditForm(@PathVariable Long userId, Model model, HttpSession session) {
         String checkAuth = AuthUtil.checkAdminAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
-        User user = userService.findById(id);
-        if(user == null) {
+        User currentUuser = userService.findById(userId);
+        if(currentUuser == null) {
             // Handle error
             return "redirect:/login";
         }
-        model.addAttribute("user", user);
+        model.addAttribute("user", currentUuser);
         return ViewPaths.EDIT_USER;
     }
 
-    @PostMapping("/editUser/{id}")
-    public String editUser(@PathVariable Long id, @Validated @ModelAttribute("user") User user,
-                           BindingResult result, Model model, RedirectAttributes reModel) {
-        // Update user
-        User userToUpdate = userService.findById(id);
-        // Update user
-        userToUpdate.setAddress(user.getAddress());
-        userToUpdate.setPhone(user.getPhone());
-        userToUpdate.setRole(user.getRole());
-        userToUpdate.setEmail(user.getEmail());
-        // Validate user
-        if(result.hasErrors()) {
+    @PostMapping("/editUser/{userId}")
+    public String editUser(@Validated @ModelAttribute("user") User currentUser,
+                           BindingResult result,
+                           @PathVariable Long userId,
+                           Model model, RedirectAttributes reModel) {
+        // Lấy user hiện tại từ DB
+        User userToUpdate = userService.findById(userId);
+
+        // Kiểm tra lỗi validation trước khi cập nhật mật khẩu
+        if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Cập nhật người dùng không thành công!");
-            model.addAttribute("user", user); // Giữ lại thông tin user để hiển thị lại form
+            model.addAttribute("user", userToUpdate);
             return ViewPaths.EDIT_USER;
         }
 
+        // Giữ lại mật khẩu cũ
+        currentUser.setPassword(userToUpdate.getPassword());
 
-        // Save user to database
+        // Cập nhật thông tin user nhưng giữ nguyên mật khẩu cũ
+        userToUpdate.setAddress(currentUser.getAddress());
+        userToUpdate.setPhone(currentUser.getPhone());
+        userToUpdate.setRole(currentUser.getRole());
+        userToUpdate.setEmail(currentUser.getEmail());
+        userToUpdate.setPassword(currentUser.getPassword()); // Giữ nguyên mật khẩu cũ
+
+        // Lưu user vào database
         userService.saveUser(userToUpdate);
+
         reModel.addFlashAttribute(Message.SUCCESS_MESS, "Cập nhật người dùng thành công!");
         return "redirect:/manageUser";
     }

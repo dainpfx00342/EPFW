@@ -5,10 +5,11 @@ import funix.epfw.constants.Unit;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,9 +28,8 @@ public class Product {
     private String productName;
 
     @Column(nullable = false)
-    @Size(max = 12, message = "Số lượng sản phẩm không thể lớn hơn hàng trăm tỉ")
-    @Pattern(regexp = "^[0-9]*$", message = "Số lượng sản phẩm phải là số")
-    private String numberOfStock;
+    @Min(value = 0, message="Số tồn kho không thể là số âm")
+    private int numberOfStock;
 
     @Column(nullable = false)
     private String description;
@@ -38,9 +38,8 @@ public class Product {
     private Boolean status;
 
     @Column(nullable = false)
-    @Size(max = 12, message = "Giá sản phẩm khoảng từ 0 đến 999 tỉ")
-    @Pattern(regexp = "^[1-9][0-9]*$", message = "Giá sản phẩm phải là số")
-    private String price;
+    @Min(value=1000, message="Giá sản phẩm không thể nhỏ hơn 1000 VNĐ")
+    private int price;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

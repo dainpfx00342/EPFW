@@ -43,10 +43,10 @@
         <td th:text="${blog.title}"></td>
         <td th:utext="${blog.content}"></td>
         <td>
-          <a th:href="@{/editBlog/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
+          <a th:href="@{/editBlog/tour/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
             <i class="fas fa-edit"></i> Sửa
           </a>
-          <a th:href="@{/deleteBlog/{id}(id=${blog.id})}"
+          <a th:href="@{/deleteBlog/tour/{id}(id=${blog.id})}"
              class="btn btn-danger btn-sm btn-action"
              onclick="return confirm('Bạn có muốn xoá blog này?');">
             <i class="fas fa-trash-alt"></i> Xóa

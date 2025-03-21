@@ -39,7 +39,8 @@ public class EditFarm {
     }
     @PostMapping("/editFarm/{farmId}")
     public String editFarm(@Validated @ModelAttribute("farm") Farm currFarm,
-                           BindingResult result, @PathVariable Long farmId,
+                           BindingResult result,
+                           @PathVariable Long farmId,
                            Model model,
                            RedirectAttributes redirectAttributes) {
 

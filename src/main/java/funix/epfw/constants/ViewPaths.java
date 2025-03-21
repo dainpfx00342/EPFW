@@ -39,18 +39,22 @@ public class ViewPaths {
     //blog/tour
     public static final String ADD_BLOG_TOUR = "farm/product/blog/addBlogTour";
     public static final String EDIT_BLOG_TOUR = "farm/product/blog/editBlogTour";
-    public static final String DETAIL_BLOG_TOUR = "farm/product/blog/detailBlogTour";
     public static final String MANAGE_BLOG_TOUR = "farm/product/blog/manageBlogTour";
 
     //farm/tour Views
     public static final String ADD_TOUR = "farm/tour/addTour";
     public static final String EDIT_TOUR = "farm/tour/editTour";
-    public static final String DETAIL_TOUR = "farm/tour/detailTour";
+//    public static final String DETAIL_TOUR = "farm/tour/detailTour";
     public static final String MANAGE_TOUR = "farm/tour/manageTour";
     //order/view
-    public static final String MANAGE_ORDER = "order/manageOrder";
-    public static final String DETAIL_ORDER = "order/detailOrder";
-    public static final String EDIT_ORDER = "order/editOrder";
+//    public static final String MANAGE_ORDER = "order/manageOrder";
+//    public static final String DETAIL_ORDER = "order/detailOrder";
+//    public static final String EDIT_ORDER = "order/editOrder";
     public static final String ADD_ORDER = "order/addOrder";
+
+    //order/tour/view
+//    public static final String MANAGE_ORDER_TOUR = "order/manageOrderTour";
+//    public static final String EDIT_ORDER_TOUR = "order/editOrderTour";
+    public static final String ADD_ORDER_TOUR = "order/addOrderTour";
 }
 
