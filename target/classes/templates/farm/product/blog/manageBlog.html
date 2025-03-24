@@ -41,15 +41,15 @@
             <tr th:each="blog, status : ${blogs}">
                 <td th:text="${status.index + 1}"></td>
                 <td th:text="${blog.title}"></td>
-                <td th:utext="${blog.content}"></td>
+                <td th:utext="${#strings.length(blog.content) > 100 ? #strings.substring(blog.content, 0, 100) + '...' : blog.content}"></td>
                 <td>
                     <a th:href="@{/editBlog/product/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i> Sửa
+                        <i class="fas fa-edit"></i> Sửa Blog
                     </a>
                     <a th:href="@{/deleteBlog/product/{id}(id=${blog.id})}"
                        class="btn btn-danger btn-sm btn-action"
                        onclick="return confirm('Bạn có muốn xoá blog này?');">
-                        <i class="fas fa-trash-alt"></i> Xóa
+                        <i class="fas fa-trash-alt"></i> Xóa Blog
                     </a>
                 </td>
             </tr>

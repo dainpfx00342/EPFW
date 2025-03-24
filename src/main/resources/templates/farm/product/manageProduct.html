@@ -57,15 +57,7 @@
                 <td>
                     <img th:src="@{${product.imageUrl}}" class="product-img" alt="Hình ảnh sản phẩm">
                 </td>
-                <td>
-                        <span th:switch="${product.productCategory.name()}">
-                            <span th:case="'AGRICULTURE'">Nông sản</span>
-                            <span th:case="'FORESTRY'">Lâm sản</span>
-                            <span th:case="'FISHERY'">Thủy sản</span>
-                            <span th:case="'LIVESTOCK'">Chăn nuôi</span>
-                            <span th:case="*">Không xác định</span>
-                        </span>
-                </td>
+                <td th:text="${product.productCategory.vietnamese}"></td>
                 <td th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
                 <td th:text="${#temporals.format(product.updatedTimes, 'dd-MM-yyyy HH:mm:ss')}"></td>
                 <td th:text="${product.unit.vietnamese}"></td>

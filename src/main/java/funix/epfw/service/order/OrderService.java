@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class OrderService {
@@ -30,5 +32,13 @@ public class OrderService {
     public void deleteOrderById(Long id) {
 
         orderRepository.deleteById(id);
+    }
+
+    public List<Order> findAllByFarmId(Long farmId) {
+        return orderRepository.findOrdersByFarmId(farmId);
+    }
+
+    public List<Order> findAllByUserId(Long userId) {
+         return orderRepository.findOrdersByUserId(userId);
     }
 }

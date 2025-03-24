@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum OrderStatus {
-    PENDING("Chờ"),   // Mới
+    PENDING("Chờ xác nhật"),   // Mới
     CONFIRMED("Đã xác nhận"),      // Đang xử lý
-    COMPELETED("Đã Hoàn thành"),
-    CANCELED("Đã hủy");       // Đã xử lý
+    COMPLETED("Đã Hoàn thành"),
+    CANCELED("Đã hủy đơn");       // Đã xử lý
 
     private final String Vietnamese;
 

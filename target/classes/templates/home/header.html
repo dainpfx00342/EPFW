@@ -1,24 +1,27 @@
-<!-- src/main/resources/templates/Home/header.html -->
 <header>
     <nav class="navbar navbar-light navbar-expand-md">
         <div class="container-fluid">
-            <a class="navbar-brand-green" href="/home"><h1 class="logo">Đặc sản quê hương</h1></a>
+            <a class="navbar-brand-green" href="/home">
+                <h1 class="logo"><i class="fas fa-seedling"></i> Đặc sản quê hương</h1>
+            </a>
 
             <!-- Button for mobile devices -->
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div id="navcol-1" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
 
-                    <!--FARMER hoặc ADMIN mới thấy menu  -->
+                    <!-- FARMER hoặc ADMIN -->
                     <li class="nav-item dropdown" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
                         <a class="nav-link dropdown-toggle" href="/manageFarm" id="farmDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <strong>Quản lý Trang Trại</strong></a>
+                            <i class="fas fa-tractor"></i> <strong>Quản lý Trang Trại</strong>
+                        </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item text-success" href="/manageFarm">
-                                <i class="fas fa-tachometer-alt text-primary"></i> Quản lý Trang Trại
+                                <i class="fas fa-tractor text-primary"></i> Quản lý Trang Trại
                             </a>
                             <a class="dropdown-item text-success" href="/manageProduct">
                                 <i class="fas fa-box text-warning"></i> Quản lý Sản Phẩm
@@ -32,42 +35,62 @@
                         </div>
                     </li>
 
-
-
-                    <!--BUYER -->
-                    <li class="nav-item" th:if="${session.role == 'BUYER' or session.role=='ADMIN'}">
-                        <a class="nav-link" href="#"><strong>Đặt hàng</strong></a>
+                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role=='ADMIN'}">
+                        <a class="nav-link" th:href="@{/manageOrderUser/{userId}(userId=${session.loggedInUser.id})}">
+                            <i class="fas fa-clipboard-list"></i> <strong>Quản lý Đơn Đặt hàng</strong>
+                        </a>
                     </li>
+
+                    <!-- BUYER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role=='ADMIN'}">
-                        <a class="nav-link" href="#"><strong>Quản lý Đơn Đặt hàng</strong></a>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-shopping-cart"></i> <strong>Đơn đã Đặt</strong>
+                        </a>
                     </li>
-                       <!-- BUYER OR FARMER -->
+
+                    <!-- BUYER OR FARMER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role =='FARMER'}">
-                        <a class="nav-link" href="/editProfile"><Strong>Hồ sơ</Strong></a>
-                    </li>
-                    <!--ADMIN -->
-
-                    <li class="nav-item" th:if="${session.role == 'ADMIN'}">
-                        <a class="nav-link" href="/manageUser"><strong>Quản lý Người dùng</strong></a>
+                        <a class="nav-link" href="/editProfile">
+                            <i class="fas fa-user"></i> <strong>Hồ sơ</strong>
+                        </a>
                     </li>
 
+                    <!-- ADMIN -->
                     <li class="nav-item" th:if="${session.role == 'ADMIN'}">
-                        <a class="nav-link" href="/manageContact"><strong>Quản lý Liên Hệ</strong></a>
+                        <a class="nav-link" href="/manageUser">
+                            <i class="fas fa-users"></i> <strong>Quản lý Người dùng</strong>
+                        </a>
                     </li>
+
+                    <li class="nav-item" th:if="${session.role == 'ADMIN'}">
+                        <a class="nav-link" href="/manageContact">
+                            <i class="fas fa-phone-alt"></i> <strong>Quản lý Liên Hệ</strong>
+                        </a>
+                    </li>
+
                     <!-- Common links -->
                     <li class="nav-item" th:if="${session.role != 'ADMIN'}">
-                        <a class="nav-link" href="/contact"><strong>Liên hệ</strong></a></li>
-
+                        <a class="nav-link" href="/contact">
+                            <i class="fas fa-envelope"></i> <strong>Liên hệ</strong>
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <!-- Kim tra xem nguoi dung da dang nhap chua -->
+
+            <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
             <div th:if="${session.loggedInUser}">
-                <button class="btn btn-primary" type="button" onclick="window.location.href='/login'">Đăng xuất</button>
+                <button class="btn btn-danger" type="button" onclick="window.location.href='/login'">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
             </div>
             <div th:unless="${session.loggedInUser}">
-                <button class="btn btn-primary" type="button" onclick="window.location.href='/login'">Đăng nhập</button>
-                <button class="btn btn-primary" type="button" onclick="window.location.href='/registry'" style="margin: 10px;">Đăng ký</button>
-           </div>
+                <button class="btn btn-success" type="button" onclick="window.location.href='/login'">
+                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                </button>
+                <button class="btn btn-primary" type="button" onclick="window.location.href='/registry'" style="margin: 10px;">
+                    <i class="fas fa-user-plus"></i> Đăng ký
+                </button>
+            </div>
         </div>
     </nav>
 </header>

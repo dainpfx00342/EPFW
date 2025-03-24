@@ -56,5 +56,6 @@ public class ViewPaths {
 //    public static final String MANAGE_ORDER_TOUR = "order/manageOrderTour";
 //    public static final String EDIT_ORDER_TOUR = "order/editOrderTour";
     public static final String ADD_ORDER_TOUR = "order/addOrderTour";
+    public static final String MANAGE_ORDER_USER = "order/manageOrderUser";
 }
 

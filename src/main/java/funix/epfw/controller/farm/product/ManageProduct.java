@@ -51,7 +51,7 @@ public class ManageProduct {
             products = productService.findByFarms(farms);
         }
         for(Product product : products) {
-            if(product.getNumberOfStock().equals("0")){
+            if(product.getNumberOfStock()==0){
                 product.setStatus(false);
 
             }

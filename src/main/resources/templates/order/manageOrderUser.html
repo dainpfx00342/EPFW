@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script th:replace="~{script :: scripts}"></script>
+    <title>Quản Lý Đơn hàng</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <h3 class="text-center">Quản Lý các đơn hàng</h3>
+
+    <h4 class="text-left">Danh sách Đơn hàng</h4>
+    <!-- Hiển thị thông báo thành công -->
+    <div th:if="${successMess}" class="alert alert-success text-center">
+        <span th:text="${successMess}"></span>
+    </div>
+
+    <!-- Danh sách Blog -->
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt hàng</th>
+                <th>Người đặt hàng</th>
+                <th>Trạng thái đơn hàng</th>
+                <th>Sản phẩm</th>
+                <th>Giá sản phẩm</th>
+                <th>Giá Đặt hàng</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order, status : ${orders}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${order.id}"></td>
+                <td th:text="${#temporals.format(order.orderDate,'dd-MM-yyyy')}"></td>
+                <td th:text="${order.user.username}"></td>
+                <td>
+
+                    <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">Chờ xác nhận</span>
+                    <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">Đã xác nhận</span>
+                    <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">Đã hoàn thành</span>
+                    <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">Đã hủy</span>
+                </td>
+                <td th:text="${order.products[0].productName}"></td>
+                <td class="text-success" th:text="${#numbers.formatInteger(order.products[0].price,3,'POINT')}"></td>
+                <td class="text-danger" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
+                <td>
+                    <a th:href="@{/editOrder/user/{userId}(userId=${userId})}" class="btn btn-warning btn-sm btn-action">
+                        <i class="fas fa-edit"></i> Sửa
+                    </a>
+                    <a th:href="@{/deleteOrder/user/{userId}(userId=${userId})}"
+                       class="btn btn-danger btn-sm btn-action"
+                       onclick="return confirm('Bạn có muốn xoá blog này?');">
+                        <i class="fas fa-trash-alt"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+</html>

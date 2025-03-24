@@ -55,8 +55,8 @@
                     <div class="form-group">
                         <label class="form-label">Password: </label>
                         <div class="input-group">
-                            <input type="text" id="password" class="form-control"
-                                   th:value="${user.password}" disabled>
+                            <label for="password"></label><input type="text" id="password" class="form-control"
+                                                                 th:value="${user.password}" disabled>
                             <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
                                 <i id="eyeIcon" class="fa fa-eye"></i>
                             </button>

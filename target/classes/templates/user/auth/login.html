@@ -19,20 +19,22 @@
         <form th:action="@{/login}" method="post">
           <!-- Tên đăng nhập -->
           <div class="form-group">
-            <label for="username" class="form-label">Tên Đăng Nhập:</label>
+            <label for="username" class="form-label">
+              <i class="fas fa-user"></i> Tên Đăng Nhập:</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
           </div>
 
           <!-- Mật khẩu -->
           <div class="form-group">
-            <label for="password" class="form-label">Mật Khẩu:</label>
+            <label for="password" class="form-label">
+              <i class="fas fa-key"></i> Mật Khẩu:</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
           </div>
 
           <!-- Nút đăng nhập -->
           <div class="form-group mt-3">
             <label for="btn-dangnhap" class="form-label"></label>
-            <button id="btn-dangnhap" type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+            <button id="btn-dangnhap" type="submit" class="btn btn-success w-100">Đăng Nhập</button>
           </div>
 
           <!-- Liên kết đến trang đăng ký -->
