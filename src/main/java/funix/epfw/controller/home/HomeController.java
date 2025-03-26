@@ -18,10 +18,12 @@ public class HomeController {
     private final ProductService productService;
     private final BlogService BlogService;
 
+
     @Autowired
     public HomeController(ProductService productService, BlogService BlogService) {
         this.productService = productService;
         this.BlogService = BlogService;
+
     }
 
     @GetMapping({"/","/home"})

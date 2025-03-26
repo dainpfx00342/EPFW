@@ -14,23 +14,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-public class manageOrderUser {
+public class manageOrderProduct {
     private final OrderService orderService;
 
     @Autowired
-    public manageOrderUser(OrderService orderService) {
+    public manageOrderProduct(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    @GetMapping("/manageOrderUser/{userId}")
+    @GetMapping("/manageOrderProduct/{userId}")
     public String showManageOrderUser(@PathVariable Long userId, Model model,  HttpSession session) {
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth!=null) {
             return checkAuth;
         }
-        List<Order> orders = orderService.findAllByUserId(userId);
+
+        List<Order> orders = orderService.findOrdersProductByUser(userId);
         model.addAttribute("orders", orders);
-        model.addAttribute("userId", userId);
-        return ViewPaths.MANAGE_ORDER_USER;
+
+
+        return ViewPaths.MANAGE_ORDER_PRODUCT;
     }
+
+
 }

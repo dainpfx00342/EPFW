@@ -27,7 +27,7 @@
                                 <i class="fas fa-box text-warning"></i> Quản lý Sản Phẩm
                             </a>
                             <a class="dropdown-item text-success" href="/manageTour">
-                                <i class="fas fa-leaf text-success"></i> Quản lý Tour
+                                <i class="fas fa-route text-success"></i> Quản lý Tour
                             </a>
                             <a class="dropdown-item text-success" href="/manageLiveStream">
                                 <i class="fas fa-video text-danger"></i> Quản lý Lịch LiveStream
@@ -35,13 +35,38 @@
                         </div>
                     </li>
 
-                    <li class="nav-item" th:if="${session.role == 'FARMER' or session.role=='ADMIN'}">
-                        <a class="nav-link" th:href="@{/manageOrderUser/{userId}(userId=${session.loggedInUser.id})}">
-                            <i class="fas fa-clipboard-list"></i> <strong>Quản lý Đơn Đặt hàng</strong>
+                    <li class="nav-item dropdown" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
+                        <a class="nav-link dropdown-toggle " href="/manageFarm" id="orderDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-clipboard-check"></i><strong> Quản lý Đơn đặt hàng</strong>
+
+                            <!-- Nếu có đơn hàng chờ xác nhận, hiển thị badge -->
+                            <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                                  th:if="${pendingOrderCount > 0}"
+                                  th:text="${pendingOrderCount}">
+                            </span>
+
                         </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item text-warning" th:href="@{/manageOrderProduct/{userId}(userId=${session.loggedInUser.id})}">
+                                <i class="fas fa-box-open"></i> Đơn hàng sản phẩm
+                                <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                                      th:if="${pendingOrderProductCount > 0}"
+                                      th:text="${pendingOrderProductCount}">
+                            </span>
+                            </a>
+
+                            <a class="dropdown-item text-success" th:href="@{/manageOrderTour/{userId}(userId=${session.loggedInUser.id})}">
+                                <i class="fas fa-route"></i> Đơn hàng Tour
+                                <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                                      th:if="${pendingOrderTourCount > 0}"
+                                      th:text="${pendingOrderTourCount}">
+                            </span>
+                            </a>
+                        </div>
                     </li>
 
-                    <!-- BUYER -->
+
+                   <!-- BUYER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role=='ADMIN'}">
                         <a class="nav-link" href="#">
                             <i class="fas fa-shopping-cart"></i> <strong>Đơn đã Đặt</strong>
@@ -83,6 +108,8 @@
                     <i class="fas fa-sign-out-alt"></i> Đăng xuất
                 </button>
             </div>
+
+            <!-- Nếu chưa đăng nhập -->
             <div th:unless="${session.loggedInUser}">
                 <button class="btn btn-success" type="button" onclick="window.location.href='/login'">
                     <i class="fas fa-sign-in-alt"></i> Đăng nhập

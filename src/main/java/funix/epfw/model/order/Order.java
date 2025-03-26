@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Entity
 @Data
+@DynamicUpdate
 @Table(name="orders")
 public class Order {
     @Id
@@ -75,10 +77,16 @@ public class Order {
             joinColumns = @JoinColumn(name = "orders_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+    @ToString.Exclude
     private List<Product> products = new ArrayList<>();
 
 
-    @ManyToMany(mappedBy = "orders",fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(
+            name="tour_has_orders",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id")
+    )
     @ToString.Exclude
     private List<Tour> tours = new ArrayList<>();
 

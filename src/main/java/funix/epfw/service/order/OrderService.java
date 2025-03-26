@@ -1,5 +1,6 @@
 package funix.epfw.service.order;
 
+import funix.epfw.constants.OrderStatus;
 import funix.epfw.model.order.Order;
 import funix.epfw.repository.order.OrderRepository;
 import jakarta.transaction.Transactional;
@@ -38,7 +39,39 @@ public class OrderService {
         return orderRepository.findOrdersByFarmId(farmId);
     }
 
-    public List<Order> findAllByUserId(Long userId) {
-         return orderRepository.findOrdersByUserId(userId);
+    public List<Order> findOrdersProductByUser(Long userId) {
+         return orderRepository.findOrdersProductByUser(userId);
+    }
+    public List<Order> findOrdersTourByUser(Long userId) {
+         return orderRepository.findOrdersTourByUser(userId);
+    }
+
+    public  List<Order> findOrdersByUserId(Long userId) {
+         return orderRepository.findOrderByUserId(userId);
+    }
+
+    public int countByOrderStatus(OrderStatus orderStatus) {
+        return orderRepository.countByOrderStatus(orderStatus);
+    }
+
+    public int countOrderProductStatus(OrderStatus orderStatus) {
+         return orderRepository.countByProductsAndOrderStatus(orderStatus);
+    }
+
+    public int countOrderTourStatus(OrderStatus orderStatus) {
+         return orderRepository.countByToursAndOrderStatus(orderStatus);
+    }
+
+
+    @Transactional
+    public void confirmOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
+
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+
+        orderRepository.save(order);
+
+        System.out.println("✅ Đã xác nhận đơn hàng ID: " + orderId);
     }
 }
