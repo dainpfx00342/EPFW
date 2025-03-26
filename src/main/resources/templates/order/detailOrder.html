@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <script th:replace="~{script :: scripts}"></script>
+
+  <title>Contact Detail</title>
+</head>
+
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Main content -->
+<main class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h4>Chi Tiết Liên Hệ</h4>
+        </div>
+
+        <div class="card-body">
+          <h5 class="text-primary">
+            <i class="fas fa-user"></i> Tên chủ trang trại <span th:text="${order.products[0].farm.user.username}"></span>
+          </h5>
+
+          <p>
+            <i class="fas fa-envelope text-danger"></i>
+            <span class="ml-2" th:text="${order.products[0].farm.user.email}"></span>
+          </p>
+
+          <p>
+            <i class="fas fa-phone text-success"></i>
+            <span class="ml-2" th:text="${order.products[0].farm.user.phone}"></span>
+          </p>
+
+          <!-- Trạng thái -->
+          <p>
+            <strong>Trạng thái:</strong>
+            <span th:if="${order.orderStatus.name() == 'PENDING'}" class="badge badge-warning">
+                       <i class="fas fa-exclamation-triangle"></i> Đang chờ
+                        </span>
+            <span th:if="${order.orderStatus.name() =='CONFIRMED'}" class="badge badge-success">
+                                <i class="fas fa-check-circle"></i> Đã xác nhận
+                        </span>
+          </p>
+
+          <!-- Nội dung tin nhắn -->
+          <div class="alert alert-info">
+            <strong>Nội dung liên hệ:</strong>
+            <p class="mt-2" th:text="${order.note}"></p>
+          </div>
+        </div>
+
+        <div class="card-footer text-center">
+          <a th:href="@{/completedOrder/{orderId}(orderId=${order.id})}"
+             class="btn btn-success btn-sm mr-2"
+            >
+            <i class="fas fa-check-circle"></i> Đã lien hệ
+          </a>
+
+          <a
+             th:href="@{/canceledOrder/{orderId}(orderId=${order.id})}"
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Bạn có chắc chắn muốn xóa liên hệ này không?')">
+            <i class="fas fa-trash-alt"></i> Từ chối
+          </a>
+
+          <a th:href="@{/manageOrderUser/{orderId} (orderId = ${order.id})}" class="btn btn-secondary btn-sm ml-2">
+            <i class="fas fa-arrow-left"></i> Quay lại
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Include Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+</html>

@@ -68,7 +68,7 @@
 
                    <!-- BUYER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role=='ADMIN'}">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{manageOrderUser/{userId}(userId=${session.loggedInUser.id})}">
                             <i class="fas fa-shopping-cart"></i> <strong>Đơn đã Đặt</strong>
                         </a>
                     </li>
