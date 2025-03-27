@@ -12,9 +12,9 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <h3 class="text-center">Quản Lý các đơn hàng</h3>
+    <h3 class="text-center">Quản lý các đơn hàng</h3>
 
-    <h4 class="text-left">Danh sách Đơn hàng sản phẩm</h4>
+    <h4 class="text-left">Danh sách đơn hàng sản phẩm</h4>
     <!-- Hiển thị thông báo thành công -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
@@ -43,11 +43,21 @@
                 <td th:text="${#temporals.format(order.orderDate,'dd-MM-yyyy')}"></td>
                 <td th:text="${order.user.username}"></td>
                 <td>
+                    <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">
+                     <i class="fas fa-hourglass-half"></i> Chờ xác nhận
+                    </span>
 
-                    <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">Chờ xác nhận</span>
-                    <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">Đã xác nhận</span>
-                    <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">Đã hoàn thành</span>
-                    <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">Đã hủy</span>
+                    <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">
+                    <i class="fas fa-check-circle"></i> Đã xác nhận
+                    </span>
+
+                    <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">
+                    <i class="fas fa-box-open"></i> Đã hoàn thành
+                    </span>
+
+                    <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">
+                    <i class="fas fa-times-circle"></i> Đã hủy
+                    </span>
                 </td>
                 <td th:text="${order.products[0].productName}"></td>
                 <td class="text-success" th:text="${#numbers.formatInteger(order.products[0].price,3,'POINT')}"></td>

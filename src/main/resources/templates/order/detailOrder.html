@@ -28,13 +28,13 @@
           </h5>
 
           <p>
-            <i class="fas fa-envelope text-danger"></i>
+            <i class="fas fa-envelope text-danger"></i> Địa chỉ Email:
             <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.email}"></span>
             <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.email}"></span>
           </p>
 
           <p>
-            <i class="fas fa-phone text-success"></i>
+            <i class="fas fa-phone text-success"></i> Số điện thoại:
             <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.phone}"></span>
             <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.phone}"></span>
           </p>

@@ -31,7 +31,7 @@
         <th>Ngày đặt hàng</th>
         <th>Người đặt hàng</th>
         <th>Trạng thái đơn hàng</th>
-        <th>Loại đơn hàngr</th>
+        <th>Loại đơn hàng</th>
         <th>Giá trị của đơn</th>
         <th>Giá mong muốn</th>
         <th>Hành động</th>
@@ -44,11 +44,21 @@
         <td th:text="${#temporals.format(order.orderDate,'dd-MM-yyyy')}"></td>
         <td th:text="${order.user.username}"></td>
         <td>
+          <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">
+                     <i class="fas fa-hourglass-half"></i> Chờ xác nhận
+          </span>
 
-          <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">Chờ xác nhận</span>
-          <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">Đã xác nhận</span>
-          <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">Đã hoàn thành</span>
-          <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">Đã hủy</span>
+          <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">
+                    <i class="fas fa-check-circle"></i> Đã xác nhận
+                    </span>
+
+          <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">
+                    <i class="fas fa-box-open"></i> Đã hoàn thành
+          </span>
+
+          <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">
+                    <i class="fas fa-times-circle"></i> Đã hủy
+           </span>
         </td>
         <td th:text="${order.orderType}"></td>
         <td class="text-success">
