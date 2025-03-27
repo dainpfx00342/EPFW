@@ -50,16 +50,18 @@ public class OrderService {
          return orderRepository.findOrderByUserId(userId);
     }
 
-    public int countByOrderStatus(OrderStatus orderStatus) {
-        return orderRepository.countByOrderStatus(orderStatus);
+    public int countByOrderStatus(OrderStatus orderStatus, Long userId) {
+         int productOrder = orderRepository.countByProductsAndOrderStatus(userId, orderStatus);
+         int tourOrder = orderRepository.countByToursAndOrderStatus(userId,orderStatus);
+        return productOrder + tourOrder;
     }
 
-    public int countOrderProductStatus(OrderStatus orderStatus) {
-         return orderRepository.countByProductsAndOrderStatus(orderStatus);
+    public int countOrderProductStatus(OrderStatus orderStatus, Long userId) {
+         return orderRepository.countByProductsAndOrderStatus( userId,orderStatus);
     }
 
-    public int countOrderTourStatus(OrderStatus orderStatus) {
-         return orderRepository.countByToursAndOrderStatus(orderStatus);
+    public int countOrderTourStatus(Long userId, OrderStatus orderStatus) {
+         return orderRepository.countByToursAndOrderStatus(userId, orderStatus);
     }
 
 

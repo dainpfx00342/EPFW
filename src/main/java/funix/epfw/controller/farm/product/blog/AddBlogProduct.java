@@ -44,7 +44,7 @@ public class AddBlogProduct {
     }
 
 
-    @PostMapping("/addBlog/prodcut/{productId}")
+    @PostMapping("/addBlog/product/{productId}")
     public String addBlog(@ModelAttribute("blog") Blog blog, @PathVariable Long productId ,
                           Model model)  {
         //kiem tra neu product khong ton tai

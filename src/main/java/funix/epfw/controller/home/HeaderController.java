@@ -1,6 +1,7 @@
 package funix.epfw.controller.home;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.model.user.User;
 import funix.epfw.constants.OrderStatus;
 import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -24,7 +25,8 @@ public class HeaderController {
         if (checkAuth != null) {
             return 0;
         }
-        return orderService.countByOrderStatus(OrderStatus.PENDING);
+        Long userId = ((User) session.getAttribute("loggedInUser")).getId();
+        return orderService.countByOrderStatus(OrderStatus.PENDING, userId);
     }
 
     @ModelAttribute("pendingOrderProductCount")
@@ -35,8 +37,10 @@ public class HeaderController {
             return 0;
         }
 
+        Long userId = ((User) session.getAttribute("loggedInUser")).getId();
+
         // Đếm đơn hàng sản phẩm có trạng thái PENDING
-        return orderService.countOrderProductStatus(OrderStatus.PENDING);
+        return orderService.countOrderProductStatus(OrderStatus.PENDING, userId);
     }
 
     @ModelAttribute("pendingOrderTourCount")
@@ -45,8 +49,9 @@ public class HeaderController {
         if (checkAuth != null) {
             return 0;
         }
+        Long userId = ((User) session.getAttribute("loggedInUser")).getId();
         // Đếm đơn hàng sản phẩm có trạng thái PENDING
-        return orderService.countOrderTourStatus(OrderStatus.PENDING);
+        return orderService.countOrderTourStatus(userId, OrderStatus.PENDING);
     }
 
 }
