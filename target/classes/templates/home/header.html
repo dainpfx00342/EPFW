@@ -37,10 +37,10 @@
 
                     <li class="nav-item dropdown" th:if="${session.role == 'FARMER' or session.role == 'ADMIN'}">
                         <a class="nav-link dropdown-toggle " href="/manageFarm" id="orderDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-clipboard-check"></i><strong> Quản lý Đơn đặt hàng</strong>
+                            <i class="fas fa-clipboard-check"></i><strong> Quản lý đơn đặt hàng </strong>
 
                             <!-- Nếu có đơn hàng chờ xác nhận, hiển thị badge -->
-                            <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                            <span class="badge badge-danger rounded-pill position-absolute top-0 start-100 translate-middle"
                                   th:if="${pendingOrderCount > 0}"
                                   th:text="${pendingOrderCount}">
                             </span>
@@ -48,16 +48,16 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item text-warning" th:href="@{/manageOrderProduct/{userId}(userId=${session.loggedInUser.id})}">
-                                <i class="fas fa-box-open"></i> Đơn hàng sản phẩm
-                                <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                                <i class="fas fa-box-open"></i> Đặt sản phẩm
+                                <span class="badge badge-danger rounded-pill position-absolute top-0 start-100 translate-middle"
                                       th:if="${pendingOrderProductCount > 0}"
                                       th:text="${pendingOrderProductCount}">
                             </span>
                             </a>
 
                             <a class="dropdown-item text-success" th:href="@{/manageOrderTour/{userId}(userId=${session.loggedInUser.id})}">
-                                <i class="fas fa-route"></i> Đơn hàng Tour
-                                <span class="badge badge-danger position-absolute top-0 start-100 translate-middle"
+                                <i class="fas fa-route"></i> Đặt Tour
+                                <span class="badge badge-danger rounded-pill position-absolute top-0 start-100 translate-middle"
                                       th:if="${pendingOrderTourCount > 0}"
                                       th:text="${pendingOrderTourCount}">
                             </span>
@@ -69,27 +69,32 @@
                    <!-- BUYER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role=='ADMIN'}">
                         <a class="nav-link" th:href="@{/manageOrderUser/{userId}(userId=${session.loggedInUser.id})}">
-                            <i class="fas fa-shopping-cart"></i> <strong>Đơn đã Đặt</strong>
+                            <i class="fas fa-shopping-cart"></i> <strong> Đơn đã đặt </strong>
+
+                            <span class="badge badge-danger rounded-pill position-absolute top-0 start-100 translate-middle"
+                                  th:if="${pendingOrderUserCount > 0}"
+                                  th:text="${pendingOrderUserCount}">
+                            </span>
                         </a>
                     </li>
 
                     <!-- BUYER OR FARMER -->
                     <li class="nav-item" th:if="${session.role == 'BUYER' or session.role =='FARMER'}">
                         <a class="nav-link" href="/editProfile">
-                            <i class="fas fa-user"></i> <strong>Hồ sơ</strong>
+                            <i class="fas fa-user"></i> <strong> Hồ sơ</strong>
                         </a>
                     </li>
 
                     <!-- ADMIN -->
                     <li class="nav-item" th:if="${session.role == 'ADMIN'}">
                         <a class="nav-link" href="/manageUser">
-                            <i class="fas fa-users"></i> <strong>Quản lý Người dùng</strong>
+                            <i class="fas fa-users"></i> <strong> Quản lý người dùng </strong>
                         </a>
                     </li>
 
                     <li class="nav-item" th:if="${session.role == 'ADMIN'}">
                         <a class="nav-link" href="/manageContact">
-                            <i class="fas fa-phone-alt"></i> <strong>Quản lý Liên Hệ</strong>
+                            <i class="fas fa-phone-alt"></i> <strong> Quản lý liên hệ </strong>
                         </a>
                     </li>
 

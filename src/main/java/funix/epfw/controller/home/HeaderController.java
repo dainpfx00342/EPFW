@@ -54,4 +54,14 @@ public class HeaderController {
         return orderService.countOrderTourStatus(userId, OrderStatus.PENDING);
     }
 
+    @ModelAttribute("pendingOrderUserCount")
+    public int getPendingOrderUserCount(HttpSession session) {
+        String checkAuth = AuthUtil.checkAuth(session);
+        if (checkAuth != null) {
+            return 0;
+        }
+        Long userId = ((User) session.getAttribute("loggedInUser")).getId();
+        // Đếm đơn hàng sản phẩm có trạng thái PENDING
+        return orderService.countOrderUserStatus(userId, OrderStatus.PENDING);
+    }
 }

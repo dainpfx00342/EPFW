@@ -74,6 +74,9 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        System.out.println("✅ Đã xác nhận đơn hàng ID: " + orderId);
+    }
+
+    public int countOrderUserStatus(Long userId, OrderStatus orderStatus) {
+         return orderRepository.countByUserIdAndOrderStatus(userId,orderStatus);
     }
 }

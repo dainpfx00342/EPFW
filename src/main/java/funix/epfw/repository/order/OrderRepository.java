@@ -49,4 +49,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "AND o.orderStatus = :orderStatus")
     int countByToursAndOrderStatus(@Param("userId") Long userId,@Param("orderStatus") OrderStatus orderStatus);
 
+    int countByUserIdAndOrderStatus(Long userId, OrderStatus orderStatus);
+
    }

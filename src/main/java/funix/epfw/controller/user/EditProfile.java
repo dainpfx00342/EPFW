@@ -50,7 +50,16 @@ public class EditProfile {
             model.addAttribute(Message.ERROR_MESS, "Không tìm thấy người dùng");
             return ViewPaths.EDIT_PROFILE;
         }
+
+        // Kiểm tra xem username đã tồn tại chưa (trừ chính user hiện tại)
+        User existingUser = userService.findByUsername(user.getUsername());
+        if (existingUser != null && !existingUser.getId().equals(sessionUser.getId())) {
+            model.addAttribute(Message.ERROR_MESS, "Username đã tồn tại, vui lòng chọn username khác.");
+            return ViewPaths.EDIT_PROFILE;
+        }
+
         // Cập nhật thông tin từ form vào session user
+
         sessionUser.setUsername(user.getUsername());
         sessionUser.setPhone(user.getPhone());
         sessionUser.setEmail(user.getEmail());

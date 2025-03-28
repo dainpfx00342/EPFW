@@ -36,13 +36,18 @@ public class AddOrderTour {
 
     @GetMapping("/addOrder/tour/{tourId}")
     public String addOrderTour(@PathVariable Long tourId, Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        String checkAuth = AuthUtil.checkAuth(session);
         if(checkAuth!=null){
             return checkAuth;
         }
         Tour tour = tourService.findById(tourId);
+        if(tour==null){
+            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
+            return ViewPaths.ADD_ORDER_TOUR;
+        }
         model.addAttribute("tour", tour);
         model.addAttribute("order", new Order());
+
         return ViewPaths.ADD_ORDER_TOUR;
     }
 
@@ -51,7 +56,12 @@ public class AddOrderTour {
                                 @Validated @ModelAttribute("order") Order newOrderTour,
                                 BindingResult result,
                                 Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        String checkAuth = AuthUtil.checkAuth(session);
+        Tour tour = tourService.findById(tourId);
+        if(tour==null){
+            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
+            return ViewPaths.ADD_ORDER_TOUR;
+        }
         if(checkAuth!=null){
             return checkAuth;
         }
@@ -62,13 +72,10 @@ public class AddOrderTour {
         if(result.hasErrors()){
             model.addAttribute(Message.ERROR_MESS,"Vui long nhap day du thong tin");
             model.addAttribute("order", newOrderTour);
+            model.addAttribute("tour", tour);
             return ViewPaths.ADD_ORDER_TOUR;
         }
-        Tour tour = tourService.findById(tourId);
-        if(tour==null){
-            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
-            return ViewPaths.ADD_ORDER_TOUR;
-        }
+
         if(newOrderTour.getExpectedPrice()==0){
             newOrderTour.setExpectedPrice(tour.getTicketPrice());
         }

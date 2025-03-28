@@ -38,7 +38,7 @@ public class AddOrderProduct {
     @GetMapping("/addOrder/product/{productId}")
     public String addOrder(Model model, HttpSession session, @PathVariable Long productId) {
 
-        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        String checkAuth = AuthUtil.checkAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
