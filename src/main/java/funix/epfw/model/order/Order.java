@@ -4,6 +4,7 @@ import funix.epfw.constants.OrderStatus;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
+import funix.epfw.model.vote.Vote;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -89,6 +90,9 @@ public class Order {
     )
     @ToString.Exclude
     private List<Tour> tours = new ArrayList<>();
+
+    @OneToMany(mappedBy = "order", orphanRemoval = true)
+    private List<Vote> votes = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

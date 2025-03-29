@@ -30,6 +30,7 @@ header {
 /* Navbar */
 .navbar-nav .nav-link {
     color: green !important; /* Màu xanh lá */
+    margin-right: 10px;
 }
 
 .navbar-brand-green {

@@ -19,24 +19,14 @@ public class OrderService {
 
         this.orderRepository = orderRepository;
     }
-    @Transactional
+
     public void saveOrder(Order order) {
               orderRepository.save(order);
 
     }
-
     public Order findById(Long id) {
 
         return orderRepository.findById(id).orElse(null);
-    }
-
-    public void deleteOrderById(Long id) {
-
-        orderRepository.deleteById(id);
-    }
-
-    public List<Order> findAllByFarmId(Long farmId) {
-        return orderRepository.findOrdersByFarmId(farmId);
     }
 
     public List<Order> findOrdersProductByUser(Long userId) {
@@ -65,8 +55,7 @@ public class OrderService {
     }
 
 
-    @Transactional
-    public void confirmOrder(Long orderId) {
+   public void confirmOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
 
@@ -78,5 +67,12 @@ public class OrderService {
 
     public int countOrderUserStatus(Long userId, OrderStatus orderStatus) {
          return orderRepository.countByUserIdAndOrderStatus(userId,orderStatus);
+    }
+
+    public void completeOrder(Long orderId) {
+         Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
+         order.setOrderStatus(OrderStatus.COMPLETED);
+         orderRepository.save(order);
     }
 }

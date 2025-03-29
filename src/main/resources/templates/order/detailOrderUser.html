@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <script th:replace="~{script :: scripts}"></script>
+      <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <script th:replace="~{script :: scripts}"></script>
 
-  <title>Contact Detail</title>
+      <title>Contact Detail</title>
 </head>
 
 <body>
@@ -22,21 +22,35 @@
 
         <div class="card-body">
           <h5 class="text-primary">
-            <i class="fas fa-user"></i> Tên chủ trang trại:
-            <span class="text-success" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.username}"></span>
-            <span class="text-success" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.username}"></span>
-          </h5>
+            <i class="fas fa-user"></i> Người liên hệ:
+            <span class="text-success" th:text="${order.user.username}"></span>
 
+          </h5>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Địa chỉ liên lạc:
+            <span class="ml-2" th:text="${order.address}"></span>
+          </p>
           <p>
             <i class="fas fa-envelope text-danger"></i> Địa chỉ Email:
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.email}"></span>
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.email}"></span>
+            <span class="ml-2" th:text="${order.email}"></span>
           </p>
 
           <p>
             <i class="fas fa-phone text-success"></i> Số điện thoại:
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.phone}"></span>
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.phone}"></span>
+            <span class="ml-2" th:text="${order.phone}"></span>
+          </p>
+          <p>
+            <i class="fas fa-credit-card  text-primary"></i> Phương thức thanh toán:
+            <span class="ml-2" th:if="${order.paymentMethod == 'CASH'}" >Thanh toán tiền mặt</span>
+            <span class="ml-2" th:if="${order.paymentMethod == 'BANK_TRANSFER'}" >Chuyển khoản</span>
+          </p>
+          <p>
+            <i class="fas fa-dollar-sign text-success"></i> Giá đề xuất:
+            <span class="ml-2" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></span>
+          </p>
+          <p>
+            <i class="fas fa-calendar-alt text-info"></i> Ngày liên hệ:
+            <span class="ml-2" th:text="${#temporals.format(order.orderDate,'dd/MM/yyyy')}"></span>
           </p>
 
           <!-- Trạng thái -->
@@ -59,18 +73,18 @@
                     </span>
 
           </p>
-
           <!-- Nội dung tin nhắn -->
           <div class="alert alert-info">
+            <i class="fas fa-comment text-secondary"></i>
             <strong>Nội dung liên hệ:</strong>
             <p class="mt-2" th:text="${order.note}"></p>
           </div>
         </div>
 
         <div class="card-footer text-center">
-          <a th:href="@{/completedOrder/{orderId}(orderId=${order.id})}"
-             class="btn btn-success btn-sm mr-2">
-            <i class="fas fa-check-circle"></i> Đã liên hệ
+          <a th:href="@{/confirmOrder/{orderId}(orderId=${order.id})}"
+             class="btn btn-primary btn-sm mr-2">
+            <i class="fas fa-check-circle"></i> Xác nhận
           </a>
 
           <a th:href="@{/canceledOrder/{orderId}(orderId=${order.id})}"
@@ -79,7 +93,7 @@
             <i class="fas fa-trash-alt"></i> Từ chối
           </a>
 
-          <a th:href="@{/manageOrderUser/{userId} (userId = ${session.loggedInUser.id})}" class="btn btn-secondary btn-sm ml-2">
+          <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary btn-sm ml-2">
             <i class="fas fa-arrow-left"></i> Quay lại
           </a>
         </div>

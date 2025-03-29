@@ -57,7 +57,6 @@ public class EditFarm {
 
         farmService.saveFarm(farmToUpDate);
 
-
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Cập nhật thông tin farm thành công");
         return "redirect:/manageFarm";
     }
