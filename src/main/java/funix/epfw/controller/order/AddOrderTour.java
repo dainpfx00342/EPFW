@@ -37,7 +37,7 @@ public class AddOrderTour {
 
     @GetMapping("/addOrder/tour/{tourId}")
     public String addOrderTour(@PathVariable Long tourId, @RequestParam("blogId") Long blogId, Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkBuyerAuth(session);
         if(checkAuth!=null){
             return checkAuth;
         }
@@ -59,7 +59,7 @@ public class AddOrderTour {
                                 @Validated @ModelAttribute("order") Order newOrderTour,
                                 BindingResult result,
                                 Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkBuyerAuth(session);
         Tour tour = tourService.findById(tourId);
         Blog blog = blogService.findById(blogId);
         if(tour==null){

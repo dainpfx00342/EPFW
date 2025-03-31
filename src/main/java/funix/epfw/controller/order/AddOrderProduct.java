@@ -42,7 +42,7 @@ public class AddOrderProduct {
     @GetMapping("/addOrder/product/{productId}")
     public String addOrder(Model model, HttpSession session, @PathVariable Long productId,@RequestParam("blogId") Long blogId) {
 
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkBuyerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
