@@ -37,10 +37,12 @@ public class AddContact {
                               Model model) {
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Gửi thông tin không thành công");
+            model.addAttribute("contact", contact);
             return ViewPaths.ADD_CONTACT;
         }
         contactService.addContact(contact);
         model.addAttribute(Message.SUCCESS_MESS, "Gửi thông tin thành công");
+        model.addAttribute("contact",new Contact());
         return ViewPaths.ADD_CONTACT;
     }
 

@@ -3,6 +3,7 @@ package funix.epfw.controller.home;
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.model.user.User;
 import funix.epfw.constants.OrderStatus;
+import funix.epfw.service.home.ContactService;
 import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 public class HeaderController {
     private final OrderService orderService;
+    private final ContactService contactService;
 
     @Autowired
-    public HeaderController(OrderService orderService) {
+    public HeaderController(OrderService orderService, ContactService contactService) {
+
         this.orderService = orderService;
+        this.contactService= contactService;
     }
 
     @ModelAttribute("pendingOrderCount")
@@ -63,5 +67,15 @@ public class HeaderController {
         Long userId = ((User) session.getAttribute("loggedInUser")).getId();
         // Đếm đơn hàng sản phẩm có trạng thái PENDING
         return orderService.countOrderUserStatus(userId, OrderStatus.PENDING);
+    }
+
+    @ModelAttribute("newContactCount")
+    public int getNewContactCount(HttpSession session) {
+        String checkAuth = AuthUtil.checkAdminAuth(session);
+        if (checkAuth != null) {
+            return 0;
+        }
+
+        return contactService.countNewContact();
     }
 }

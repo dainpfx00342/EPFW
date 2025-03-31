@@ -37,10 +37,11 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-
-
-
     public Contact getContactById(Long id) {
         return contactRepository.findById(id).orElseThrow(() -> new IllegalStateException("Contact with id " + id + " does not exist"));
+    }
+
+    public int countNewContact(){
+        return (int) contactRepository.findAll().stream().filter(contact -> contact.getState() == ContactState.NEW).count();
     }
 }
