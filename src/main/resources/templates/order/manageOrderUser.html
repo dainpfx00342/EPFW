@@ -76,7 +76,7 @@
             <i class="fas fa-eye"></i> Xem liên hệ
           </a>
           <a th:if="${order.orderStatus.name() == 'COMPLETED'}"
-             th:href="@{/reviewOrder/{orderId (orderId=${order.in})}" class="btn btn-warning btn-sm btn-action">
+             th:href="@{/reviewOrder/{orderId} (orderId=${order.id}, blogId=${order.blog.id})}" class="btn btn-warning btn-sm btn-action">
             <i class="fas fa-star"></i> Đánh giá
           </a>
           <a th:href="@{/canceledOrder/tour/{userId}(orderId=${order.id})}"

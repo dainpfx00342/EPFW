@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Data
 
-@Table(name="user")
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +44,7 @@ public class User {
     private String email;
 
     @Column
+    @Size(min = 5, message = "Địa chỉ phải có ít nhất 5 ký tự")
     private String address;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)

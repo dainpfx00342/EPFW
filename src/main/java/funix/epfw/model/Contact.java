@@ -8,11 +8,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Entity
 @Data
-@Table
+@Table(name = "contacts")
 public class Contact {
 
     @Id

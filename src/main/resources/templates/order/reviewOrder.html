@@ -1,100 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá Đơn Hàng</title>
     <script th:replace="~{script :: scripts}"></script>
-
-    <title>Tạo Đơn Hàng</title>
 </head>
 <body>
-<!-- Include Header -->
+<!-- Header -->
 <div th:replace="~{home/header :: header}"></div>
 
-<!-- Content -->
-<div class="container-fluid">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center mb-4">Đánh giá sản phẩm/Dịch vụ</h2>
-            <h3 class="text-success">Tên sản phẩm/dịch vụ:
-                <span th:if="${product}" th:text="${product.productName}"></span>
-                <span th:if="${tour}" th:text="${tour.tourName}"></span>
-
-            </h3>
+            <h2 class="text-center">Đánh giá đơn hàng</h2>
 
             <!-- Hiển thị thông báo lỗi -->
-            <div th:if="${errorMess}" class="text-danger">
-                <span th:text="${errorMess}"></span>
-            </div>
-            <form th:action="@{/reviewOrder/{orderId} (orderId =${order.id}) }" method="post" th:object="${order}">
-                <!-- Tên người mua -->
-                <div class="form-group">
-                    <label for="buyerName" class="form-label">Địa chỉ:</label>
-                    <input type="text" id="buyerName" name="address" th:field="*{buyerName}" class="form-control" placeholder="Nhập tên của bạn" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}"></div>
-                </div>
-                <!-- Địa chỉ -->
-                <div class="form-group">
-                    <label for="address" class="form-label">Địa chỉ:</label>
-                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ của bạn" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
-                </div>
+            <div th:if="${errorMess}" class="alert alert-danger" role="alert" th:text="${errorMess}"></div>
 
-                <!-- Số điện thoại -->
+            <form th:action="@{/reviewOrder/{orderId} (orderId=${order.id})}" method="post" th:object="${vote}">
+                <!-- Blog ID (Ẩn) -->
+                <input type="hidden" th:field="*{order.blog.id}">
+                <input type="hidden" th:field="*{order.id}">
                 <div class="form-group">
-                    <label for="phone" class="form-label">Số Điện Thoại:</label>
-                    <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Số điện thoại hợp lệ (0xxxxxxxxx)" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                    <label for="productName">Tên sản phẩm/Tour:</label>
+                    <p class="form-control" id="productName"
+                       th:if="${order.products.isEmpty() != null and order.products.size() > 0}"
+                       th:text="${order.products[0].productName}">
+                    </p>
+                    <p class="form-control" id="tourName"
+                       th:if="${order.tours.isEmpty() != null and order.tours.size() > 0}"
+                       th:text="${order.tours[0].tourName}">
+                    </p>
                 </div>
-
-                <!-- Email -->
                 <div class="form-group">
-                    <label for="email" class="form-label">Nhập địa chỉ email (nếu có):</label>
-                    <input type="text" id="email" name="phone" th:field="*{email}" class="form-control" placeholder="Nhập địa chỉ email">
-                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                </div>
-
-                <!-- Phương thức thanh toán -->
-                <div class="form-group">
-                    <label for="paymentMethod" class="form-label">Phương Thức Thanh Toán:</label>
-                    <select id="paymentMethod" name="paymentMethod" th:field="*{paymentMethod}" class="form-control" required>
-                        <option value="" disabled selected>-- Chọn --</option>
-                        <option value="CASH">Thanh toán trực tiếp</option>
-                        <option value="BANK_TRANSFER">Chuyển khoản</option>
+                    <label for="vote">Điểm đánh giá (1-5):</label>
+                    <select id="vote" name="vote" class="form-control" required th:field="*{vote}">
+                        <option value="1">1 - Rất tệ</option>
+                        <option value="2">2 - Tệ</option>
+                        <option value="3">3 - Bình thường</option>
+                        <option value="4">4 - Tốt</option>
+                        <option value="5">5 - Tuyệt vời</option>
                     </select>
-                    <div class="text-danger" th:if="${#fields.hasErrors('paymentMethod')}" th:errors="*{paymentMethod}"></div>
                 </div>
-
-                <!-- Giá mong muốn -->
                 <div class="form-group">
-                    <label class="form-label"> Giá vào cửa hiện tại: <span th:text="${#numbers.formatInteger(tour.ticketPrice,3,'POINT')}"></span>VNĐ</label>
-                    <p></p>
-                    <label for="expectedPrice" class="form-label">Giá vào cửa mong muốn:</label>
-                    <input type="number" id="expectedPrice" name="expectedPrice" th:field="*{expectedPrice}" class="form-control" step="0.01" placeholder="Nhập giá"
-                           th:value="${order.expectedPrice != null and order.expectedPrice > 0 ? order.expectedPrice : tour.ticketPrice}">
-                    <div class="text-danger" th:if="${#fields.hasErrors('expectedPrice')}" th:errors="*{expectedPrice}"></div>
+                    <label for="comment">Nội dung đánh giá:</label>
+                    <input id="comment" type="text" class="form-control" th:field="*{comment}" placeholder="Nhập nội dung đánh giá" required>
                 </div>
 
 
-                <!-- Ghi chú -->
-                <div class="form-group">
-                    <label for="note" class="form-label">Ghi Chú cho chủ trang trại:</label>
-                    <textarea id="note" name="note" th:field="*{note}" class="form-control" placeholder="Nhập ghi chú" rows="3"></textarea>
-                    <div class="text-danger" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
-                </div>
-
-                <!-- Nút đăng ký -->
-                <div class="form-group text-center mt-4">
-                    <button type="submit" class="btn btn-primary">Tạo Yêu cầu liên hệ</button>
-                    <a href="/home" class="btn btn-secondary">Quay Lại</a>
+                <!-- Nút gửi đánh giá -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
+                    <a href="/home" class="btn btn-secondary">Hủy</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Include Footer -->
+<!-- Footer -->
 <div th:replace="~{home/footer :: footer}"></div>
-
 </body>
 </html>

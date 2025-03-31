@@ -1,5 +1,6 @@
 package funix.epfw.model.farm;
 
+import funix.epfw.model.farm.liveStream.LiveStream;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table
+@Table(name = "farms")
 public class Farm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +48,10 @@ public class Farm {
     @OneToMany(mappedBy = "farm",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Product> products;
+
+    @OneToMany(mappedBy = "farm", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<LiveStream> liveStreams;
 
 
 }

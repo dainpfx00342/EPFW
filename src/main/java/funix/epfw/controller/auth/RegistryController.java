@@ -37,15 +37,16 @@ public class RegistryController {
                            HttpSession session) {
 
         if (result.hasErrors()) {
-            model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công");
+            model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công, vui lòng nhập lại thông tin!");
             return ViewPaths.REGISTER;
         }
         if(userService.findByUsername(user.getUsername()) != null) {
-            model.addAttribute(Message.ERROR_MESS, "Tên đăng nhập đã tồn tại");
+            model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công, bạn không thể sử dụng tên đăng nhập này!");
             return ViewPaths.REGISTER;
         }
         if(!user.getPassword().equals(confirmPassword)) {
-            model.addAttribute("confirmpassError", "Mật khẩu không khớp");
+            model.addAttribute("confirmpassError", "Mật khẩu không khớp!");
+            model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công!");
             return ViewPaths.REGISTER;
         }
         userService.saveUser(user);

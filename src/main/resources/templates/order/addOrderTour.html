@@ -26,10 +26,10 @@
             <div th:if="${errorMess}" class="text-danger">
                 <span th:text="${errorMess}"></span>
             </div>
-            <form th:action="@{/addOrder/tour/{tourId} (tourId =${tour.id}) }" method="post" th:object="${order}">
+            <form th:action="@{/addOrder/tour/{tourId} (tourId =${tour.id}, blogId=${blog.id}) }" method="post" th:object="${order}">
                 <!-- Tên người mua -->
                 <div class="form-group">
-                    <label for="buyerName" class="form-label">Địa chỉ:</label>
+                    <label for="buyerName" class="form-label">Họ và tên:</label>
                     <input type="text" id="buyerName" name="address" th:field="*{buyerName}" class="form-control" placeholder="Nhập tên của bạn" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}"></div>
                 </div>

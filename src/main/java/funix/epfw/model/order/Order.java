@@ -1,6 +1,7 @@
 package funix.epfw.model.order;
 
 import funix.epfw.constants.OrderStatus;
+import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
@@ -94,6 +95,10 @@ public class Order {
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "blog_id", nullable = false)
+    @ToString.Exclude
+    private Blog blog;
     @PrePersist
     protected void onCreate() {
         this.orderDate = LocalDate.now();

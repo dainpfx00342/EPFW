@@ -1,6 +1,7 @@
 package funix.epfw.controller.order;
 
 import funix.epfw.constants.Message;
+import funix.epfw.model.order.Order;
 import funix.epfw.model.user.User;
 import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -26,13 +27,18 @@ public class ConfirmOrder {
         if(checkAuth != null) {
             return checkAuth;
         }
-
-        orderService.confirmOrder(orderId);
         User currentUser = (User) session.getAttribute("loggedInUser");
         Long userId = currentUser.getId();
-        orderService.confirmOrder(orderId);
-        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Xác nhận đơn hàng thành công");
-        return "redirect:/manageOrderProduct/"+userId;
+        Order currentOrder = orderService.findById(orderId);
+
+        if(currentOrder != null) {
+            orderService.confirmOrder(orderId);  // Chỉ gọi 1 lần duy nhất
+            String redirectUrl = currentOrder.getProducts().isEmpty() ? "/manageOrderTour/" : "/manageOrderProduct/";
+            redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Xác nhận đơn hàng thành công");
+            return "redirect:" + redirectUrl + userId;
+        }
+        return "redirect:/manageOrderProduct/" + userId;
+
     }
 
 //    @GetMapping("/confirmOrder/tour/{orderId}")

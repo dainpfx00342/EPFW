@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name="blog")
+@Table(name="blogs")
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +24,23 @@ public class Blog {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ManyToMany(mappedBy = "blogs",fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Product> products= new ArrayList<>();
+    @Column(nullable = false)
+    private LocalDate createdTime;
 
-    @ManyToMany(mappedBy = "blogs",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "blogs", fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<Tour> tours= new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "blogs", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Tour> tours = new ArrayList<>();
 
     @OneToMany(mappedBy = "blog", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
 
+
+    @PrePersist
+    protected void onCreate() {
+        createdTime = LocalDate.now();
     }
+}

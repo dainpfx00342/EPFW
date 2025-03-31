@@ -1,5 +1,6 @@
 package funix.epfw.model.farm.liveStream;
 
+import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Table(name = "livestreams")
 public class LiveStream {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,10 @@ public class LiveStream {
 
     @Column(nullable = false)
     private LocalDateTime dateToLive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "farm_id", nullable = false)
+    private Farm farm;
 
     @PrePersist
     protected void onCreate(){
