@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script th:replace="~{script :: scripts}"></script>
+
+  <title>Quản Lý Nông Sản</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+  <h3 class="text-center">Quản Lý lịch live stream</h3>
+
+  <h4 class="text-center">Danh sách các buổi live stream</h4>
+
+  <!-- Hiển thị thông báo xóa thành công -->
+  <div th:if="${successMess}" class="alert alert-success text-center">
+    <span th:text="${successMess}"></span>
+  </div>
+
+  <!-- Danh sách buoi live -->
+  <div class="table-container">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng tồn kho</th>
+        <th>Mô tả</th>
+        <th>Trạng thái</th>
+        <th>Trang Trai</th>
+        <th>Ngày tạo</th>
+        <th>Hình ảnh</th>
+        <th>Nhóm hàng</th>
+        <th>Giá bán</th>
+        <th>Ngày cập nhật</th>
+        <th>Đơn vị bán</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <!-- Include footer -->
+    <div th:replace="~{home/footer :: footer}"></div>
+</body>
+</html>

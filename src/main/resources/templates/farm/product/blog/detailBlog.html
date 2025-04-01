@@ -19,8 +19,14 @@
             <div class="card shadow-sm">
 
                 <div class="card-body">
+
                     <h3 class="card-title text-primary" th:text="${blog.title}"></h3>
+                    <h5 class="card-subtitle mb-2 text-muted"
+                        th:text="${not #lists.isEmpty(blog.tours) ? blog.tours[0].tourName : (not #lists.isEmpty(blog.products) ? blog.products[0].productName : '')}">
+
+                    </h5>
                     <p class="card-text" th:utext="${blog.content}"></p>
+
                     <p th:if="${session.role =='BUYER'}" class="text-info">Liên hệ nông trại</p>
                     <input type="hidden" th:field="*{blog.id}">
                     <a th:if="${session.role =='BUYER' and productId}" th:href="@{/addOrder/product/{id} (id=${productId}, blogId=${blog.id})}" class="btn btn-warning text-center" >

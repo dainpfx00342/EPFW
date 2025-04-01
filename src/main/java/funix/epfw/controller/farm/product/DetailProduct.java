@@ -26,7 +26,7 @@ public class DetailProduct {
         this.blogService = blogService;
     }
 
-    @GetMapping("/productDetail/{productId}")
+    @GetMapping("/detailProduct/{productId}")
     public String showProductDetail(Model model, @PathVariable Long productId) {
         // Lấy thông tin sản phẩm
         Product product = productService.findById(productId);

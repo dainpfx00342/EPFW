@@ -24,10 +24,8 @@
                         <!-- Kiểm tra nếu blog có product -->
                         <i th:if="${not #lists.isEmpty(blog.products)}" class="fas fa-box text-warning d-inline"></i>
 
-                        <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark d-inline">
-
-
-                        </a>
+                        <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark d-inline"></a>
+                        <img th:if="${not #lists.isEmpty(blog.products)}" th:src="@{${blog.products[0].getImageUrl()}}" alt="Blog Image" class="img-fluid mb-2" style="max-width: 20%; height: auto;">
                     </h5>
 
                     <!-- Nội dung ngắn -->

@@ -2,6 +2,7 @@ package funix.epfw.model.farm.liveStream;
 
 import funix.epfw.model.farm.Farm;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
@@ -28,14 +29,12 @@ public class LiveStream {
     private String description;
 
     @Column(nullable = false)
+    @Future(message = "Thời gian live phải là thời điểm trong tương lai")
     private LocalDateTime dateToLive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "farm_id", nullable = false)
     private Farm farm;
 
-    @PrePersist
-    protected void onCreate(){
-        dateToLive = LocalDateTime.now();
-    }
+
 }

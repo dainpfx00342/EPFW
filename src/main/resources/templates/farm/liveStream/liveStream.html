@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <script th:replace="~{script :: scripts}"></script>
+    <title>Live Stream Page</title>
+</head>
+
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Main content -->
+<main class="container-fluid mt-4">
+    <div class="row">
+        <div th:each="liveStream : ${liveStreams}" class="col-md-6 mb-4">
+            <div class="card homecard shadow-sm">
+                <div class="card-body">
+                    <!-- Tiêu đề bài viết -->
+                    <h5 class="card-title">
+                        <i class="fas fa-video text-danger"></i>
+                        <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" th:text="${liveStream.title}" class="text-dark d-inline"></a>
+                    </h5>
+
+                    <!-- Nội dung ngắn -->
+                    <div class="card-text-container">
+                        <p class="card-text" th:text="${liveStream.description}"></p>
+                    </div>
+
+                    <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Include Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+
+</html>
