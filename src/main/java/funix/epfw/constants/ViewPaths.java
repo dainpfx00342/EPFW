@@ -50,7 +50,7 @@ public class ViewPaths {
     //farm/liveStream Views
     public static final String ADD_LIVE_STREAM    = "farm/liveStream/addLiveStream";
     public static final String EDIT_LIVE_STREAM   = "farm/liveStream/editLiveStream";
-    public static final String MANAGE_LIVE_STREAM = "farm/liveStream/manageLiveSteam";
+    public static final String MANAGE_LIVE_STREAM = "farm/liveStream/manageLiveStream";
     public static final String DETAIL_LIVE_STREAM = "farm/liveStream/detailLiveStream";
     public static final String LIVE_STREAM        = "farm/liveStream/liveStream";    //order/view
 //    public static final String MANAGE_ORDER = "order/manageOrder";

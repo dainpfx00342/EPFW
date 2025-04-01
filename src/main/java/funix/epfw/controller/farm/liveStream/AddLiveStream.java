@@ -70,6 +70,6 @@ public class AddLiveStream {
         liveStream.setFarm(farm);
         liveStreamService.saveLive(liveStream);
         model.addAttribute("successMessage", "Thêm livestream thành công");
-        return ViewPaths.MANAGE_LIVE_STREAM;
+        return "redirect:/manageLiveStream";
     }
 }

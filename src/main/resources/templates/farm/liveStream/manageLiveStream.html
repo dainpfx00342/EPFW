@@ -28,23 +28,29 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Tên sản phẩm</th>
-        <th>Số lượng tồn kho</th>
-        <th>Mô tả</th>
-        <th>Trạng thái</th>
-        <th>Trang Trai</th>
-        <th>Ngày tạo</th>
-        <th>Hình ảnh</th>
-        <th>Nhóm hàng</th>
-        <th>Giá bán</th>
-        <th>Ngày cập nhật</th>
-        <th>Đơn vị bán</th>
+        <th>Tên Trang trai</th>
+        <th>Tieu de</th>
+        <th>Ngày live</th>
+        <th>Mo ta</th>
         <th>Thao tác</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td></td>
+      <tr th:each="liveStream, status : ${liveStreams}">
+        <td th:text="${status.index +1}"></td>
+        <td th:text="${liveStream.farm.farmName}"></td>
+        <td th:text="${liveStream.title}"></td>
+        <td th:text="${#temporals.format(liveStream.dateToLive, 'dd-MM-yyyy HH:mm:ss')}"></td>
+        <td th:text="${liveStream.description}"></td>
+        <td>
+          <a th:href="@{/editLiveStream/{id}(id=${liveStream.id})}" class="btn btn-warning btn-sm btn-action">
+            <i class="fas fa-edit"></i> Sửa
+          </a>
+          <a th:href="@{/deleteLiveStream/{id}(id=${liveStream.id})}"
+             class="btn btn-danger btn-sm btn-action"
+             onclick="return confirm('Bạn có muốn xoá buoi live này?');">
+            <i class="fas fa-trash-alt"></i> Xóa
+          </a>
 
       </tr>
       </tbody>
