@@ -2,6 +2,7 @@ package funix.epfw.controller.farm.product;
 
 
 import funix.epfw.constants.Message;
+import funix.epfw.constants.Unit;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class EditProduct {
@@ -36,6 +39,7 @@ public class EditProduct {
         if(checkAuth != null) {
             return checkAuth;
         }
+        List<Unit> units = Arrays.asList(Unit.values());
         return "redirect:/manageProduct";
     }
 
@@ -53,6 +57,8 @@ public class EditProduct {
             // Handle error
             return "redirect:/login";
         }
+        List<Unit> units = Arrays.asList(Unit.values());
+        model.addAttribute("units", units);
         model.addAttribute("product", product);
         return ViewPaths.EDIT_PRODUCT;
     }

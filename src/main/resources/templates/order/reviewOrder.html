@@ -10,51 +10,52 @@
 <!-- Header -->
 <div th:replace="~{home/header :: header}"></div>
 
-<div class="container">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center">Đánh giá đơn hàng</h2>
+            <h2 class="text-center"><i class="fas fa-star text-warning"></i> Đánh giá đơn hàng</h2>
 
             <!-- Hiển thị thông báo lỗi -->
             <div th:if="${errorMess}" class="alert alert-danger" role="alert" th:text="${errorMess}"></div>
 
-            <form th:action="@{/reviewOrder/{orderId} (orderId=${order.id})}" method="post" th:object="${vote}">
-                <!-- Blog ID (Ẩn) -->
-                <input type="hidden" th:field="*{order.blog.id}">
-                <input type="hidden" th:field="*{order.id}">
-                <div class="form-group">
-                    <label for="productName">Tên sản phẩm/Tour:</label>
-                    <p class="form-control" id="productName"
-                       th:if="${order.products.isEmpty() != null and order.products.size() > 0}"
-                       th:text="${order.products[0].productName}">
-                    </p>
-                    <p class="form-control" id="tourName"
-                       th:if="${order.tours.isEmpty() != null and order.tours.size() > 0}"
-                       th:text="${order.tours[0].tourName}">
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label for="vote">Điểm đánh giá (1-5):</label>
-                    <select id="vote" name="vote" class="form-control" required th:field="*{vote}">
-                        <option value="1">1 - Rất tệ</option>
-                        <option value="2">2 - Tệ</option>
-                        <option value="3">3 - Bình thường</option>
-                        <option value="4">4 - Tốt</option>
-                        <option value="5">5 - Tuyệt vời</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="comment">Nội dung đánh giá:</label>
-                    <input id="comment" type="text" class="form-control" th:field="*{comment}" placeholder="Nhập nội dung đánh giá" required>
-                </div>
+            <div class="card shadow-sm p-4">
+                <form th:action="@{/reviewOrder/{orderId} (orderId=${order.id})}" method="post" th:object="${vote}">
+                    <!-- Thông tin sản phẩm hoặc tour -->
+                    <div class="form-group">
+                        <label for="productName"><i class="fas fa-box text-primary"></i> Tên sản phẩm/Tour:</label>
+                        <p class="form-control" id="productName"
+                           th:if="${not #lists.isEmpty(order.products)}"
+                           th:text="${order.products[0].productName}"></p>
+                        <p class="form-control" id="tourName"
+                           th:if="${not #lists.isEmpty(order.tours)}"
+                           th:text="${order.tours[0].tourName}"></p>
+                    </div>
 
+                    <!-- Điểm đánh giá -->
+                    <div class="form-group">
+                        <label for="vote"><i class="fas fa-star-half-alt text-warning"></i> Điểm đánh giá (1-5):</label>
+                        <select id="vote" name="vote" class="form-control" required th:field="*{vote}">
+                            <option value="1">1 - Rất tệ</option>
+                            <option value="2">2 - Tệ</option>
+                            <option value="3">3 - Bình thường</option>
+                            <option value="4">4 - Tốt</option>
+                            <option value="5">5 - Tuyệt vời</option>
+                        </select>
+                    </div>
 
-                <!-- Nút gửi đánh giá -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
-                    <a href="/home" class="btn btn-secondary">Hủy</a>
-                </div>
-            </form>
+                    <!-- Nội dung đánh giá -->
+                    <div class="form-group">
+                        <label for="comment"><i class="fas fa-comments text-success"></i> Nội dung đánh giá:</label>
+                        <textarea id="comment" class="form-control" th:field="*{comment}" placeholder="Nhập nội dung đánh giá" required></textarea>
+                    </div>
+
+                    <!-- Nút gửi đánh giá -->
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Gửi Đánh Giá</button>
+                        <a href="/home" class="btn btn-secondary"><i class="fas fa-times"></i> Hủy</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

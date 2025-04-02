@@ -31,7 +31,7 @@
 
                     <!-- url -->
                     <div class="form-group">
-                        <label for="url" class="form-label">đường link buổi live: </label>
+                        <label for="url" class="form-label">Đường link buổi live: </label>
                         <input type="text" id="url" name="url" th:field="*{url}" class="form-control" placeholder="Nhập tên sản phẩm" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></div>
                     </div>
@@ -45,7 +45,7 @@
 
                     <!-- Mo ta -->
                     <div class="form-group">
-                        <label for="dateToLive" class="form-label">Mô tả: </label>
+                        <label for="dateToLive" class="form-label">Thời gian: </label>
                         <input type="datetime-local" id="dateToLive" name="dateToLive" th:field="*{dateToLive}" class="form-control" placeholder="Nhập tên sản phẩm" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('dateToLive')}" th:errors="*{dateToLive}"></div>
                     </div>

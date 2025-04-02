@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum TourStatus {
-    PENDING ("Chờ duyệt"),
-    APPROVED("Được chập nhận"),
-    REJECTED("Bị từ chối");
+    OPENING ("Đang mở"),
+    CLOSED("Đã đóng");
+
 
 
     private final String vietnamese;

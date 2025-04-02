@@ -119,12 +119,15 @@ td.message-truncate {
     margin-bottom: 5px;
     display: inline-block;
 }
-
-.table th {
-    background-color: #28a745;
-    color: white;
+.table th{
     text-align: center;
+    vertical-align: middle;
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+
 }
+
 
 .table td {
     text-align: center;
@@ -180,9 +183,23 @@ td.message-truncate {
     min-width: 120px;
     margin: 5px;
 }
-select {
+select{
     width:auto !important;
-    min-width:800px !important;
+    min-width:500px !important;
     white-space: normal; /* Cho phép hiển thị đầy đủ */
     overflow: visible;
+}
+.review-card {
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+.star-rating {
+    color: #ffc107;
+}
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

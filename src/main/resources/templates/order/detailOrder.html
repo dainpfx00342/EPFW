@@ -76,7 +76,7 @@
         </div>
 
         <div class="card-footer text-center">
-          <a th:href="@{/completedOrder/{orderId}(orderId=${order.id})}"
+          <a th:if="${order.orderStatus.name() == 'CONFIRMED'}" th:href="@{/completedOrder/{orderId}(orderId=${order.id})}"
              class="btn btn-success btn-sm mr-2">
             <i class="fas fa-check-circle"></i> Đã liên hệ
           </a>

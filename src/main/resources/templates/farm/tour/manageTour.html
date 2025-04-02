@@ -55,7 +55,10 @@
         <td th:text="${tour.timeDuration}"></td>
         <td th:if="${tour.ticketPrice == 0}">Miễn Phí vào cổng</td>
         <td th:unless="${tour.ticketPrice == 0}" th:text="${#numbers.formatInteger(tour.ticketPrice,3,'POINT')}"></td>
-        <td th:text="${tour.status}"></td>
+        <td>
+          <span class="badge badge-success" th:if="${tour.status.name() =='OPENING'}"> Đang mở</span>
+          <span class="badge badge-danger" th:if="${tour.status.name() =='CLOSED'}"> Đã đóng</span>
+        </td>
         <td th:text="${tour.farm.getFarmName()}"></td>
         <td>
           <a th:href="@{/editTour/{id}(id=${tour.id})}" class="btn btn-warning btn-sm btn-action">

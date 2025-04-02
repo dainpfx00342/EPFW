@@ -1,12 +1,11 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-      <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-      <script th:replace="~{script :: scripts}"></script>
-
-      <title>Contact Detail</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <script th:replace="~{script :: scripts}"></script>
+  <title>Contact Detail</title>
 </head>
-
 <body>
 <!-- Include Header -->
 <div th:replace="~{home/header :: header}"></div>
@@ -14,75 +13,83 @@
 <!-- Main content -->
 <main class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <div class="card shadow-lg border-0">
-        <div class="card-header bg-primary text-white text-center">
-          <h4>Chi Tiết Liên Hệ</h4>
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h4 class="mb-0">Chi Tiết Liên Hệ</h4>
         </div>
 
-        <div class="card-body">
-          <h5 class="text-primary">
-            <i class="fas fa-user"></i> Người liên hệ:
-            <span class="text-success" th:text="${order.user.username}"></span>
+        <div class="card-body p-4">
+          <table class="table table-borderless">
+            <tbody>
+            <tr>
+              <th><i class="fas fa-user text-primary"></i> Người liên hệ:</th>
+              <td class="text-success" th:text="${order.user.username}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-user text-warning"></i> Tên người mua:</th>
+              <td th:text="${order.buyerName}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-map-marker-alt text-danger"></i> Địa chỉ:</th>
+              <td th:text="${order.address}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-envelope text-danger"></i> Email:</th>
+              <td th:text="${order.email}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-phone text-success"></i> Số điện thoại:</th>
+              <td th:text="${order.phone}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-credit-card text-primary"></i> Thanh toán:</th>
+              <td>
+                <span th:if="${order.paymentMethod == 'CASH'}">Tiền mặt</span>
+                <span th:if="${order.paymentMethod == 'BANK_TRANSFER'}">Chuyển khoản</span>
+              </td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-dollar-sign text-success"></i> Giá đề xuất:</th>
+              <td th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-calendar-alt text-info"></i> Ngày liên hệ:</th>
+              <td th:text="${#temporals.format(order.orderDate,'dd/MM/yyyy')}"></td>
+            </tr>
+            <tr>
+              <th><i class="fas fa-info-circle text-secondary"></i> Trạng thái:</th>
+              <td>
+                                <span class="badge" th:classappend="${order.orderStatus.name()=='PENDING'} ? 'badge-warning' : ''"
+                                      th:if="${order.orderStatus.name()=='PENDING'}">
+                                    <i class="fas fa-hourglass-half"></i> Chờ xác nhận
+                                </span>
+                <span class="badge" th:classappend="${order.orderStatus.name()=='CONFIRMED'} ? 'badge-primary' : ''"
+                      th:if="${order.orderStatus.name() == 'CONFIRMED'}">
+                                    <i class="fas fa-check-circle"></i> Đã xác nhận
+                                </span>
+                <span class="badge" th:classappend="${order.orderStatus.name()=='COMPLETED'} ? 'badge-success' : ''"
+                      th:if="${order.orderStatus.name() == 'COMPLETED'}">
+                                    <i class="fas fa-box-open"></i> Đã hoàn thành
+                                </span>
+                <span class="badge" th:classappend="${order.orderStatus.name()=='CANCELED'} ? 'badge-danger' : ''"
+                      th:if="${order.orderStatus.name() == 'CANCELED'}">
+                                    <i class="fas fa-times-circle"></i> Đã hủy
+                                </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
 
-          </h5>
-          <p>
-            <i class="fas fa-map-marker-alt"></i> Địa chỉ liên lạc:
-            <span class="ml-2" th:text="${order.address}"></span>
-          </p>
-          <p>
-            <i class="fas fa-envelope text-danger"></i> Địa chỉ Email:
-            <span class="ml-2" th:text="${order.email}"></span>
-          </p>
-
-          <p>
-            <i class="fas fa-phone text-success"></i> Số điện thoại:
-            <span class="ml-2" th:text="${order.phone}"></span>
-          </p>
-          <p>
-            <i class="fas fa-credit-card  text-primary"></i> Phương thức thanh toán:
-            <span class="ml-2" th:if="${order.paymentMethod == 'CASH'}" >Thanh toán tiền mặt</span>
-            <span class="ml-2" th:if="${order.paymentMethod == 'BANK_TRANSFER'}" >Chuyển khoản</span>
-          </p>
-          <p>
-            <i class="fas fa-dollar-sign text-success"></i> Giá đề xuất:
-            <span class="ml-2" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></span>
-          </p>
-          <p>
-            <i class="fas fa-calendar-alt text-info"></i> Ngày liên hệ:
-            <span class="ml-2" th:text="${#temporals.format(order.orderDate,'dd/MM/yyyy')}"></span>
-          </p>
-
-          <!-- Trạng thái -->
-          <p>
-            <strong>Trạng thái:</strong>
-            <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">
-                     <i class="fas fa-hourglass-half"></i> Chờ xác nhận
-                    </span>
-
-            <span class="badge badge-primary" th:if="${order.orderStatus.name() == 'CONFIRMED'}">
-                    <i class="fas fa-check-circle"></i> Đã xác nhận
-                    </span>
-
-            <span class="badge badge-success" th:if="${order.orderStatus.name() == 'COMPLETED'}">
-                    <i class="fas fa-box-open"></i> Đã hoàn thành
-                    </span>
-
-            <span class="badge badge-danger" th:if="${order.orderStatus.name() == 'CANCELED'}">
-                    <i class="fas fa-times-circle"></i> Đã hủy
-                    </span>
-
-          </p>
-          <!-- Nội dung tin nhắn -->
-          <div class="alert alert-info">
+          <div class="alert alert-info mt-3">
             <i class="fas fa-comment text-secondary"></i>
             <strong>Nội dung liên hệ:</strong>
-            <p class="mt-2" th:text="${order.note}"></p>
+            <p class="mt-2 mb-0" th:text="${order.note}"></p>
           </div>
         </div>
 
         <div class="card-footer text-center">
-          <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary btn-sm ml-2">
+          <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary btn-sm">
             <i class="fas fa-arrow-left"></i> Quay lại
           </a>
         </div>
@@ -93,6 +100,5 @@
 
 <!-- Include Footer -->
 <div th:replace="~{home/footer :: footer}"></div>
-
 </body>
 </html>

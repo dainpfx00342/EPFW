@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
@@ -12,22 +13,38 @@
 
 <!-- Main content -->
 <main class="container-fluid mt-4">
+    <h2 class="text-center text-primary mb-4">
+        <i class="fas fa-broadcast-tower"></i> Danh Sách Buổi Live
+    </h2>
     <div class="row">
         <div th:each="liveStream : ${liveStreams}" class="col-md-6 mb-4">
             <div class="card homecard shadow-sm">
                 <div class="card-body">
-                    <!-- Tiêu đề bài viết -->
-                    <h5 class="card-title">
-                        <i class="fas fa-video text-danger"></i>
-                        <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" th:text="${liveStream.title}" class="text-dark d-inline"></a>
+                    <!-- Tiêu đề -->
+                   <h5 class="card-title">
+                        <i class="fas fa-video text-danger d-inline"></i>
+
+                        <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" th:text="${liveStream.title}" class="text-dark d-inline"> </a>
                     </h5>
 
-                    <!-- Nội dung ngắn -->
-                    <div class="card-text-container">
-                        <p class="card-text" th:text="${liveStream.description}"></p>
-                    </div>
+                    <!-- Thời gian phát sóng -->
+                    <p class="text-muted">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span th:text="${#temporals.format(liveStream.dateToLive, 'dd/MM/yyyy HH:mm')}"></span>
+                    </p>
 
-                    <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                    <!-- Trang trại tổ chức -->
+                    <p class="text-muted">
+                        <i class="fas fa-tractor text-primary"></i>
+                        Trang trại: <span th:text="${liveStream.farm.farmName}"></span>
+                    </p>
+
+                    <!-- Mô tả ngắn -->
+                    <p class="card-text" th:text="${#strings.abbreviate(liveStream.description, 100)}"></p>
+
+                    <a th:href="@{'/detailLiveStream/' + ${liveStream.id}}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-play-circle"></i> Xem chi tiết
+                    </a>
                 </div>
             </div>
         </div>
@@ -38,5 +55,4 @@
 <div th:replace="~{home/footer :: footer}"></div>
 
 </body>
-
 </html>

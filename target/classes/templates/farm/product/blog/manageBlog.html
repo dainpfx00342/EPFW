@@ -12,14 +12,14 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <h3 class="text-center">Quản Lý Blog</h3>
+    <h3 class="text-center">Quản Lý Blog Sản Phẩm</h3>
     <p class="text-center">
         <a th:href="@{/addBlog/product/{id}(id=${productId})}" class="btn btn-success">
-            <i class="fas fa-plus"></i> Thêm Blog mới
+            <i class="fas fa-plus"></i> Thêm Blog Sản Phẩm
         </a>
     </p>
 
-    <h4 class="text-center">Danh sách Blog</h4>
+    <h4 class="text-center">Danh sách Blog của sản phẩm:</h4>
     <p > Sản phẩm hiện tại: <span th:text="${product.productName}"></span></p>
     <!-- Hiển thị thông báo thành công -->
     <div th:if="${successMess}" class="alert alert-success text-center">
@@ -33,7 +33,9 @@
             <tr>
                 <th>#</th>
                 <th>Tiêu đề</th>
-                <th>Nội dung</th>
+                <th>Ngày tạo</th>
+                <th>Trang trại</th>
+                <th>Sản Phẩm</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -41,7 +43,9 @@
             <tr th:each="blog, status : ${blogs}">
                 <td th:text="${status.index + 1}"></td>
                 <td th:text="${blog.title}"></td>
-                <td th:utext="${#strings.length(blog.content) > 100 ? #strings.substring(blog.content, 0, 100) + '...' : blog.content}"></td>
+                <td th:text="${blog.createdTime}"></td>
+                <td th:text="${product.farm.farmName}"></td>
+                <td th:text="${product.productName}"></td>
                 <td>
                     <a th:href="@{/editBlog/product/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
                         <i class="fas fa-edit"></i> Sửa Blog

@@ -93,7 +93,13 @@
                     <input type="file" id="file" name="imageFile" class="form-control"  placeholder="Hình sản phẩm">
 
                 </div>
-
+                <!-- Đơn vị tính -->
+                <div class="form-group">
+                    <label for="productUnit" class="form-label">Đơn vị tính: </label>
+                    <select id="productUnit" name="productUnit" th:field="*{unit}" class="form-control" required>
+                        <option th:each="unit:${units}" th:value="${unit}" th:text="${unit.vietnamese}" ></option>
+                    </select>
+                </div>
 
                 <!-- Nút cap nhat-->
                 <div class="form-group text-center">

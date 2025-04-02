@@ -59,7 +59,7 @@ public class Tour {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TourStatus status = TourStatus.PENDING; // Trạng thái tour
+    private TourStatus status = TourStatus.OPENING; // Trạng thái tour
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "farm_id")
