@@ -29,10 +29,10 @@
 
                     <p th:if="${session.role =='BUYER'}" class="text-info">Liên hệ nông trại</p>
                     <input type="hidden" th:field="*{blog.id}">
-                    <a th:if="${session.role =='BUYER' and productId}" th:href="@{/addOrder/product/{id} (id=${productId}, blogId=${blog.id})}" class="btn btn-warning text-center" >
+                    <a th:if="${session.role =='BUYER' and productId != null}" th:href="@{/addOrder/product/{id} (id=${productId}, blogId=${blog.id})}" class="btn btn-warning text-center" >
                         Đặt trước (Yêu cầu liên hệ)
                     </a>
-                    <a th:if="${session.role =='BUYER' and tourId}" th:href="@{/addOrder/tour/{id} (id=${tourId}, blogId=${blog.id})}" class="btn btn-warning text-center">
+                    <a th:if="${session.role =='BUYER' and tourId != null}" th:href="@{/addOrder/tour/{id} (id=${tourId}, blogId=${blog.id})}" class="btn btn-warning text-center">
                         Đặt trước (Yêu cầu liên hệ)
                     </a>
 

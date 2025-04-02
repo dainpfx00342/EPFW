@@ -71,7 +71,7 @@
         </td>
         <td class="text-danger" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
         <td>
-          <a th:if="${order.orderStatus.name() == 'CONFIRMED'}"
+          <a th:if="${order.orderStatus.name() == 'CONFIRMED'or order.orderStatus.name() == 'CANCELED'}"
              th:href="@{/detailOrder/{orderId}(orderId=${order.id})}" class="btn btn-info btn-sm btn-action">
             <i class="fas fa-eye"></i> Xem liên hệ
           </a>
@@ -79,10 +79,11 @@
              th:href="@{/reviewOrder/{orderId} (orderId=${order.id}, blogId=${order.blog.id})}" class="btn btn-warning btn-sm btn-action">
             <i class="fas fa-star"></i> Đánh giá
           </a>
-          <a th:href="@{/canceledOrder/tour/{userId}(orderId=${order.id})}"
+          <a th:if="${session.role == 'BUYER' and order.orderStatus.name() == 'PENDING'}"
+             href="javascript:void(0)"
              class="btn btn-danger btn-sm btn-action"
-             onclick="return confirm('Bạn có muốn xoá blog này?');">
-            <i class="fas fa-times-circle"></i> Từ chối
+             th:attr="onclick=|confirmCancelOrder('${order.id}')|">
+            <i class="fas fa-times-circle"></i> Hủy đơn
           </a>
         </td>
       </tr>
@@ -93,6 +94,13 @@
 
 <!-- Footer -->
 <div th:replace="~{home/footer :: footer}"></div>
-
+<script>
+  function confirmCancelOrder(orderId) {
+    let reason = prompt("Nhập lý do từ chối đơn:");
+    if (reason !== null && reason.trim() !== "") {
+      window.location.href = "/canceledOrder/buyer/" + orderId + "?reason=" + encodeURIComponent(reason);
+    }
+  }
+</script>
 </body>
 </html>

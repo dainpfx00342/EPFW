@@ -29,14 +29,22 @@
 
           <p>
             <i class="fas fa-envelope text-danger"></i> Địa chỉ Email:
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.email}"></span>
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.email}"></span>
+            <span class="ml-2"
+                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.products)}"
+                  th:text="${order.products[0].farm.user.email}"></span>
+            <span class="ml-2"
+                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.tours)}"
+                  th:text="${order.tours[0].farm.user.email}"></span>
           </p>
 
           <p>
             <i class="fas fa-phone text-success"></i> Số điện thoại:
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.products)}" th:text="${order.products[0].farm.user.phone}"></span>
-            <span class="ml-2" th:if="${not #lists.isEmpty(order.tours)}" th:text="${order.tours[0].farm.user.phone}"></span>
+            <span class="ml-2"
+                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.products)}"
+                  th:text="${order.products[0].farm.user.phone}"></span>
+            <span class="ml-2"
+                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.tours)}"
+                  th:text="${order.tours[0].farm.user.phone}"></span>
           </p>
 
           <!-- Trạng thái -->
@@ -71,12 +79,6 @@
           <a th:href="@{/completedOrder/{orderId}(orderId=${order.id})}"
              class="btn btn-success btn-sm mr-2">
             <i class="fas fa-check-circle"></i> Đã liên hệ
-          </a>
-
-          <a th:href="@{/canceledOrder/{orderId}(orderId=${order.id})}"
-             class="btn btn-danger btn-sm"
-             onclick="return confirm('Bạn có chắc chắn muốn xóa liên hệ này không?')">
-            <i class="fas fa-trash-alt"></i> Từ chối
           </a>
 
           <a th:href="@{/manageOrderUser/{userId} (userId = ${session.loggedInUser.id})}" class="btn btn-secondary btn-sm ml-2">

@@ -70,10 +70,11 @@
                     <a th:href="@{/detailOrderUser/{orderId} (orderId=${order.id}) }" class="btn btn-info btn-sm btn-action">
                         <i class="fas fa-eye"></i> Xem chi tiết
                     </a>
-                    <a th:href="@{/CanceledOrder/product/{orderId}(orderId=${order.id})}"
+                    <a th:if="${session.role == 'FARMER' and order.orderStatus.name() == 'PENDING'}"
+                       href="javascript:void(0)"
                        class="btn btn-danger btn-sm btn-action"
-                       onclick="return confirm('Bạn có muốn xoá blog này?');">
-                        <i class="fas fa-times-circle"></i> Từ chối
+                       th:attr="onclick=|confirmCancelOrder('${order.id}')|">
+                        <i class="fas fa-times-circle"></i> Hủy đơn
                     </a>
                 </td>
             </tr>
@@ -84,6 +85,13 @@
 
 <!-- Footer -->
 <div th:replace="~{home/footer :: footer}"></div>
-
+<script>
+    function confirmCancelOrder(orderId) {
+        let reason = prompt("Nhập lý do từ chối đơn hàng:");
+        if (reason !== null && reason.trim() !== "") {
+            window.location.href = "/canceledOrder/product/" + orderId + "?reason=" + encodeURIComponent(reason);
+        }
+    }
+</script>
 </body>
 </html>

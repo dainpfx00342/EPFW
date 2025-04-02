@@ -29,7 +29,7 @@
             <form th:action="@{/addOrder/product/{productId} (productId =${product.id}, blogId=${blog.id}) }" method="post" th:object="${order}">
                 <!-- Tên người mua -->
                 <div class="form-group">
-                    <label for="buyerName" class="form-label">Địa chỉ:</label>
+                    <label for="buyerName" class="form-label">Tên người đặt hàng:</label>
                     <input type="text" id="buyerName" name="address" th:field="*{buyerName}" class="form-control" placeholder="Nhập tên của bạn" required>
                     <div class="text-danger" th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}"></div>
                 </div>

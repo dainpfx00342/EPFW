@@ -75,4 +75,11 @@ public class OrderService {
          order.setOrderStatus(OrderStatus.COMPLETED);
          orderRepository.save(order);
     }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
+        order.setOrderStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
+    }
 }
