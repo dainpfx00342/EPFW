@@ -1,6 +1,7 @@
 package funix.epfw.model.user;
 
 import funix.epfw.constants.Role;
+import funix.epfw.model.vote.Comment;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.order.Order;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.Data;
 import lombok.ToString;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,5 +56,9 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
 
 }

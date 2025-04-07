@@ -76,6 +76,58 @@
             </div>
         </div>
     </div>
+
+    <!-- Phần danh sách bình luận -->
+    <div class="mt-4">
+        <h4 class="mb-3">
+            <i class="fas fa-comments text-info"></i> Bình luận
+        </h4>
+
+        <p th:if="${#lists.isEmpty(comments)}" class="text-muted">
+            <i class="fas fa-info-circle"></i> Chưa có bình luận nào cho blog này.
+        </p>
+
+        <div th:each="comment : ${comments}" class="card shadow-sm mb-3 border-left-info">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fas fa-user-circle fa-2x text-secondary mr-2"></i>
+                    <h6 class="mb-0" th:text="${comment.user.username}">Tên người dùng</h6>
+                </div>
+                <p class="card-text" th:text="${comment.content}">Nội dung bình luận</p>
+                <p class="text-muted small mb-0">
+                    <i class="far fa-clock"></i>
+                    <span th:text="${#temporals.format(comment.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form bình luận -->
+    <div class="mt-5">
+        <h5 class="mb-3">
+            <i class="fas fa-plus-circle text-primary"></i> Thêm bình luận:
+        </h5>
+
+        <div th:if="${session.loggedInUser == null}">
+            <p class="text-danger">
+                <i class="fas fa-exclamation-circle"></i> Vui lòng đăng nhập để bình luận.
+            </p>
+        </div>
+
+        <form th:if="${session.loggedInUser != null}"
+              th:action="@{/blog/{blogId}/comment (blogId=${blog.id})}"
+              method="post" th:object="${comment}">
+            <div class="form-group">
+                <label>
+                <textarea class="form-control" th:field="*{content}" rows="3"
+                          placeholder="Nhập bình luận của bạn..." required></textarea>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">
+                <i class="fas fa-paper-plane"></i> Gửi bình luận
+            </button>
+        </form>
+    </div>
 </main>
 
 <!-- Include Footer -->

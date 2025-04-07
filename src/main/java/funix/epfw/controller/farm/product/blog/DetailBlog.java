@@ -5,8 +5,10 @@ import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
+import funix.epfw.model.vote.Comment;
 import funix.epfw.model.vote.Vote;
 import funix.epfw.service.farm.product.blog.BlogService;
+import funix.epfw.service.vote.CommentService;
 import funix.epfw.service.vote.VoteService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,13 @@ public class DetailBlog {
 
     private final BlogService blogService;
     private final VoteService voteService;
+    private final CommentService commentService;
 
     @Autowired
-    public DetailBlog(BlogService blogService, VoteService voteService) {
+    public DetailBlog(BlogService blogService, VoteService voteService,CommentService commentService) {
         this.blogService = blogService;
         this.voteService = voteService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/blogDetail/{blogId}")
@@ -49,9 +53,11 @@ public class DetailBlog {
                 model.addAttribute("tourId", tour.getId());
             }
         }
-
+        List<Comment> comments = commentService.findByBlogId(blogId);
+        model.addAttribute("comments", comments);
         model.addAttribute("votes", votes);
         model.addAttribute("blog", blog);
+        model.addAttribute("comment", new Comment());
 
 
         return ViewPaths.DETAIL_BLOG;

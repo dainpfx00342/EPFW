@@ -1,5 +1,6 @@
 package funix.epfw.model.farm.product;
 
+import funix.epfw.model.vote.Comment;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.vote.Vote;
 import jakarta.persistence.*;
@@ -37,6 +38,9 @@ public class Blog {
 
     @OneToMany(mappedBy = "blog", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
 
     @PrePersist

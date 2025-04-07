@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class EditFarm {
+public class
+EditFarm {
     private final FarmService farmService;
 
     @Autowired

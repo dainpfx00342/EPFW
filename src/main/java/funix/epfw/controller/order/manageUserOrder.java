@@ -5,6 +5,7 @@ import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.order.Order;
 import funix.epfw.model.user.User;
 import funix.epfw.repository.order.OrderRepository;
+import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,12 @@ import java.util.List;
 
 @Controller
 public class manageUserOrder {
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @Autowired
-    public manageUserOrder(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public manageUserOrder( OrderService orderService) {
+
+        this.orderService = orderService;
     }
 
     @GetMapping("/manageOrderUser/{userId}")
@@ -31,7 +33,7 @@ public class manageUserOrder {
             return checkAuth;
         }
 
-        List<Order> orders = orderRepository.findOrderByUserId(userId);
+        List<Order> orders = orderService.findOrdersByUserId(userId);
         model.addAttribute("orders", orders);
         model.addAttribute("user", user);
         return ViewPaths.MANAGE_ORDER_USER;

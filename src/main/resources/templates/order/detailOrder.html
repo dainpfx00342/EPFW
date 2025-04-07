@@ -30,20 +30,20 @@
           <p>
             <i class="fas fa-envelope text-danger"></i> Địa chỉ Email:
             <span class="ml-2"
-                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.products)}"
+                  th:if="${(session.role == 'BUYER' and order.orderStatus.name() == 'CONFIRMED' ) and not #lists.isEmpty(order.products)}"
                   th:text="${order.products[0].farm.user.email}"></span>
             <span class="ml-2"
-                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.tours)}"
+                  th:if="${(session.role == 'BUYER' and order.orderStatus.name() == 'CONFIRMED' ) and not #lists.isEmpty(order.tours)}"
                   th:text="${order.tours[0].farm.user.email}"></span>
           </p>
 
           <p>
             <i class="fas fa-phone text-success"></i> Số điện thoại:
             <span class="ml-2"
-                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.products)}"
+                  th:if="${( session.role == 'BUYER' and order.orderStatus.name() == 'CONFIRMED' ) and not #lists.isEmpty(order.products)}"
                   th:text="${order.products[0].farm.user.phone}"></span>
             <span class="ml-2"
-                  th:if="${(session.role == 'FARMER' or order.orderStatus.name() == 'CONFIRMED') and not #lists.isEmpty(order.tours)}"
+                  th:if="${( session.role == 'BUYER' and order.orderStatus.name() == 'CONFIRMED' ) and not #lists.isEmpty(order.tours)}"
                   th:text="${order.tours[0].farm.user.phone}"></span>
           </p>
 
