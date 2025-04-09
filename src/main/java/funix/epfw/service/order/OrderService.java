@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,14 +31,23 @@ public class OrderService {
     }
 
     public List<Order> findOrdersProductByUser(Long userId) {
-         return orderRepository.findOrdersProductByUser(userId);
+
+         return orderRepository.findOrdersProductByUser(userId).stream()
+                               .sorted(Comparator.comparing(Order::getOrderDate).reversed())
+                               .toList();
     }
     public List<Order> findOrdersTourByUser(Long userId) {
-         return orderRepository.findOrdersTourByUser(userId);
+
+         return orderRepository.findOrdersTourByUser(userId).stream()
+                               .sorted(Comparator.comparing(Order::getOrderDate).reversed())
+                               .toList();
     }
 
     public  List<Order> findOrdersByUserId(Long userId) {
-         return orderRepository.findOrderByUserId(userId);
+
+         return orderRepository.findOrderByUserId(userId).stream()
+                               .sorted(Comparator.comparing(Order::getOrderDate).reversed())
+                               .toList();
     }
 
     public int countByOrderStatus(OrderStatus orderStatus, Long userId) {

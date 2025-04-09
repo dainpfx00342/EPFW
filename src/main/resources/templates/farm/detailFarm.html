@@ -1,0 +1,92 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <script th:replace="~{script :: scripts}"></script>
+  <title>Chi tiết trang trại</title>
+</head>
+
+<body>
+<!-- Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<main class="container-fluid mt-4">
+  <div class="mb-4">
+    <a th:href="@{/home}" class="btn btn-link">&larr; Quay về trang chủ</a>
+  </div>
+
+  <!-- Thông tin trang trại -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="card-title text-success" th:text="${farm.farmName}"></h3>
+      <p class="card-text">
+        <strong>Chủ sở hữu:</strong> <span th:text="${farm.user.username}"></span><br>
+        <strong>Địa chỉ:</strong> <span th:text="${farm.address}"></span><br>
+        <strong>Số điện thoại:</strong> <span th:text="${farm.user.phone}"></span><br>
+        <strong>Email:</strong> <span th:text="${farm.user.email}"></span><br>
+        <strong>Mô tả:</strong> <span th:text="${farm.description}"></span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Bọc cả hai phần trong một hàng row -->
+  <div class="row">
+    <!-- Sản phẩm -->
+    <div th:if="${not #lists.isEmpty(farm.products)}" class="col-md-6 mb-5">
+      <h4 class="mb-3 text-warning">Sản phẩm của trang trại</h4>
+      <div class="row">
+        <div th:each="product : ${farm.products}" class="col-md-12 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${product.productName}"></h5>
+              <p class="card-text" th:text="${product.description}"></p>
+
+              <!-- Bài viết -->
+              <div th:if="${not #lists.isEmpty(product.blogs)}">
+                <small><strong>Bài viết liên quan:</strong></small>
+                <ul class="list-unstyled">
+                  <li th:each="blog : ${product.blogs}">
+                    <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}"></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour -->
+    <div th:if="${not #lists.isEmpty(farm.tours)}" class="col-md-6 mb-5">
+      <h4 class="mb-3 text-info">Tour tham quan tại trang trại</h4>
+      <div class="row">
+        <div th:each="tour : ${farm.tours}" class="col-md-12 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${tour.tourName}"></h5>
+              <p class="card-text" th:text="${tour.description}"></p>
+
+              <!-- Bài viết -->
+              <div th:if="${not #lists.isEmpty(tour.blogs)}">
+                <small><strong>Bài viết liên quan:</strong></small>
+                <ul class="list-unstyled">
+                  <li th:each="blog : ${tour.blogs}">
+                    <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}"></a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end .row -->
+
+</main>
+
+<!-- Footer -->
+<div th:replace="~{home/footer :: footer}"></div>
+
+</body>
+</html>

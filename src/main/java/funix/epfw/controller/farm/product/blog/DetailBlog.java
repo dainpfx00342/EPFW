@@ -47,10 +47,12 @@ public class DetailBlog {
             if (blog.getProducts() != null && !blog.getProducts().isEmpty()) {
                 Product product = blog.getProducts().getFirst();
                 model.addAttribute("productId", product.getId());
+                model.addAttribute("product", product);
 
             } else if (blog.getTours() != null && !blog.getTours().isEmpty()) {
                 Tour tour = blog.getTours().getFirst();
                 model.addAttribute("tourId", tour.getId());
+                model.addAttribute("tour", tour);
             }
         }
         List<Comment> comments = commentService.findByBlogId(blogId);

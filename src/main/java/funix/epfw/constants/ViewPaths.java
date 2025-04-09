@@ -24,6 +24,7 @@ public class ViewPaths {
     public static final String MANAGE_FRAM= "farm/manageFarm";
     public static final String ADD_FARM = "farm/addFarm";
     public static final String EDIT_FARM = "farm/editFarm";
+    public static final String DETAIL_FARM = "farm/detailFarm";
 
     //farm/product Views
     public static final String MANAGE_PRODUCT = "farm/product/manageProduct";
@@ -69,6 +70,7 @@ public class ViewPaths {
     public static final String DETAIL_ORDER_USER = "order/detailOrderUser";
 
     public static final String REVIEW_ORDER ="order/reviewOrder";
+
 
 
     //

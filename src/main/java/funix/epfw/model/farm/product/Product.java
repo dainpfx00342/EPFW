@@ -80,6 +80,8 @@ public class Product {
     )
     @ToString.Exclude
     private List<Blog> blogs = new ArrayList<>();
+
+
    @PrePersist
     protected void onCreate() {
         this.createdTimes = LocalDateTime.now();

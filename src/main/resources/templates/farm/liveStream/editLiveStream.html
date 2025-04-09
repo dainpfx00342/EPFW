@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script th:replace="~{script :: scripts}"></script>
+
+    <title>Sửa lịch Live Stream</title>
+</head>
+<body>
+<!-- Include Header -->
+<div th:replace="~{home/header :: header}"></div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Sửa lịch liveStream</h2>
+
+                <form th:action="@{/editLiveStream/{liveId} (liveId=${liveStream.id})}" method="post" th:object="${liveStream}" enctype="multipart/form-data">
+                    <div th:if="${liveStream.farm != null}">
+                        <h3>Sản phẩm thuộc trang trại: <p th:text="${liveStream.farm.farmName}">Farm Name </p> </h3>
+                    </div>
+                    <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}"></div>
+                    <!-- Tiêu đề -->
+                    <div class="form-group">
+                        <label for="title" class="form-label">Tên buổi live: </label>
+                        <input type="text" id="title" name="title" th:field="*{title}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                    </div>
+
+                    <!-- url -->
+                    <div class="form-group">
+                        <label for="url" class="form-label">Đường link buổi live: </label>
+                        <input type="text" id="url" name="url" th:field="*{url}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></div>
+                    </div>
+
+                    <!-- Mo ta -->
+                    <div class="form-group">
+                        <label for="description" class="form-label">Mô tả: </label>
+                        <input type="text" id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                    </div>
+
+                    <!-- Mo ta -->
+                    <div class="form-group">
+                        <label for="dateToLive" class="form-label">Thời gian: </label>
+                        <input type="datetime-local" id="dateToLive" name="dateToLive" th:field="*{dateToLive}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('dateToLive')}" th:errors="*{dateToLive}"></div>
+                    </div>
+                    <!-- Nút Add -->
+                    <div class="form-group">
+                        <label for="btn-addProduct" class="form-label">
+                            <button id="btn-addProduct" type="submit" class="btn btn-primary" >Thêm lịch Live</button>
+                        </label>
+                    </div>
+
+                    <!-- Liên kết quay lại -->
+                    <div class="form-group">
+                        <label class="=form-label text-center ">
+                            <p><a href="/">Quay lại trang chủ</a></p>
+                        </label>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

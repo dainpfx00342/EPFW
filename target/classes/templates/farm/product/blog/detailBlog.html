@@ -37,17 +37,20 @@
             <p th:if="${session.role =='BUYER'}" class="text-info">
                 <i class="fas fa-phone"></i> Liên hệ nông trại
             </p>
-
+            <p class="card-text">
+                <i></i> Trạng thái:
+                <span th:text="${product != null} ? ${product.status} : ${tour.status}"></span>
+            </p>
             <div class="mt-3">
-                <a th:if="${session.role =='BUYER' and productId != null}"
+                <a th:if="${session.role =='BUYER' and productId != null and product.status != false}"
                    th:href="@{/addOrder/product/{id} (id=${productId}, blogId=${blog.id})}"
                    class="btn btn-warning">
-                    <i class="fas fa-shopping-cart"></i> Đặt trước
+                    <i class="fas fa-shopping-cart"></i> Đặt Hàng
                 </a>
-                <a th:if="${session.role =='BUYER' and tourId != null}"
+                <a th:if="${session.role =='BUYER' and tourId != null and tour.status.name() != 'CLOSE' }"
                    th:href="@{/addOrder/tour/{id} (id=${tourId}, blogId=${blog.id})}"
                    class="btn btn-warning">
-                    <i class="fas fa-plane"></i> Đặt trước
+                    <i class="fas fa-plane"></i> Đặt Tour
                 </a>
             </div>
         </div>
@@ -122,7 +125,6 @@
                 <textarea id="content" class="form-control" th:field="*{content}" rows="3"
                           placeholder="Nhập bình luận của bạn tại đây..." required>
                 </textarea>
-
             </div>
             <button type="submit" class="btn btn-primary mt-2">
                 <i class="fas fa-paper-plane"></i> Gửi bình luận
