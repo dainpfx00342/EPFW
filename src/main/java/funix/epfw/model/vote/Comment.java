@@ -27,11 +27,11 @@ public class Comment {
     private Blog blog;
 
     @Column
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
-        createAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
     }
 
 }
