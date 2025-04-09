@@ -55,11 +55,12 @@ public class DetailBlog {
                 model.addAttribute("tour", tour);
             }
         }
-        List<Comment> comments = commentService.findByBlogId(blogId);
+        List<Comment> comments = commentService.findByBlogAndParentNull(blog);
         model.addAttribute("comments", comments);
         model.addAttribute("votes", votes);
         model.addAttribute("blog", blog);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("reply", new Comment());
 
 
         return ViewPaths.DETAIL_BLOG;

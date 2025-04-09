@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class CommentController {
     private final CommentService commentService;
@@ -34,4 +36,20 @@ public class CommentController {
         return "redirect:/blogDetail/" + blogId;
     }
 
+    @PostMapping("/blog/{blogId}/comment/{parentId}/reply")
+    public String replyComment(@PathVariable Long blogId,
+                               @PathVariable Long parentId,
+                               @ModelAttribute("reply") Comment reply,
+                               HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) return "redirect:/login";
+
+        Comment parentComment = commentService.findById(parentId);
+        reply.setParent(parentComment);
+        reply.setBlog(parentComment.getBlog());
+        reply.setUser(user);
+        reply.setCreatedAt(LocalDateTime.now());
+        commentService.save(reply);
+        return "redirect:/blogDetail/" + blogId;
+    }
 }
