@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Category;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class
@@ -34,6 +38,9 @@ EditFarm {
             return checkAuth;
         }
         Farm farm = farmService.findById(farmId);
+
+        List<Category> categeries = Arrays.asList(Category.values());
+        model.addAttribute("categories", categeries);
         model.addAttribute("farm", farm);
 
         return ViewPaths.EDIT_FARM;
@@ -51,10 +58,11 @@ EditFarm {
             model.addAttribute(Message.ERROR_MESS,"Sửa sản phẩm không thành công vui lòng thử lại!");
             return ViewPaths.EDIT_FARM;
         }
+
         farmToUpDate.setFarmName(currFarm.getFarmName());
         farmToUpDate.setDescription(currFarm.getDescription());
         farmToUpDate.setAddress(currFarm.getAddress());
-        farmToUpDate.setContact(currFarm.getContact());
+        farmToUpDate.setCategory(currFarm.getCategory());
 
         farmService.saveFarm(farmToUpDate);
 

@@ -1,11 +1,11 @@
 package funix.epfw.model.farm;
 
+import funix.epfw.constants.Category;
 import funix.epfw.model.farm.liveStream.LiveStream;
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
@@ -33,8 +33,7 @@ public class Farm {
     private String description;
 
     @Column(nullable = false)
-    @Pattern(regexp = "0[0-9]{9}", message = "Số điện thoại không hợp lệ")
-    private String contact;
+    private Category Category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

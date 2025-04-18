@@ -20,12 +20,13 @@ public class Contact {
     private Long id;
 
     @Column(nullable = false)
-    @Size(min = 2, message = "Tên phải có ít nhất 2 ký tự")
+    @Size(min = 5, message = "Tên phải có ít nhất 5 ký tự")
     @Pattern(regexp = "^[a-zA-Z-ZÀ-Ỹà-ỹ\\s]*$", message = "Tên không được chứa ký tự đặc biệt hoặc số")
     private String name;
 
     @Column(nullable = false)
-    @Email(message="Email phải đúng định dạng")
+    @Email()
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Email phải đúng định dạng")
     private String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")

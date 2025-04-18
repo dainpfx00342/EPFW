@@ -13,10 +13,6 @@
 <!-- Content -->
 <div class="container-fluid">
     <h3 class="text-center">Quản Lý Nông trại</h3>
-    <p class="text-center">
-        Xin chào: <strong th:text="${session.loggedInUser != null ? session.loggedInUser.username : 'Khách'}"></strong>,
-        Chào mừng bạn đã quay lại!
-    </p>
     <!-- Các nút thêm mới -->
     <div class="d-flex justify-content-center flex-wrap">
         <a th:href="@{/addFarm}" class="btn btn-primary">
@@ -40,7 +36,7 @@
                 <th>Tên Trang trại</th>
                 <th>Mô tả</th>
                 <th>Địa chỉ</th>
-                <th>Phương thức liên lạc</th>
+                <th>Ngành sản xuất:</th>
                 <th>Chủ trang trại</th>
                 <th>Thao tác</th>
             </tr>
@@ -51,27 +47,71 @@
                 <td th:text="${farm.farmName}"></td>
                 <td th:utext="${farm.description}"></td>
                 <td th:text="${farm.address}"></td>
-                <td th:text="${farm.contact}"></td>
+                <td th:text="${farm.category.vietnamese}"></td>
                 <td th:text="${farm.user.username}"></td>
                 <td>
-                    <a th:href="@{/addProduct/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
-                        <i class="fas fa-plus"></i> Thêm Sản phẩm
-                    </a>
-                    <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
-                        <i class="fas fa-plus"></i> Thêm Book Tour
-                    </a>
-                    <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-info btn-sm btn-action">
-                        <i class="fas fa-plus"></i> Thêm Lịch liveStream
-                    </a>
+                    <!-- Thao tác chung -->
                     <a th:href="@{/editFarm/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i>Sửa trang trại
-
+                        <i class="fas fa-edit"></i> Sửa
                     </a>
-                    <a th:href="@{/deleteFarm/{id}(id=${farm.id})}"
-                       class="btn btn-danger btn-sm btn-action"
+                    <a th:href="@{/deleteFarm/{id}(id=${farm.id})}" class="btn btn-danger btn-sm btn-action"
                        onclick="return confirm('Bạn có muốn xoá trang trại này?');">
                         <i class="fas fa-trash-alt"></i> Xóa
                     </a>
+
+                    <!-- Quản lý từng phần -->
+                    <details class="mt-2">
+                        <summary><strong>Quản lý sản phẩm</strong></summary>
+                        <div class="mt-1">
+                            <a th:href="@{/addProduct/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
+                                <i class="fas fa-plus"></i> Thêm Sản phẩm
+                            </a>
+                            <ul>
+                                <li th:each="product : ${farm.products}">
+                                    <span th:text="${product.productName}"></span> -
+                                    <a th:href="@{/editProduct/{id}(id=${product.id})}" class="text-warning">Sửa</a> |
+                                    <a th:href="@{/addBlog/product/{id}(id=${product.id})}" class="text-info">Thêm Blog</a> |
+                                    <a th:href="@{/deleteProduct/{id}(id=${product.id})}" class="text-danger"
+                                       onclick="return confirm('Xóa sản phẩm này?');">Xóa</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="mt-2">
+                        <summary><strong>Quản lý tour</strong></summary>
+                        <div class="mt-1">
+                            <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
+                                <i class="fas fa-plus"></i> Thêm Tour
+                            </a>
+                            <ul>
+                                <li th:each="tour : ${farm.tours}">
+                                    <span th:text="${tour.tourName}"></span> -
+                                    <a th:href="@{/editTour/{id}(id=${tour.id})}" class="text-warning">Sửa</a> |
+                                    <a th:href="@{/addBlog/tour/{id}(id=${tour.id})}" class="text-info">Thêm Blog</a> |
+                                    <a th:href="@{/deleteTour/{id}(id=${tour.id})}" class="text-danger"
+                                       onclick="return confirm('Xóa tour này?');">Xóa</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="mt-2">
+                        <summary><strong>Quản lý lịch liveStream</strong></summary>
+                        <div class="mt-1">
+                            <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
+                                <i class="fas fa-plus"></i> Thêm Lịch Live
+                            </a>
+                            <ul>
+                                <li th:each="live : ${farm.liveStreams}">
+                                    <span th:text="${live.title}"></span> -
+                                    <a th:href="@{/editLive/{id}(id=${live.id})}" class="text-warning">Sửa</a> |
+                                    <a th:href="@{/deleteLive/{id}(id=${live.id})}" class="text-danger"
+                                       onclick="return confirm('Xóa lịch live này?');">Xóa</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
                 </td>
             </tr>
             </tbody>

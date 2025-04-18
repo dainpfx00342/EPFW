@@ -18,11 +18,8 @@
       <h2 class="text-center mb-4">Tạo Mới Sản Phẩm</h2>
       <div th:object="${farm}">
       <form th:action="@{/addProduct/{id} (id=${farm.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
-<!--      <input type="hidden" th:value="${farm.id}"/>-->
-        <!-- Example Thymeleaf template -->
-        <div th:if="${farm != null}">
-         <h3>Sản phẩm thuộc trang trại: <p th:text="${farm.farmName}">Farm Name </p> </h3>
-        </div>
+
+        <h4>Tên trang trại:<span class="text-info" th:text="${farm.farmName}"></span> </h4>
         <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 
         <!-- Tên sản phẩm -->
@@ -65,7 +62,6 @@
           <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required>
             <option th:each=" category: ${categories}" th:value="${category}" th:text="${category.vietnamese}"> </option>
           </select>
-          <div class="text-danger" th:if="${#fields.hasErrors('productCategory')}" th:errors="*{productCategory}"></div>
         </div>
         <!-- Đơn vị tính -->
         <div class="form-group">

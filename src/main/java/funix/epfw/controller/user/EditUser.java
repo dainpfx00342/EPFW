@@ -51,7 +51,7 @@ public class EditUser {
         // Kiểm tra lỗi validation trước khi cập nhật mật khẩu
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Cập nhật người dùng không thành công!");
-            model.addAttribute("user", userToUpdate);
+            model.addAttribute("user", userToUpdate); // Gửi lại dữ liệu khi người dùng nhập sai
             return ViewPaths.EDIT_USER;
         }
 

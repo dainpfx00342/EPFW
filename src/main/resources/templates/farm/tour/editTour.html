@@ -36,36 +36,17 @@
                 <!-- Tên Tour -->
                 <div class="form-group">
                     <label for="tourName" class="form-label">Tên Tour:</label>
-                    <input type="text" id="tourName" name="tourName" th:field="*{tourName}" class="form-control" placeholder="Tên Tour" required>
+                    <input type="text" id="tourName" name="tourName" th:field="*{tourName}" class="form-control" placeholder="Tên Tour"
+                           required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('tourName')}" th:errors="*{tourName}"></div>
                 </div>
 
                 <!-- Mô Tả -->
                 <div class="form-group">
                     <label for="description" class="form-label">Mô Tả:</label>
-                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Mô tả Tour" required></textarea>
+                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Mô tả Tour"
+                              required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-                </div>
-
-                <!-- Số lượng người đăng ký -->
-                <div class="form-group">
-                    <label for="guestNo" class="form-label">Số lượng khách đăng ký:</label>
-                    <input type="number" id="guestNo" name="guestNo" th:field="*{guestNo}" class="form-control" min="1" max="100" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('guestNo')}" th:errors="*{guestNo}"></div>
-                </div>
-
-                <!-- Ngày bắt đầu -->
-                <div class="form-group">
-                    <label for="startTourDate" class="form-label">Ngày bắt đầu:</label>
-                    <input type="date" id="startTourDate" name="startTourDate" th:field="*{startTourDate}" class="form-control" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('startTourDate')}" th:errors="*{startTourDate}"></div>
-                </div>
-
-                <!-- Ngày kết thúc -->
-                <div class="form-group">
-                    <label for="endTourDate" class="form-label">Ngày kết thúc:</label>
-                    <input type="date" id="endTourDate" name="endTourDate" th:field="*{endTourDate}" class="form-control" required>
-                    <div class="text-danger" th:if="${#fields.hasErrors('endTourDate')}" th:errors="*{endTourDate}"></div>
                 </div>
 
                 <!-- Giá Tour -->
@@ -75,25 +56,18 @@
                     <div class="text-danger" th:if="${#fields.hasErrors('ticketPrice')}" th:errors="*{ticketPrice}"></div>
                 </div>
 
-                <!-- Thời gian tham quan -->
-                <div class="form-group">
-                    <label for="timeDuration" class="form-label">Thời gian/tour (ngày):</label>
-                    <input type="number" id="timeDuration" name="ticketPrice" th:field="*{timeDuration}" class="form-control" min="1">
-                    <div class="text-danger" th:if="${#fields.hasErrors('timeDuration')}" th:errors="*{timeDuration}"></div>
-                </div>
-
                 <!-- Trạng thái -->
                 <div class="form-group">
                     <label for="status" class="form-label">Trạng thái:</label>
-                    <select id="status" name="status" th:field="*{status}" class="form-control" required>
-                        <option th:each="st : ${T(funix.epfw.constants.TourStatus).values()}" th:value="${st}" th:text="${st}"></option>
+                    <select id="status" name="status" th:field="*{tourStatus}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
+                        <option th:each="status : ${tourStatuses}" th:value="${status}" th:text="${status.vietnamese}"></option>
                     </select>
                 </div>
 
                 <!-- Chọn loại hình du lịch -->
                 <div class="form-group">
                     <label for="tourType" class="form-label">Loại tour: </label>
-                    <select id="tourType" name="contact" th:field="*{tourType}" class="form-control" required>
+                    <select id="tourType" name="tourType" th:field="*{tourType}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option th:each="tourType :${tourTypes}" th:value="${tourType}" th:text="${tourType.vietnamese}"></option>
                     </select>
                     <div class="text-danger" th:if="${#fields.hasErrors('tourType')}" th:errors="*{tourType}"></div>
@@ -108,7 +82,5 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

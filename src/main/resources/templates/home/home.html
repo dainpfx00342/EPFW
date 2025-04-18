@@ -13,6 +13,26 @@
 <main class="container mt-4">
     <h3 class="mb-4">Trang trại & Sản phẩm - Tour</h3>
 
+    <!-- Tìm kiếm -->
+    <form th:action="@{/searchBlog}" method="get" class="d-flex gap-3 mb-4">
+        <input class="form-control me-2" type="search" name="keyword" placeholder="Tìm bài viết..." aria-label="Search" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')"
+               oninput="this.setCustomValidity('')">
+        <button class="btn btn-outline-success ms-2" type="submit"><i class="fas fa-search"></i> Tìm </button>
+    </form>
+    <h5 th:if="${keyword != null}">
+        Kết quả tìm kiếm cho: "<span th:text="${keyword}"></span>"
+    </h5>
+    <!-- Nếu không có blog nào -->
+    <div th:if="${keyword != null and #lists.isEmpty(blogs)}" class="alert alert-warning">
+        Không tìm thấy bài viết nào phù hợp với từ khóa "<span th:text="${keyword}"></span>".
+    </div>
+
+    <!-- Nếu có blog -->
+    <div th:if="${keyword != null and not #lists.isEmpty(blogs)}" class="alert alert-success">
+        Tìm thấy <strong th:text="${#lists.size(blogs)}"></strong> bài viết liên quan đến "<span th:text="${keyword}"></span>".
+    </div>
+
+    <!-- Trang trại -->
     <div class="row">
         <div th:each="farm : ${farms}" class="col-md-6 mb-4">
             <div class="card shadow-sm">
@@ -87,7 +107,7 @@
     <hr class="my-4">
 
     <!-- Bài viết mới -->
-    <h4 class="mb-3">Bài viết mới</h4>
+    <h4 class="mb-3">Các bài viết:</h4>
     <div class="row">
         <div th:each="blog : ${blogs}" class="col-md-6 mb-4">
             <div class="card homecard shadow-sm">

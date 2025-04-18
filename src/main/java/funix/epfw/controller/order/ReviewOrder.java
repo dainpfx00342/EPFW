@@ -8,7 +8,6 @@ import funix.epfw.model.user.User;
 import funix.epfw.model.vote.Vote;
 import funix.epfw.service.order.OrderService;
 import funix.epfw.service.vote.VoteService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +26,15 @@ public class ReviewOrder {
     }
 
     @GetMapping("/reviewOrder/{orderId}")
-    public String reviewOrder(@PathVariable Long orderId, Model model) {
+    public String reviewOrder(@PathVariable Long orderId, Model model, HttpSession session) {
+        String checkAuth = AuthUtil.checkBuyerAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
+        }
         model.addAttribute("order", orderService.findById(orderId));
         model.addAttribute("vote",new Vote());
+        User user = (User) session.getAttribute("loggedInUser");
+        model.addAttribute("user", user);
         return ViewPaths.REVIEW_ORDER;
     }
 
@@ -39,7 +44,7 @@ public class ReviewOrder {
         if(checkAuth != null) {
             return checkAuth;
         }
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("loggedInUser");
 
         Order order = orderService.findById(orderId);
         Blog  orderBlog = order.getBlog();
@@ -48,8 +53,8 @@ public class ReviewOrder {
         vote.setOrder(order);
         voteService.saveVote(vote);
         model.addAttribute("order", order);
-       model.addAttribute("user", user);
-        return ViewPaths.MANAGE_ORDER_USER;
+        model.addAttribute("user", user);
+        return "redirect:/manageOrderUser/"+user.getId();
 
     }
 }

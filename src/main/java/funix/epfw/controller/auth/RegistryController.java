@@ -45,7 +45,7 @@ public class RegistryController {
             return ViewPaths.REGISTER;
         }
         if(!user.getPassword().equals(confirmPassword)) {
-            model.addAttribute("confirmpassError", "Mật khẩu không khớp!");
+            model.addAttribute("confirmpassError", "Mật khẩu, và xác thực mật khẩu không khớp!");
             model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công!");
             return ViewPaths.REGISTER;
         }

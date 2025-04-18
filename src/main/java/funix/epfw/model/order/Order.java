@@ -30,10 +30,10 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate orderDate;
+    private LocalDate orderDate; //Ngày đặt hàng
 
     @Column(nullable=false)
-    @Size(min=2, message = "Tên người đặt không được ít hơn 2 ký tự")
+    @Size(min=5, message = "Tên người đặt không được ít hơn 5 ký tự")
     @Pattern(regexp = "^[a-zA-Z-ZÀ-Ỹà-ỹ\\s]*$", message = "Tên không được chứa ký tự đặc biệt hoặc số")
     private String buyerName;
    
@@ -46,7 +46,8 @@ public class Order {
     private String phone;
 
     @Column
-    @Email(message = "Email phải đúng định dạng")
+    @Email()
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Email phải đúng định dạng")
     private String email;
     
     @Column(nullable = false)
@@ -61,8 +62,13 @@ public class Order {
 
     //Gia mong muốn
     @Column(nullable = false)
-    @Min(value = 1000 ,message = "Giá mong đợi không thể thấp hơn 1000 VNĐ")
+    @Min(value = 0 ,message = "Giá mong đợi không thể thấp hơn 0 VNĐ")
     private int expectedPrice;
+
+    //Số lượng:
+    @Column(nullable = false)
+    @Min(value=1, message="Số lượng không thể thấp hơn 1")
+    private int quantity;
 
     @Column(nullable = false)
     private String orderType;

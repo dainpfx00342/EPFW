@@ -24,7 +24,7 @@ public class Tour {
     private Long id;
 
     @Column(nullable = false)
-    @Size(min=3,message="Tên chuyến đi không được ít hơn 3 ký tự")
+    @Size(min=5,message="Tên chuyến đi không được ít hơn 5 ký tự")
     private String tourName;
 
     @Column(nullable = false)
@@ -36,22 +36,8 @@ public class Tour {
     private TourType tourType;
 
     @Column(nullable = false)
-    @Min(value = 1,message ="Số người đăng ký tối thiểu là 1 người, tối đa là 100")
-    private int guestNo; // Số người đăng ký
-
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startTourDate;
-
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message="Ngày kết thúc phải lớn hơn ngày hiện tại")
-    private LocalDate endTourDate;
-
-    @Column
-    @Min(value=1, message ="Thời gian tham quan tối thiểu 1 ngày/chuyến")
-    @Max(value=30, message="Thời gian tham quan tối đa là 1 tháng/chuyến")
-    private int timeDuration;
+    private LocalDate createdAt; // Ngày tạo tour
 
     @Column
     @Min(value=0,message="Giá vé tối thiểu = 0 (free)")
@@ -59,7 +45,7 @@ public class Tour {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TourStatus status = TourStatus.OPENING; // Trạng thái tour
+    private TourStatus tourStatus; // Trạng thái tour
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "farm_id")
@@ -81,5 +67,10 @@ public class Tour {
     )
     @ToString.Exclude
     private List<Blog> blogs = new ArrayList<>();
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDate.now();
+    }
 
    }

@@ -81,12 +81,9 @@ public class AddOrderProduct {
             model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ dữ liệu!");
             model.addAttribute("order", newOrder);
             model.addAttribute("product", product);
+            model.addAttribute("blog", blogService.findById(blogId));
             return ViewPaths.ADD_ORDER;
         }
-
-
-
-
         // Gán thông tin vào đơn hàng
         newOrder.setUser(loggedInUser);
         if (newOrder.getProducts() == null) {

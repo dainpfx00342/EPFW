@@ -22,47 +22,47 @@
         <!-- Tên đăng nhập -->
         <div class="form-group">
           <label for="username" class="form-label">Tên Đăng Nhập: </label>
-          <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Nhập tên đăng nhập" required>
+          <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Nhập tên đăng nhập" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
 
         <!-- Email -->
         <div class="form-group">
           <label for="email" class="form-label">Email: </label>
-          <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required>
+          <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
 
         <!-- Số điện thoại -->
         <div class="form-group">
           <label for="phone" class="form-label">Số Điện Thoại: </label>
-          <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required>
+          <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
         </div>
 
         <!-- Mật khẩu -->
         <div class="form-group">
           <label for="password" class="form-label">Mật Khẩu: </label>
-          <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu" required>
+          <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
 
         <!-- Xác nhận mật khẩu -->
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Xác Nhận Mật Khẩu: </label>
-          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${confirmpassError}" th:text="${confirmpassError}"></div>
         </div>
 
         <!-- Địa chỉ -->
         <div class="form-group">
           <label for="address" class="form-label">Địa Chỉ: </label>
-          <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required></textarea>
+          <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
 
         </div>
         <div class="form-group">
           <label for="role" class="form-label">Vai trò: </label>
-          <select id="role" name="role" th:field="*{role}" class="form-control" required>
+          <select id="role" name="role" th:field="*{role}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
             <option value="" disabled selected >Chọn vai trò</option>
             <option value="FARMER">Nông trại</option>
             <option value="BUYER">Thương Lái</option>

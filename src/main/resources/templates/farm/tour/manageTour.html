@@ -33,10 +33,7 @@
         <th>Tên Tour</th>
         <th>Mô Tả</th>
         <th>Loại tour</th>
-        <th>Số người tối đa/tour</th>
-        <th>Ngày bắt đầu đón khách</th>
-        <th>Ngày kết thúc đón khách</th>
-        <th>Thời gian/tour (Ngày)</th>
+
         <th>Giá vé</th>
         <th>Trạng thái tour</th>
         <th>Thuộc trang trại</th>
@@ -49,15 +46,12 @@
         <td th:text="${tour.tourName}"></td>
         <td th:text="${tour.description}"></td>
         <td th:text="${tour.tourType.vietnamese}"></td>
-        <td th:text="${tour.guestNo}"></td>
-        <td th:text="${#temporals.format(tour.startTourDate, 'dd-MM-yyyy')}"></td>
-        <td th:text="${#temporals.format(tour.endTourDate, 'dd-MM-yyyy')}"></td>
-        <td th:text="${tour.timeDuration}"></td>
+
         <td th:if="${tour.ticketPrice == 0}">Miễn Phí vào cổng</td>
         <td th:unless="${tour.ticketPrice == 0}" th:text="${#numbers.formatInteger(tour.ticketPrice,3,'POINT')}"></td>
         <td>
-          <span class="badge badge-success" th:if="${tour.status.name() =='OPENING'}"> Đang mở</span>
-          <span class="badge badge-danger" th:if="${tour.status.name() =='CLOSED'}"> Đã đóng</span>
+          <span class="badge badge-success" th:if="${tour.tourStatus.name() == 'OPENING'}"> Đang mở</span>
+          <span class="badge badge-danger"  th:if="${tour.tourStatus.name() == 'CLOSED' }"> Đã đóng</span>
         </td>
         <td th:text="${tour.farm.getFarmName()}"></td>
         <td>

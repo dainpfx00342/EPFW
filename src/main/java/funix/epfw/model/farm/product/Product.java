@@ -1,6 +1,6 @@
 package funix.epfw.model.farm.product;
 
-import funix.epfw.constants.ProductCategory;
+import funix.epfw.constants.Category;
 import funix.epfw.constants.Unit;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.order.Order;
@@ -43,7 +43,7 @@ public class Product {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProductCategory productCategory;
+    private Category productCategory;
 
     @Column
     private LocalDateTime createdTimes;

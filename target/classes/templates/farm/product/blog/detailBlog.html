@@ -39,7 +39,7 @@
             </p>
             <p class="card-text">
                 <i></i> Trạng thái:
-                <span th:text="${product != null} ? ${product.status} : ${tour.status}"></span>
+                <span th:text="${product != null} ? ${product.status} : ${tour.tourStatus}"></span>
             </p>
             <div class="mt-3">
                 <a th:if="${session.role =='BUYER' and productId != null and product.status != false}"
@@ -47,7 +47,7 @@
                    class="btn btn-warning">
                     <i class="fas fa-shopping-cart"></i> Đặt Hàng
                 </a>
-                <a th:if="${session.role =='BUYER' and tourId != null and tour.status.name() != 'CLOSE' }"
+                <a th:if="${session.role =='BUYER' and tourId != null and tour.tourStatus.name() != 'CLOSE' }"
                    th:href="@{/addOrder/tour/{id} (id=${tourId}, blogId=${blog.id})}"
                    class="btn btn-warning">
                     <i class="fas fa-plane"></i> Đặt Tour

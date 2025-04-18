@@ -1,13 +1,9 @@
 package funix.epfw.controller.farm.tour;
 
-import funix.epfw.constants.AuthUtil;
-import funix.epfw.constants.Message;
-import funix.epfw.constants.TourType;
-import funix.epfw.constants.ViewPaths;
+import funix.epfw.constants.*;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.service.farm.tour.TourService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +35,11 @@ public class EditTour {
             return checkAuth;
         }
         List<TourType> tourTypes = Arrays.asList(TourType.values());
+        List<TourStatus> tourStatuses = Arrays.asList(TourStatus.values());
         Tour tour = tourService.findById(tourId);
         model.addAttribute("tour", tour);
         model.addAttribute("tourTypes", tourTypes);
+        model.addAttribute("tourStatuses", tourStatuses);
 
         return ViewPaths.EDIT_TOUR;
 
@@ -62,8 +60,10 @@ public class EditTour {
             model.addAttribute("tourTypes", tourTypes);
             return ViewPaths.EDIT_TOUR;
         }
-
-        BeanUtils.copyProperties(currTour,tourToUpdate,"id","farm");
+        tourToUpdate.setTourStatus(currTour.getTourStatus());
+        tourToUpdate.setTourType(currTour.getTourType());
+        tourToUpdate.setTourName(currTour.getTourName());
+        tourToUpdate.setDescription(currTour.getDescription());
 
         tourService.saveTour(tourToUpdate);
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"cập nhật chuyến du lịch thành công");

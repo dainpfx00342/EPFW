@@ -74,7 +74,12 @@
                            th:value="${order.expectedPrice != null and order.expectedPrice > 0 ? order.expectedPrice : product.price}">
                     <div class="text-danger" th:if="${#fields.hasErrors('expectedPrice')}" th:errors="*{expectedPrice}"></div>
                 </div>
-
+                <!--Số luọng -->
+                <div class="form-group">
+                    <label for="quantity" class="form-label">Số lượng:</label>
+                    <input type="number" id="quantity" name="quantity" th:field="*{quantity}" class="form-control" placeholder="Nhập số lượng" min="1" required>
+                    <div class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+                </div>
                <!-- Ghi chú -->
                 <div class="form-group">
                     <label for="note" class="form-label">Ghi Chú cho chủ trang trại:</label>

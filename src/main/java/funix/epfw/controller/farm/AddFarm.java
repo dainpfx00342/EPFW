@@ -3,6 +3,7 @@ package funix.epfw.controller.farm;
 * Controller for add new farm
 * */
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Category;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
@@ -17,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class AddFarm {
@@ -34,6 +38,8 @@ public class AddFarm {
         if (checkAuth != null) {
             return checkAuth;
         }
+        List<Category> categeries = Arrays.asList(Category.values());
+        model.addAttribute("categories", categeries);
         model.addAttribute("farm", new Farm());
         return ViewPaths.ADD_FARM;
     }

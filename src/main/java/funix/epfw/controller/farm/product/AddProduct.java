@@ -47,7 +47,7 @@ public class AddProduct {
         }
 
         List<Unit> units = Arrays.asList(Unit.values());
-        List<ProductCategory> categories = Arrays.asList(ProductCategory.values());
+        List<Category> categories = Arrays.asList(Category.values());
 
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
@@ -85,7 +85,7 @@ public class AddProduct {
 
         // Kiểm tra nếu form có lỗi validation
         if (result.hasErrors()) {
-            model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+            model.addAttribute("categories", Arrays.asList(Category.values()));
             model.addAttribute("units", Arrays.asList(Unit.values()));
             model.addAttribute("farm", farm);
             model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ và chính xác thông tin.");

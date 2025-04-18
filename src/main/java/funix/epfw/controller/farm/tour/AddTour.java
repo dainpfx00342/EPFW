@@ -1,9 +1,6 @@
 package funix.epfw.controller.farm.tour;
 
-import funix.epfw.constants.AuthUtil;
-import funix.epfw.constants.Message;
-import funix.epfw.constants.TourType;
-import funix.epfw.constants.ViewPaths;
+import funix.epfw.constants.*;
 import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
@@ -52,9 +49,10 @@ public class AddTour {
         }
 
         List<TourType> tourTypes = Arrays.asList(TourType.values());
+        List<TourStatus> tourStatuses = Arrays.asList(TourStatus.values());
 
         model.addAttribute("tourTypes", tourTypes);
-
+        model.addAttribute("tourStatuses", tourStatuses);
         model.addAttribute("currFarm", currFarm);
         model.addAttribute("tour", new Tour());
 
@@ -87,6 +85,7 @@ public class AddTour {
             return ViewPaths.ADD_TOUR;
         }
         newTour.setFarm(currFarm);
+        newTour.setTourStatus(TourStatus.OPENING);
         tourService.saveTour(newTour);
         return "redirect:/manageTour";
     }

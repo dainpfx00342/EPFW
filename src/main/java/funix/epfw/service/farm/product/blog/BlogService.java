@@ -26,14 +26,7 @@ public class BlogService {
         blogRepository.save(blog);
     }
 
-    /**
-     * Lấy ra tất cả các blog có liên kết với danh sách sản phẩm
-     * @param productIds Danh sách ID của sản phẩm
-     * @return Danh sách Blog liên kết với các sản phẩm
-     */
-    public List<Blog> getBlogsByProduct(List<Long> productIds) {
-        return blogRepository.findByProductIds(productIds);
-    }
+
 
     /**
      * Lấy Blog theo ID
@@ -62,5 +55,9 @@ public class BlogService {
 
     public List<Blog> getBlogsByTourId(Long tourId){
         return  blogRepository.findByTours_id(tourId);
+    }
+
+    public List<Blog> getBlogsByKeyword(String keyword) {
+        return blogRepository.findByTitleContainingIgnoreCase(keyword);
     }
 }

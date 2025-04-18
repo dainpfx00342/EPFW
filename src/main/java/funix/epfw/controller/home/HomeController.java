@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Comparator;
 import java.util.List;
@@ -41,4 +42,16 @@ public class HomeController {
         return ViewPaths.HOME;
     }
 
+    @GetMapping("/searchBlog")
+    public String searchBlog(Model model, @RequestParam("keyword") String keyword) {
+        List<Blog> blogs = BlogService.getBlogsByKeyword(keyword);
+        if (keyword != null && !keyword.isEmpty()) {
+            blogs = BlogService.getBlogsByKeyword(keyword).stream()
+                    .filter(blog -> blog.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+                    .toList();
+        }
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("keyword", keyword);
+        return ViewPaths.HOME;
+    }
 }

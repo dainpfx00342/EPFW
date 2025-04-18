@@ -18,38 +18,35 @@
       <h2 class="text-center mb-4">Tạo Mới Sản Phẩm</h2>
       <div th:object="${farm}">
       <form th:action="@{/addProduct/{id} (id=${farm.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
-<!--      <input type="hidden" th:value="${farm.id}"/>-->
-        <!-- Example Thymeleaf template -->
-        <div th:if="${farm != null}">
-         <h3>Sản phẩm thuộc trang trại: <p th:text="${farm.farmName}">Farm Name </p> </h3>
-        </div>
+
+        <h4>Tên trang trại:<span class="text-info" th:text="${farm.farmName}"></span> </h4>
         <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 
         <!-- Tên sản phẩm -->
         <div class="form-group">
           <label for="productName" class="form-label">Tên Sản phẩm: </label>
-          <input type="text" id="productName" name="productName" th:field="*{productName}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+          <input type="text" id="productName" name="productName" th:field="*{productName}" class="form-control" placeholder="Nhập tên sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></div>
         </div>
 
         <!-- Số tồn kho -->
         <div class="form-group">
           <label for="numberOfStock" class="form-label">Số tồn kho: </label>
-          <input type="number" id="numberOfStock" name="numberOfStock" th:field="*{numberOfStock}" class="form-control" placeholder="Nhập số lượng tồn kho" required>
+          <input type="number" id="numberOfStock" name="numberOfStock" th:field="*{numberOfStock}" class="form-control" placeholder="Nhập số lượng tồn kho" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('numberOfStock')}" th:errors="*{numberOfStock}"></div>
         </div>
 
         <!-- Đơn giá -->
         <div class="form-group">
           <label for="price" class="form-label">Đơn giá (VNĐ): </label>
-          <input type="number" id="price" name="price" th:field="*{price}" class="form-control" placeholder="Nhập giá sản phẩm" required>
+          <input type="number" id="price" name="price" th:field="*{price}" class="form-control" placeholder="Nhập giá sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
         </div>
 
         <!-- Mô tả sản phẩm -->
         <div class="form-group">
           <label for="desc" class="form-label">Mô tả sản phẩm: </label>
-          <textarea id="desc" name="desc" th:field="*{description}" class="form-control" placeholder="Nhập mô tả sản phẩm" required></textarea>
+          <textarea id="desc" name="desc" th:field="*{description}" class="form-control" placeholder="Nhập mô tả sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
           <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
         </div>
 
@@ -62,15 +59,14 @@
         <!-- Loại sản phẩm -->
         <div class="form-group">
           <label for="productCategory" class="form-label">Loại sản phẩm: </label>
-          <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required>
+          <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
             <option th:each=" category: ${categories}" th:value="${category}" th:text="${category.vietnamese}"> </option>
           </select>
-          <div class="text-danger" th:if="${#fields.hasErrors('productCategory')}" th:errors="*{productCategory}"></div>
         </div>
         <!-- Đơn vị tính -->
         <div class="form-group">
           <label for="productUnit" class="form-label">Đơn vị tính: </label>
-          <select id="productUnit" name="productUnit" th:field="*{unit}" class="form-control" required>
+          <select id="productUnit" name="productUnit" th:field="*{unit}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
             <option th:each="unit:${units}" th:value="${unit}" th:text="${unit.vietnamese}" ></option>
           </select>
         </div>

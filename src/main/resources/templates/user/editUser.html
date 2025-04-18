@@ -34,21 +34,21 @@
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email" class="form-label">Email: </label>
-                        <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required>
+                        <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Nhập email hợp lệ" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
 
                     <!-- Số điện thoại -->
                     <div class="form-group">
                         <label for="phone" class="form-label">Số Điện Thoại: </label>
-                        <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required>
+                        <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Nhập số điện thoại" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
                     </div>
 
                     <!-- Địa chỉ -->
                     <div class="form-group">
                         <label for="address" class="form-label">Địa Chỉ: </label>
-                        <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required></textarea>
+                        <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
                         <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                     </div>
                     <!-- Password (chỉ hiển thị, không chỉnh sửa) -->
@@ -66,7 +66,7 @@
 
                     <div class="form-group">
                         <label for="role" class="form-label">Vai trò: </label>
-                        <select id="role" name="role" th:field="*{role}" class="form-control" required>
+                        <select id="role" name="role" th:field="*{role}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                             <option value="ADMIN" >ADMIN</option>
                             <option value="FARMER">Nông trại</option>
                             <option value="BUYER" >Thương Lái</option>
