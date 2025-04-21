@@ -10,13 +10,9 @@
 <body>
 <!-- Include Header -->
 <div th:replace="~{home/header :: header}"></div>
-<h1>Chỉnh Sửa Sản Phẩm</h1>
-
-
-<h3>Chi tiết sản phẩm: </h3>
 
 <!-- Hiển thị thông báo sửa thành công -->
-<div th:if="${successMess}" class="mess">
+<div th:if="${successMess}" class="text-success">
     <span th:text="${successMess}"></span>
 </div>
 <!-- Hiển thị thông báo lỗi -->
@@ -25,18 +21,13 @@
 </div>
 
 
-<div class="container">
+<div class="container fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Cập nhật sản phẩm</h2>
             <form th:action="@{/editProduct/{id} (id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}">
-                <!-- hien thi loi -->
-                <div th:if="${#fields.hasErrors('*')}">
-                    <ul>
-                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" style="color: red;"></li>
-                    </ul>
-                </div>
+
                 <!-- Tên san pham -->
                 <div class="form-group">
                     <label for="productName" class="form-label">Tên Sản phẩm:</label>
@@ -47,21 +38,21 @@
                 <!-- So luong ton kho -->
                 <div class="form-group">
                     <label for="numberOfStock" class="form-label">Số lượng tồn kho Sản Phẩm: </label>
-                    <input type="text" maxlength="12" id="numberOfStock" name="numberOfStock" th:field="*{numberOfStock}" class="form-control" placeholder="Số lượng tồn kho sản phẩm" required>
+                    <input type="text" maxlength="12" id="numberOfStock" name="numberOfStock" th:field="*{numberOfStock}" class="form-control" placeholder="Số lượng tồn kho sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('numberOfStock')}" th:errors="*{numberOfStock}"></div>
                 </div>
 
                 <!-- Description -->
                 <div class="form-group">
                     <label for="desc" class="form-label">Mô Tả Sản Phẩm: </label>
-                    <input type="text" id="desc" name="email" th:field="*{description}" class="form-control" placeholder="Mô tả sản phẩm" required>
+                    <input type="text" id="desc" name="email" th:field="*{description}" class="form-control" placeholder="Mô tả sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 
                 <!-- Trang thai -->
                 <div class="form-group">
                     <label for="status" class="form-label">Trạng thái: </label>
-                    <select id="status" name="status" th:field="*{status}" class="form-control" required>
+                    <select id="status" name="status" th:field="*{status}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option value="true" >Còn hàng</option>
                         <option value="false">Hết hàng</option>
                     </select>
@@ -71,14 +62,14 @@
                 <!-- Gia -->
                 <div class="form-group">
                     <label for="price" class="form-label">Giá Sản Phẩm: </label>
-                    <input type="text" maxlength="12" id="price" name="price" th:field="*{price}" class="form-control" placeholder="Giá sản phẩm" required>
+                    <input type="text" maxlength="12" id="price" name="price" th:field="*{price}" class="form-control" placeholder="Giá sản phẩm" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                 </div>
 
                 <!-- Nhom san pham -->
                 <div class="form-group">
                     <label for="productCategory" class="form-label">Loại sản phẩm: </label>
-                    <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required>
+                    <select id="productCategory" name="productCategory" th:field="*{productCategory}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option value="" selected >Chọn nhóm sản phẩm</option>
                         <option value="AGRICULTURE">Nông sản</option>
                         <option value="FORESTRY">Lâm sản</option>
@@ -96,7 +87,7 @@
                 <!-- Đơn vị tính -->
                 <div class="form-group">
                     <label for="productUnit" class="form-label">Đơn vị tính: </label>
-                    <select id="productUnit" name="productUnit" th:field="*{unit}" class="form-control" required>
+                    <select id="productUnit" name="productUnit" th:field="*{unit}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option th:each="unit:${units}" th:value="${unit}" th:text="${unit.vietnamese}" ></option>
                     </select>
                 </div>
@@ -106,9 +97,6 @@
                     <button type="submit" class="btn btn-primary w-100"
                             onclick ="return confirm('Bạn có muốn cập nhật thông tin sản phẩm này!? ')">Save</button>
                 </div>
-
-                <!-- Liên kết đến trang đăng nhập -->
-                <p class="text-center mt-3">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
 
             </form>
         </div>

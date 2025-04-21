@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script th:replace="~{script :: scripts}"></script>
-  <title>Quản Lý Blog</title>
+  <title>Quản Lý bài viết</title>
 </head>
 <body>
 <!-- Include Header -->
@@ -12,15 +12,15 @@
 
 <!-- Content -->
 <div class="container-fluid">
-  <h3 class="text-center">Quản Lý Blog Tour</h3>
+  <h3 class="text-center">Quản lý bài viết của chuyến tham quan</h3>
   <p class="text-center">
     <a th:href="@{/addBlog/tour/{id}(id=${tourId})}" class="btn btn-success">
-      <i class="fas fa-plus"></i> Thêm Blog Tour
+      <i class="fas fa-plus"></i> Thêm bài viết
     </a>
   </p>
 
-  <h4 class="text-center">Danh sách Blog Tour:</h4>
-  <p > Sản phẩm hiện tại: <span th:text="${tour.tourName}"></span></p>
+  <h4>Danh sách bài viết của chuyến tham quan: <span class="text-success" th:text="${tour.tourName}"></span></h4>
+
   <!-- Hiển thị thông báo thành công -->
   <div th:if="${successMess}" class="alert alert-success text-center">
     <span th:text="${successMess}"></span>
@@ -35,7 +35,7 @@
         <th>Tiêu đề</th>
         <th>Ngày tạo</th>
         <th>Trang Trại</th>
-        <th>Tên Tour</th>
+        <th>Tên chuyến tham quan</th>
         <th>Thao tác</th>
       </tr>
       </thead>

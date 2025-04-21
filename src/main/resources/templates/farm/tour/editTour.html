@@ -10,7 +10,6 @@
 <body>
 <!-- Include Header -->
 <div th:replace="~{home/header :: header}"></div>
-<h1 class="text-center">Chi tiết Tour: </h1>
 
 <!-- Hiển thị thông báo -->
 <div th:if="${successMess}" class="mess">
@@ -20,38 +19,32 @@
     <span th:text="${errorMess}"></span>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center mb-4">Cập nhật Tour</h2>
+            <h2 class="text-center mb-4">Cập nhật chuyến tham quan</h2>
             <form th:action="@{/editTour/{id} (id=${tour.id})}" method="post" th:object="${tour}">
                 <input type="hidden" th:field="*{id}">
 
-                <div th:if="${#fields.hasErrors('*')}">
-                    <ul>
-                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" style="color: red;"></li>
-                    </ul>
-                </div>
-
                 <!-- Tên Tour -->
                 <div class="form-group">
-                    <label for="tourName" class="form-label">Tên Tour:</label>
-                    <input type="text" id="tourName" name="tourName" th:field="*{tourName}" class="form-control" placeholder="Tên Tour"
+                    <label for="tourName" class="form-label">Tên chuyến tham quan:</label>
+                    <input type="text" id="tourName" name="tourName" th:field="*{tourName}" class="form-control" placeholder="Tên chuyến tham quan"
                            required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('tourName')}" th:errors="*{tourName}"></div>
                 </div>
 
                 <!-- Mô Tả -->
                 <div class="form-group">
-                    <label for="description" class="form-label">Mô Tả:</label>
-                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Mô tả Tour"
+                    <label for="description" class="form-label">Mô Tả chuyến tham quan:</label>
+                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Mô tả chuyến tham quan"
                               required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 
                 <!-- Giá Tour -->
                 <div class="form-group">
-                    <label for="ticketPrice" class="form-label">Giá Tour:</label>
+                    <label for="ticketPrice" class="form-label">Giá vào cửa/người:</label>
                     <input type="number" id="ticketPrice" name="ticketPrice" th:field="*{ticketPrice}" class="form-control" min="0">
                     <div class="text-danger" th:if="${#fields.hasErrors('ticketPrice')}" th:errors="*{ticketPrice}"></div>
                 </div>
@@ -66,7 +59,7 @@
 
                 <!-- Chọn loại hình du lịch -->
                 <div class="form-group">
-                    <label for="tourType" class="form-label">Loại tour: </label>
+                    <label for="tourType" class="form-label">Loại hình tham quan: </label>
                     <select id="tourType" name="tourType" th:field="*{tourType}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option th:each="tourType :${tourTypes}" th:value="${tourType}" th:text="${tourType.vietnamese}"></option>
                     </select>
@@ -75,7 +68,7 @@
 
                 <!-- Nút cập nhật -->
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary w-100" onclick="return confirm('Bạn có muốn cập nhật tour này?')">Cập nhật</button>
+                    <button type="submit" class="btn btn-primary w-100" onclick="return confirm('Bạn có muốn cập nhật tour này?')">Cập nhật chuyến tham quan</button>
                 </div>
             </form>
         </div>

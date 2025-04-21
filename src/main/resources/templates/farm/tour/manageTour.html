@@ -12,11 +12,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-  <h3 class="text-center">Quản Lý Chuyến tham quan</h3>
-
-    <h4 class="text-center">Danh sách các Tours </h4>
-
-  <!-- Hiển thị thông báo sửa/xóa thành công -->
+  <h3 class="text-center">Quản lý chuyến tham quan</h3>
+    <!-- Hiển thị thông báo sửa/xóa thành công -->
   <div th:if="${successMess}" class="alert alert-success text-center">
     <span th:text="${successMess}"></span>
   </div>
@@ -30,12 +27,11 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Tên Tour</th>
+        <th>Chuyến tham quan</th>
         <th>Mô Tả</th>
-        <th>Loại tour</th>
-
-        <th>Giá vé</th>
-        <th>Trạng thái tour</th>
+        <th>Loại hình</th>
+        <th>Giá vé/người</th>
+        <th>Trạng thái</th>
         <th>Thuộc trang trại</th>
         <th>Thao tác</th>
       </tr>
@@ -56,19 +52,19 @@
         <td th:text="${tour.farm.getFarmName()}"></td>
         <td>
           <a th:href="@{/editTour/{id}(id=${tour.id})}" class="btn btn-warning btn-sm btn-action">
-            <i class="fas fa-edit"></i> Sửa Tour
+            <i class="fas fa-edit"></i> Sửa
           </a>
           <a th:href="@{/deleteTour/{id}(id=${tour.id})}"
              class="btn btn-danger btn-sm btn-action"
              onclick="return confirm('Bạn có muốn xoá chuyến tham quan này?');">
-            <i class="fas fa-trash-alt"></i> Xóa Tour
+            <i class="fas fa-trash-alt"></i> Xóa
           </a>
 
           <a th:href="@{/addBlog/tour/{id}(id=${tour.id})}" class="btn btn-info btn-sm btn-action">
-            <i class="fas fa-plus"></i> Thêm Blog
+            <i class="fas fa-plus"></i> Thêm bài viết
           </a>
           <a th:href="@{/manageBlog/tour/{id} (id=${tour.id})}" class="btn btn-info btn-sm btn-action">
-            <i class="fas fa-list"></i> Danh sách Blog
+            <i class="fas fa-list"></i> Các bài viết
           </a>
         </td>
       </tr>

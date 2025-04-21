@@ -26,7 +26,7 @@
                 <!-- Tiêu đề Blog -->
                 <div class="form-group">
                     <label for="title">Tiêu đề:</label>
-                    <input type="text" id="title" name="title" class="form-control" th:field="*{title}" required>
+                    <input type="text" id="title" name="title" class="form-control" th:field="*{title}" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                 </div>
 
                 <!-- Nội dung Blog -->

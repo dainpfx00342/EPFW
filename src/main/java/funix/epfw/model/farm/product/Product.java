@@ -38,7 +38,7 @@ public class Product {
     private Boolean status;
 
     @Column(nullable = false)
-    @Min(value=1000, message="Giá sản phẩm không thể nhỏ hơn 1000 VNĐ")
+    @Min(value=1000, message="Giá sản phẩm không thể nhỏ hơn 1000 đồng")
     private int price;
 
     @Column(nullable = false)

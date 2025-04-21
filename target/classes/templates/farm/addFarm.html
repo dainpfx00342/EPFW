@@ -15,38 +15,38 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-left mb-4">Tạo Farm mới</h2>
+            <h2 class="text-left mb-4">Tạo trang trại mới</h2>
             <form th:action="@{/addFarm}" method="post" th:object="${farm}">
                 <div class="text-danger" th:if="${errorMess}" th:text ="${errorMess}" ></div>
 
                 <!-- Tên Farm -->
                 <div class="form-group">
-                    <label for="farmName" class="form-label">Tên Farm: </label>
-                    <input type="text" id="farmName" name="farmName" th:field="*{farmName}" class="form-control" placeholder="Nhập tên Farm" required>
+                    <label for="farmName" class="form-label">Tên trang trại: </label>
+                    <input type="text" id="farmName" name="farmName" th:field="*{farmName}" class="form-control" placeholder="Nhập tên trang trại" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('farmName')}" th:errors="*{farmName}"></div>
                 </div>
                 <!-- Dia chi -->
                 <div class="form-group">
-                    <label for="address" class="form-label">Địa chỉ: </label>
-                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required>
+                    <label for="address" class="form-label">Địa chỉ trang trại: </label>
+                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ của trang trại" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                 </div>
                 <!-- Mô tả -->
                 <div class="form-group">
                     <label for="description" class="form-label">Mô tả: </label>
-                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập mô tả về trang trại của bạn" required></textarea>
+                    <textarea id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập mô tả về trang trại của bạn" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
                 <!-- Loại sản phẩm -->
                 <div class="form-group">
                     <label for="Category" class="form-label">Sản phẩm chính: </label>
-                    <select id="Category" name="Category" th:field="*{category}" class="form-control" required>
+                    <select id="Category" name="Category" th:field="*{category}" class="form-control" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
                         <option th:each=" category: ${categories}" th:value="${category}" th:text="${category.vietnamese}"> </option>
                     </select>
                 </div>
                 <!-- Nut submit -->
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Tạo Farm</button>
+                    <button type="submit" class="btn btn-primary">Tạo trang trại</button>
                 </div>
             </form>
         </div>

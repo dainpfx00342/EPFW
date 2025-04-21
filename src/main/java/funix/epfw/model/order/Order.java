@@ -46,8 +46,7 @@ public class Order {
     private String phone;
 
     @Column
-    @Email()
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Email phải đúng định dạng")
+   @Email(message = "Email không đúng định dạng")
     private String email;
     
     @Column(nullable = false)

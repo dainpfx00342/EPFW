@@ -12,16 +12,21 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <h3 class="text-center">Quản Lý Nông trại</h3>
+    <h3 class="text-center">Quản lý trang trại</h3>
     <!-- Các nút thêm mới -->
     <div class="d-flex justify-content-center flex-wrap">
         <a th:href="@{/addFarm}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Thêm Trang Trại
+            <i class="fas fa-plus"></i> Thêm trang trại
         </a>
 
     </div>
-    <h4 class="text-center">Danh sách Trang Trại</h4>
-   <h4>Tên chủ trang trại: <strong class="text-success"><span class="mess" th:text="${user.username}"></span></strong></h4>
+    <h4>Tên chủ trang trại:
+        <strong class="text-success">
+                <span class="text-success" th:text="${user.username}"></span>
+        </strong>
+    </h4>
+    <h4>Danh sách trang trại:</h4>
+
     <!-- Hiển thị thông báo thành công -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
@@ -33,7 +38,7 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Tên Trang trại</th>
+                <th>Tên trang trại</th>
                 <th>Mô tả</th>
                 <th>Địa chỉ</th>
                 <th>Ngành sản xuất:</th>
@@ -48,7 +53,7 @@
                 <td th:utext="${farm.description}"></td>
                 <td th:text="${farm.address}"></td>
                 <td th:text="${farm.category.vietnamese}"></td>
-                <td th:text="${farm.user.username}"></td>
+                <td class="text-success" th:text="${farm.user.username}"></td>
                 <td>
                     <!-- Thao tác chung -->
                     <a th:href="@{/editFarm/{id}(id=${farm.id})}" class="btn btn-warning btn-sm btn-action">
@@ -61,7 +66,7 @@
 
                     <!-- Quản lý từng phần -->
                     <details class="mt-2">
-                        <summary><strong>Quản lý sản phẩm</strong></summary>
+                        <summary><strong>Các sản phẩm</strong></summary>
                         <div class="mt-1">
                             <a th:href="@{/addProduct/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
                                 <i class="fas fa-plus"></i> Thêm Sản phẩm
@@ -79,10 +84,10 @@
                     </details>
 
                     <details class="mt-2">
-                        <summary><strong>Quản lý tour</strong></summary>
+                        <summary><strong>Chuyến tham quan</strong></summary>
                         <div class="mt-1">
                             <a th:href="@{/addTour/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
-                                <i class="fas fa-plus"></i> Thêm Tour
+                                <i class="fas fa-plus"></i> Thêm chuyến tham quan
                             </a>
                             <ul>
                                 <li th:each="tour : ${farm.tours}">
@@ -97,10 +102,10 @@
                     </details>
 
                     <details class="mt-2">
-                        <summary><strong>Quản lý lịch liveStream</strong></summary>
+                        <summary><strong>Lịch liveStream</strong></summary>
                         <div class="mt-1">
                             <a th:href="@{/addLive/{id}(id=${farm.id})}" class="btn btn-info btn-sm my-1">
-                                <i class="fas fa-plus"></i> Thêm Lịch Live
+                                <i class="fas fa-plus"></i> Thêm lịch Live Stream
                             </a>
                             <ul>
                                 <li th:each="live : ${farm.liveStreams}">

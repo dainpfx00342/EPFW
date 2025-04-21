@@ -26,23 +26,23 @@
 
         <div class="form-group">
           <label for="name">Username:</label>
-          <input type="text" class="form-control" id="name" name="name" th:field="*{username}" required>
+          <input type="text" class="form-control" id="name" name="name" th:field="*{username}" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="text" class="form-control" id="email" name="email" th:field="*{email}" required>
+          <input type="text" class="form-control" id="email" name="email" th:field="*{email}" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
         <div class="form-group">
           <label for="phone">Số điện thoại:</label>
-          <input type="text" class="form-control" id="phone" name="phoneNumber" th:field="*{phone}" required>
+          <input type="text" class="form-control" id="phone" name="phoneNumber" th:field="*{phone}" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
           <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
         </div>
 
         <div class="form-group">
           <label for="address">Địa chỉ liên lạc:</label>
-          <textarea  class="form-control" id="address" name="address" th:field="*{address}" required></textarea>
+          <textarea  class="form-control" id="address" name="address" th:field="*{address}" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
           <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
         </div>
 

@@ -10,13 +10,9 @@
 <body>
 <!-- Include Header -->
 <div th:replace="~{home/header :: header}"></div>
-<h1>Chỉnh Sửa Sản Phẩm</h1>
-
-
-<h3>Chi tiết sản phẩm: </h3>
 
 <!-- Hiển thị thông báo sửa thành công -->
-<div th:if="${successMess}" class="mess">
+<div th:if="${successMess}" class="text-success">
     <span th:text="${successMess}"></span>
 </div>
 <!-- Hiển thị thông báo lỗi -->
@@ -25,18 +21,13 @@
 </div>
 
 
-<div class="container">
+<div class="container fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Cập nhật sản phẩm</h2>
             <form th:action="@{/editProduct/{id} (id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}">
-                <!-- hien thi loi -->
-                <div th:if="${#fields.hasErrors('*')}">
-                    <ul>
-                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" style="color: red;"></li>
-                    </ul>
-                </div>
+
                 <!-- Tên san pham -->
                 <div class="form-group">
                     <label for="productName" class="form-label">Tên Sản phẩm:</label>
@@ -106,9 +97,6 @@
                     <button type="submit" class="btn btn-primary w-100"
                             onclick ="return confirm('Bạn có muốn cập nhật thông tin sản phẩm này!? ')">Save</button>
                 </div>
-
-                <!-- Liên kết đến trang đăng nhập -->
-                <p class="text-center mt-3">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
 
             </form>
         </div>

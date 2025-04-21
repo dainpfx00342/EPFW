@@ -40,7 +40,7 @@ public class Tour {
     private LocalDate createdAt; // Ngày tạo tour
 
     @Column
-    @Min(value=0,message="Giá vé tối thiểu = 0 (free)")
+    @Min(value=0,message="Giá vé tối thiểu = 0 (miễn phí)")
     private int ticketPrice;
 
     @Column(nullable = false)

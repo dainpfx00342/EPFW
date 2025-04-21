@@ -16,10 +16,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Tạo Mới Yêu Cầu Liên Hệ</h2>
-            <h3 class="text-success">Tên sản phẩm/dịch vụ:
+            <h3 class="text-success">Tên sản phẩm:
                 <span th:if="${product}" th:text="${product.productName}"></span>
-                <span th:if="${tour}" th:text="${tour.tourName}"></span>
-
             </h3>
 
             <!-- Hiển thị thông báo lỗi -->
@@ -30,20 +28,23 @@
                 <!-- Tên người mua -->
                 <div class="form-group">
                     <label for="buyerName" class="form-label">Tên người đặt hàng:</label>
-                    <input type="text" id="buyerName" name="address" th:field="*{buyerName}" class="form-control" placeholder="Nhập tên của bạn" required>
+                    <input type="text" id="buyerName" name="address" th:field="*{buyerName}" class="form-control" placeholder="Nhập tên của bạn"
+                           required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}"></div>
                 </div>
                 <!-- Địa chỉ -->
                 <div class="form-group">
                     <label for="address" class="form-label">Địa chỉ:</label>
-                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ của bạn" required>
+                    <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ của bạn"
+                           required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                 </div>
 
                 <!-- Số điện thoại -->
                 <div class="form-group">
                     <label for="phone" class="form-label">Số Điện Thoại:</label>
-                    <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Số điện thoại hợp lệ (0xxxxxxxxx)" required>
+                    <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" placeholder="Số điện thoại hợp lệ (0xxxxxxxxx)"
+                           required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
                 </div>
 
@@ -77,13 +78,15 @@
                 <!--Số luọng -->
                 <div class="form-group">
                     <label for="quantity" class="form-label">Số lượng:</label>
-                    <input type="number" id="quantity" name="quantity" th:field="*{quantity}" class="form-control" placeholder="Nhập số lượng" min="1" required>
+                    <input type="number" id="quantity" name="quantity" th:field="*{quantity}" class="form-control" placeholder="Nhập số lượng" min="1"
+                           required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')" oninput="this.setCustomValidity('')">
                     <div class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
                 </div>
                <!-- Ghi chú -->
                 <div class="form-group">
                     <label for="note" class="form-label">Ghi Chú cho chủ trang trại:</label>
-                    <textarea id="note" name="note" th:field="*{note}" class="form-control" placeholder="Nhập ghi chú" rows="3"></textarea>
+                    <textarea id="note" name="note" th:field="*{note}" class="form-control" placeholder="Nhập ghi chú" rows="3"
+                              required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin')" oninput="this.setCustomValidity('')"></textarea>
                     <div class="text-danger" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
                 </div>
 

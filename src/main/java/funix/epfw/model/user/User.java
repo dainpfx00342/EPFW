@@ -42,7 +42,7 @@ public class User {
     private String phone;
 
     @Column
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Email phải đúng định dạng")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Email không đúng định dạng. Ví dụ ten@gmail.com")
     private String email;
 
     @Column
