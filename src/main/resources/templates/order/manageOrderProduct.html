@@ -63,6 +63,7 @@
                 <td th:text="${order.products[0].productName}"></td>
                 <td class="text-success" th:text="${#numbers.formatInteger(order.products[0].price,3,'POINT')}"></td>
                 <td class="text-danger" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
+                <td th:text="${order.quantity}"></td>
                 <td>
                     <a th:if="${order.orderStatus.name() == 'PENDING'}"
                        th:href="@{/confirmOrder/{orderId}(orderId=${order.id})}" class="btn btn-primary btn-sm btn-action">

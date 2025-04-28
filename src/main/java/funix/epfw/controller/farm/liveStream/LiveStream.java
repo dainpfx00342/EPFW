@@ -21,4 +21,6 @@ public class LiveStream {
         model.addAttribute("liveStreams", liveService.getAllLiveStreams());
         return ViewPaths.LIVE_STREAM;
     }
+
+
 }

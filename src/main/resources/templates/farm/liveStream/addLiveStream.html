@@ -25,34 +25,34 @@
                     <!-- Tiêu đề -->
                     <div class="form-group">
                         <label for="title" class="form-label">Tên buổi live: </label>
-                        <input type="text" id="title" name="title" th:field="*{title}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <input type="text" id="title" name="title" th:field="*{title}" class="form-control" placeholder="Nhập tên buổi live" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                     </div>
 
                     <!-- url -->
                     <div class="form-group">
                         <label for="url" class="form-label">Đường link buổi live: </label>
-                        <input type="text" id="url" name="url" th:field="*{url}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <input type="text" id="url" name="url" th:field="*{url}" class="form-control" placeholder="Nhập tên đường dẫn" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></div>
                     </div>
 
                     <!-- Mo ta -->
                     <div class="form-group">
                         <label for="description" class="form-label">Mô tả: </label>
-                        <input type="text" id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <input type="text" id="description" name="description" th:field="*{description}" class="form-control" placeholder="Nhập mô tả về buổi live" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                     </div>
 
-                    <!-- Mo ta -->
+                    <!-- Thời gian live -->
                     <div class="form-group">
                         <label for="dateToLive" class="form-label">Thời gian: </label>
-                        <input type="datetime-local" id="dateToLive" name="dateToLive" th:field="*{dateToLive}" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                        <input type="datetime-local" id="dateToLive" name="dateToLive" th:field="*{dateToLive}" class="form-control" placeholder="Nhập thời gian live" required>
                         <div class="text-danger" th:if="${#fields.hasErrors('dateToLive')}" th:errors="*{dateToLive}"></div>
                     </div>
                     <!-- Nút Add -->
                     <div class="form-group">
                         <label for="btn-addProduct" class="form-label">
-                            <button id="btn-addProduct" type="submit" class="btn btn-primary" >Thêm lịch Live</button>
+                            <button id="btn-addProduct" type="submit" class="btn btn-primary" >Thêm lịch Live Stream</button>
                         </label>
                     </div>
 

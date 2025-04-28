@@ -12,15 +12,15 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <h3 class="text-center">Quản Lý Blog Sản Phẩm</h3>
+    <h3 class="text-center">Quản Lý bài viết của sản phẩm</h3>
     <p class="text-center">
         <a th:href="@{/addBlog/product/{id}(id=${productId})}" class="btn btn-success">
-            <i class="fas fa-plus"></i> Thêm Blog Sản Phẩm
+            <i class="fas fa-plus"></i> Thêm bài viết
         </a>
     </p>
 
-    <h4 class="text-center">Danh sách Blog của sản phẩm:</h4>
-    <p > Sản phẩm hiện tại: <span th:text="${product.productName}"></span></p>
+    <h4>Danh sách bài viết của sản phẩm: <span class="text-success" th:text="${product.productName}"></span></h4>
+
     <!-- Hiển thị thông báo thành công -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
@@ -35,7 +35,7 @@
                 <th>Tiêu đề</th>
                 <th>Ngày tạo</th>
                 <th>Trang trại</th>
-                <th>Sản Phẩm</th>
+                <th>Sản phẩm</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -48,12 +48,17 @@
                 <td th:text="${product.productName}"></td>
                 <td>
                     <a th:href="@{/editBlog/product/{id}(id=${blog.id})}" class="btn btn-warning btn-sm btn-action">
-                        <i class="fas fa-edit"></i> Sửa Blog
+                        <i class="fas fa-edit"></i> Sửa
                     </a>
+
+                    <a th:href="@{/blogDetail/{blogId} (blogId=${blog.id})}" class="btn btn-info btn-sm btn-action">
+                        <i class="fas fa-eye"></i>Xem Blog
+                    </a>
+
                     <a th:href="@{/deleteBlog/product/{id}(id=${blog.id})}"
                        class="btn btn-danger btn-sm btn-action"
                        onclick="return confirm('Bạn có muốn xoá blog này?');">
-                        <i class="fas fa-trash-alt"></i> Xóa Blog
+                        <i class="fas fa-trash-alt"></i> Xóa
                     </a>
                 </td>
             </tr>

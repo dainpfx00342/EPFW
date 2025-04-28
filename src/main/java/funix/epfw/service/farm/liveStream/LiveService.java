@@ -18,6 +18,11 @@ public class LiveService {
         this.liveStreamRepo = liveStreamRepo;
     }
 
+
+    public void deleteLiveStream(Long liveStreamId) {
+        liveStreamRepo.deleteById(liveStreamId);
+    }
+
     public void saveLive(LiveStream liveStream) {
         liveStreamRepo.save(liveStream);
     }

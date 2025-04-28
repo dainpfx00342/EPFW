@@ -5,7 +5,6 @@ import funix.epfw.model.order.Order;
 import funix.epfw.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -49,21 +48,21 @@ public class CanceledOrder {
     @GetMapping("/canceledOrder/product/{orderId}")
     public String cancelOrderProduct(@PathVariable Long orderId,
                                      @RequestParam("reason") String reason,
-                                     @RequestHeader(value = "Referer", required = false) String referer, Model model) {
+                                     @RequestHeader(value = "Referer", required = false) String referer) {
         return cancelOrder(orderId, reason, "product", referer);
     }
 
     @GetMapping("/canceledOrder/tour/{orderId}")
     public String cancelOrderTour(@PathVariable Long orderId,
                                   @RequestParam("reason") String reason,
-                                  @RequestHeader(value = "Referer", required = false) String referer, Model model) {
+                                  @RequestHeader(value = "Referer", required = false) String referer) {
         return cancelOrder(orderId, reason, "tour", referer);
     }
 
     @GetMapping("/canceledOrder/buyer/{orderId}")
     public String cancelOrder(@PathVariable Long orderId,
                               @RequestParam("reason") String reason,
-                              @RequestHeader(value = "Referer", required = false) String referer, Model model) {
+                              @RequestHeader(value = "Referer", required = false) String referer) {
         return cancelOrder(orderId, reason, "buyer", referer);
     }
 }

@@ -33,6 +33,7 @@
         <th>Tên tour</th>
         <th>Giá vào cửa</th>
         <th>Giá mong muốn</th>
+        <th>Số lượng người tham gia</th>
         <th>Hành động</th>
       </tr>
       </thead>
@@ -42,6 +43,7 @@
         <td th:text="${order.id}"></td>
         <td th:text="${#temporals.format(order.orderDate,'dd-MM-yyyy')}"></td>
         <td th:text="${order.user.username}"></td>
+        <td th:text="${order.quantity}"></td>
         <td>
           <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">
                      <i class="fas fa-hourglass-half"></i> Chờ xác nhận

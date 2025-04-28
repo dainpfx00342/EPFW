@@ -54,6 +54,10 @@
               <td th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
             </tr>
             <tr>
+              <th><i class="fas fa-hashtag"></i> Số lượng: </th>
+              <td th:text="${order.quantity}"></td>
+            </tr>
+            <tr>
               <th><i class="fas fa-calendar-alt text-info"></i> Ngày liên hệ:</th>
               <td th:text="${#temporals.format(order.orderDate,'dd/MM/yyyy')}"></td>
             </tr>
