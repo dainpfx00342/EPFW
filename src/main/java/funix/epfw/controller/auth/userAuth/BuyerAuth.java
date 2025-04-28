@@ -12,7 +12,7 @@ public class BuyerAuth implements AuthChecker {
             return "redirect:/accessDenied";
         }
         Role role = user.getRole();
-        if(role != Role.ADMIN && role != Role.BUYER) {
+        if( role != Role.BUYER) {
             return "redirect:/accessDenied";
         }
         return null;

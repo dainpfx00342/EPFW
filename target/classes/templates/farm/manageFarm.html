@@ -31,6 +31,10 @@
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
     </div>
+    <div th:if="${errorMess}" class="alert alert-danger text-center">
+        <span th:text="${errorMess}"></span>        <span th:text="${errorMess}"></span>
+
+    </div>
 
     <!-- Danh sách Blog -->
     <div class="table-container">

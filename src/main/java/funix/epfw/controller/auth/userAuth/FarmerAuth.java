@@ -12,7 +12,7 @@ public class FarmerAuth implements AuthChecker {
             return "redirect:/accessDenied";
         }
         Role role = user.getRole();
-        if(role != Role.ADMIN && role != Role.FARMER) {
+        if(role != Role.FARMER) {
             return "redirect:/accessDenied";
         }
         return null;

@@ -26,6 +26,9 @@ public class DetailFarm {
             return checkAuth;
         }
         Farm farm = farmService.findById(farmId);
+        if(farm == null){
+            return "redirect:/manageFarm?error=farmNotFound";
+        }
         model.addAttribute("farm", farm);
         return ViewPaths.DETAIL_FARM;
     }
