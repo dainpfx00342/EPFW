@@ -1,8 +1,6 @@
 package funix.epfw.controller.farm.tour;
 
 import funix.epfw.constants.*;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.service.farm.FarmService;
@@ -35,16 +33,14 @@ public class AddTour {
 
     @GetMapping("/addTour/{farmId}")
         public String toAddTour(@PathVariable("farmId") Long farmId, Model model, HttpSession session) {
-
-        AuthChecker authChecker = new FarmerAuth();
-        String checkAuth = authChecker.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
 
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
-            model.addAttribute(Message.ERROR_MESS,"Khong tim thay trang trai");
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy trang trại");
             return ViewPaths.ADD_TOUR;
         }
 

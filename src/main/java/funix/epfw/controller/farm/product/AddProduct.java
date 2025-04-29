@@ -64,7 +64,7 @@ public class AddProduct {
                              @RequestParam("imageFile") MultipartFile file,
                              Model model, HttpSession session ) {
 
-        String checkAuth = AuthUtil.checkFarmerAuth(session); //AuthUtil.checkFarmerAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }

@@ -24,6 +24,7 @@ public class EditTour {
 
     @Autowired
     public EditTour(TourService tourService) {
+
         this.tourService = tourService;
     }
 
@@ -52,10 +53,15 @@ public class EditTour {
                            @PathVariable Long tourId,
                            RedirectAttributes redirectAttributes) {
 
+
         Tour tourToUpdate = tourService.findById(tourId);
+        if(tourToUpdate == null) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
+            return "redirect:/manageTour?error=tourNotFound";
+        }
         if(result.hasErrors()) {
             model.addAttribute("tour", currTour);
-            model.addAttribute(Message.ERROR_MESS, "Vui long nhap lai cac truong");
+            model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập lại các trường");
             List<TourType> tourTypes = Arrays.asList(TourType.values());
             model.addAttribute("tourTypes", tourTypes);
             return ViewPaths.EDIT_TOUR;
@@ -66,7 +72,7 @@ public class EditTour {
         tourToUpdate.setDescription(currTour.getDescription());
 
         tourService.saveTour(tourToUpdate);
-        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"cập nhật chuyến du lịch thành công");
+        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"Cập nhật chuyến du lịch thành công");
         return "redirect:/manageTour";
     }
 }

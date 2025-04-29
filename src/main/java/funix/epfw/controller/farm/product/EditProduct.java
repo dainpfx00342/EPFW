@@ -1,11 +1,11 @@
 package funix.epfw.controller.farm.product;
 
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
 import funix.epfw.constants.Unit;
 import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
-import funix.epfw.controller.auth.userAuth.FarmerAuth;
+
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.farm.product.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -31,31 +31,29 @@ public class EditProduct {
     public EditProduct(ProductService productService) {
         this.productService = productService;
     }
+
+
     @GetMapping("/editProduct")
-    public String showEditProductForm(HttpSession session) {
-        // Kiểm tra quyền truy cập
-        AuthChecker authChecker = new FarmerAuth();
-        String checkAuth = authChecker.checkAuth(session);
-        if(checkAuth != null) {
+    public String showEditProductForm(HttpSession session,Model model) {
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if (checkAuth != null) {
             return checkAuth;
         }
         List<Unit> units = Arrays.asList(Unit.values());
+        model.addAttribute("units", units);
         return "redirect:/manageProduct";
     }
 
     @GetMapping("/editProduct/{id}")
     public String showEditProductForm(@PathVariable Long id, Model model, HttpSession session) {
-        // Kiểm tra quyền truy cập
-        AuthChecker authChecker = new FarmerAuth();
-        String checkAuth = authChecker.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
 
         Product product = productService.findById(id);
         if(product == null) {
-            // Handle error
-            return "redirect:/login";
+            return "redirect:/manageProduct?error=productNotFound";
         }
         List<Unit> units = Arrays.asList(Unit.values());
         model.addAttribute("units", units);

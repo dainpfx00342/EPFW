@@ -17,9 +17,13 @@
 
     <h4 class="text-center">Danh sách các sản phẩm</h4>
 
-    <!-- Hiển thị thông báo xóa thành công -->
+    <!-- Hiển thị thông báo  -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
+    </div>
+
+    <div th:if="${errorMess}" class="alert alert-danger text-center">
+        <span th:text="${errorMess}"></span>
     </div>
 
     <!-- Danh sách sản phẩm -->

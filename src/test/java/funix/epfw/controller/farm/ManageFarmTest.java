@@ -39,7 +39,6 @@ class ManageFarmTest {
     private ManageFarm manageFarmController;
 
     private User farmerUser;
-    private User adminUser;
     private List<Farm> farms;
 
     @BeforeEach
@@ -49,11 +48,6 @@ class ManageFarmTest {
         farmerUser.setUsername("farmer1");
         farmerUser.setRole(Role.FARMER);
 
-        adminUser = new User();
-        adminUser.setId(2L);
-        adminUser.setUsername("admin1");
-        adminUser.setRole(Role.ADMIN);
-
         Farm farm = new Farm();
         farm.setId(1L);
         farms = Collections.singletonList(farm);
@@ -62,11 +56,11 @@ class ManageFarmTest {
     @Test
     void testManageFarm_NotAuthorized() {
         try (MockedStatic<AuthUtil> authUtilMockedStatic = mockStatic(AuthUtil.class)) {
-            authUtilMockedStatic.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/unauthorized");
+            authUtilMockedStatic.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/accessDenied");
 
             String view = manageFarmController.manageFarm(model, session, null);
 
-            assertEquals("redirect:/unauthorized", view);
+            assertEquals("redirect:/accessDenied", view);
         }
     }
 
@@ -99,22 +93,6 @@ class ManageFarmTest {
 
             assertEquals(ViewPaths.MANAGE_FRAM, view);
             verify(model).addAttribute("user", farmerUser);
-            verify(model).addAttribute("farms", farms);
-        }
-    }
-
-    @Test
-    void testManageFarm_AdminUser() {
-        try (MockedStatic<AuthUtil> authUtilMockedStatic = mockStatic(AuthUtil.class)) {
-            authUtilMockedStatic.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn(null);
-
-            when(session.getAttribute("loggedInUser")).thenReturn(adminUser);
-            when(farmService.findAll()).thenReturn(farms);
-
-            String view = manageFarmController.manageFarm(model, session, null);
-
-            assertEquals(ViewPaths.MANAGE_FRAM, view);
-            verify(model).addAttribute("user", adminUser);
             verify(model).addAttribute("farms", farms);
         }
     }

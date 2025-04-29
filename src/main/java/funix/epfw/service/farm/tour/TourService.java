@@ -40,4 +40,8 @@ public class TourService {
 
         return tourRepository.findById(tourId).orElse(null);
     }
+
+    public void deleteTourById(Long tourId) {
+        tourRepository.deleteById(tourId);
+    }
 }

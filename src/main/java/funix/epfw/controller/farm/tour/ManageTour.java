@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm.tour;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Message;
 import funix.epfw.constants.Role;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -31,11 +33,16 @@ public class ManageTour {
     }
 
     @GetMapping("/manageTour")
-    public String manageTour(HttpSession session, Model model) {
+    public String manageTour(HttpSession session, Model model, @RequestParam(value = "error", required = false) String error) {
 
         String checkAuth =  AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
+        }
+        if(error != null) {
+            if(error.equals("tourNotFound")){
+                model.addAttribute(Message.ERROR_MESS, "Tour không tồn tại hoặc đã bị xóa!");
+            }
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
         currentUser = userService.findByUsername(currentUser.getUsername());
