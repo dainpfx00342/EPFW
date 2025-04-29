@@ -17,7 +17,7 @@ public class LiveStream {
     }
 
     @GetMapping("/liveStream")
-    public String liveStream(Model model) {
+    public String liveStreamList(Model model) {
         model.addAttribute("liveStreams", liveService.getAllLiveStreams());
         return ViewPaths.LIVE_STREAM;
     }

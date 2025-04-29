@@ -40,19 +40,24 @@ public class AddOrderProduct {
     }
 
     @GetMapping("/addOrder/product/{productId}")
-    public String addOrder(Model model, HttpSession session, @PathVariable Long productId,@RequestParam("blogId") Long blogId) {
+    public String addOrder(@PathVariable Long productId,@RequestParam("blogId") Long blogId, Model model, HttpSession session) {
 
         String checkAuth = AuthUtil.checkBuyerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
         Product currentProduct = productService.findById(productId);
-        Blog currentBlog = blogService.findById(blogId);
-
         if(currentProduct == null) {
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy sản phẩm!?");
             return ViewPaths.ADD_ORDER;
         }
+        Blog currentBlog = blogService.findById(blogId);
+        if(currentBlog == null) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy bài viết!?");
+            return ViewPaths.ADD_ORDER;
+        }
+
+
 
         model.addAttribute("product", currentProduct);
         model.addAttribute("order", new Order());
@@ -67,11 +72,16 @@ public class AddOrderProduct {
                                BindingResult result,
                                Model model, HttpSession session) {
 
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            model.addAttribute(Message.ERROR_MESS, "Bạn chưa đăng nhập!");
-            return "redirect:/login";
+        String checkAuth = AuthUtil.checkBuyerAuth(session);
+        if(checkAuth != null) {
+            return checkAuth;
         }
+        User user = (User) session.getAttribute("loggedInUser");
+        if(user == null) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy người dùng!?");
+            return ViewPaths.ADD_ORDER;
+        }
+
         Product product = productService.findById(productId);
         if (product == null) {
             model.addAttribute(Message.ERROR_MESS, "Sản phẩm không tồn tại!");
@@ -85,7 +95,7 @@ public class AddOrderProduct {
             return ViewPaths.ADD_ORDER;
         }
         // Gán thông tin vào đơn hàng
-        newOrder.setUser(loggedInUser);
+        newOrder.setUser(user);
         if (newOrder.getProducts() == null) {
             newOrder.setProducts(new ArrayList<>()); // Tránh lỗi NullPointerException
         }

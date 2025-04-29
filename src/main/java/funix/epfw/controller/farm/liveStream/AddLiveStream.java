@@ -38,8 +38,8 @@ public class AddLiveStream {
         }
         Farm farm = farmService.findById(farmId);
         if(farm == null) {
-            // Handle error
-            return "redirect:/login";
+           model.addAttribute(Message.ERROR_MESS,"Không thể tìm thấy trang trại.");
+           return ViewPaths.ADD_LIVE_STREAM;
         }
         model.addAttribute("farm", farm);
         model.addAttribute("liveStream", new LiveStream());
@@ -52,14 +52,15 @@ public class AddLiveStream {
                                     @Validated @ModelAttribute("liveStream") LiveStream liveStream,
                                     BindingResult result,
                                     Model model, HttpSession session) {
+
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
         Farm farm = farmService.findById(farmId);
         if(farm == null) {
-            // Handle error
-            return "redirect:/login";
+            model.addAttribute(Message.ERROR_MESS,"Không thể tìm thấy trang trại.");
+            return ViewPaths.ADD_LIVE_STREAM;
         }
         if(result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Thêm livestream không thành công");
@@ -69,7 +70,7 @@ public class AddLiveStream {
         }
         liveStream.setFarm(farm);
         liveStreamService.saveLive(liveStream);
-        model.addAttribute("successMessage", "Thêm livestream thành công");
+        model.addAttribute(Message.SUCCESS_MESS, "Thêm livestream thành công");
         return "redirect:/manageLiveStream";
     }
 }

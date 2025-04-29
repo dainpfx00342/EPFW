@@ -2,7 +2,6 @@ package funix.epfw.controller.farm.tour;
 
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
-import funix.epfw.constants.Role;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.tour.Tour;
@@ -33,7 +32,8 @@ public class ManageTour {
     }
 
     @GetMapping("/manageTour")
-    public String manageTour(HttpSession session, Model model, @RequestParam(value = "error", required = false) String error) {
+    public String manageTour(HttpSession session, Model model,
+                             @RequestParam(value = "error", required = false) String error) {
 
         String checkAuth =  AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
@@ -47,16 +47,10 @@ public class ManageTour {
         User currentUser = (User) session.getAttribute("loggedInUser");
         currentUser = userService.findByUsername(currentUser.getUsername());
 
-
         List<Tour> tours;
-        if(currentUser.getRole() == Role.ADMIN){
-            tours = tourService.findAll();
+        List<Farm> farms = farmService.findByUserId(currentUser.getId());
+        tours = tourService.findByFarms(farms);
 
-        }else {
-            List<Farm> farms = farmService.findByUserId(currentUser.getId());
-            tours = tourService.findByFarms(farms);
-
-        }
         model.addAttribute("tours", tours);
         return ViewPaths.MANAGE_TOUR;
     }

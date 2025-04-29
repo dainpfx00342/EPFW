@@ -17,9 +17,13 @@
 
   <h4 class="text-center">Danh sách các buổi live stream</h4>
 
-  <!-- Hiển thị thông báo xóa thành công -->
+  <!-- Hiển thị thông báo xóa  -->
   <div th:if="${successMess}" class="alert alert-success text-center">
     <span th:text="${successMess}"></span>
+  </div>
+
+  <div th:if="${errorMess}" class="alert alert-danger text-center">
+    <span th:text="${errorMess}"></span>
   </div>
 
   <!-- Danh sách buoi live -->
@@ -28,10 +32,10 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Tên Trang trai</th>
-        <th>Tieu de</th>
+        <th>Tên trang trại</th>
+        <th>Tiêu đề</th>
         <th>Ngày live</th>
-        <th>Mo ta</th>
+        <th>Mô tả</th>
         <th>Thao tác</th>
       </tr>
       </thead>

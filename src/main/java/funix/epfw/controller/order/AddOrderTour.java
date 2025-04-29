@@ -42,9 +42,13 @@ public class AddOrderTour {
             return checkAuth;
         }
         Tour tour = tourService.findById(tourId);
+        if(tour == null){
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
+            return ViewPaths.ADD_ORDER_TOUR;
+        }
         Blog blog = blogService.findById(blogId);
-        if(tour==null){
-            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
+        if(blog == null){
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy blog");
             return ViewPaths.ADD_ORDER_TOUR;
         }
         model.addAttribute("tour", tour);
@@ -60,21 +64,27 @@ public class AddOrderTour {
                                 BindingResult result,
                                 Model model, HttpSession session) {
         String checkAuth = AuthUtil.checkBuyerAuth(session);
-        Tour tour = tourService.findById(tourId);
-        Blog blog = blogService.findById(blogId);
-        if(tour==null){
-            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
-            return ViewPaths.ADD_ORDER_TOUR;
-        }
         if(checkAuth!=null){
             return checkAuth;
         }
+
+        Tour tour = tourService.findById(tourId);
+        if(tour== null){
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
+            return ViewPaths.ADD_ORDER_TOUR;
+        }
+        Blog blog = blogService.findById(blogId);
+        if(blog==null){
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy blog");
+            return ViewPaths.ADD_ORDER_TOUR;
+        }
+
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if(loggedInUser==null){
             return ViewPaths.LOGIN;
         }
         if(result.hasErrors()){
-            model.addAttribute(Message.ERROR_MESS,"Vui long nhap day du thong tin");
+            model.addAttribute(Message.ERROR_MESS,"Vui lòng nhập đầy đủ thông tin");
             model.addAttribute("order", newOrderTour);
             model.addAttribute("tour", tour);
             return ViewPaths.ADD_ORDER_TOUR;
@@ -95,7 +105,7 @@ public class AddOrderTour {
         try{
             orderService.saveOrder(newOrderTour);
         }catch(Exception e){
-            model.addAttribute(Message.ERROR_MESS,"Loi he thong vui long thu lai");
+            model.addAttribute(Message.ERROR_MESS,"Lỗi hệ thống vui lòng thử lại");
             log.error("loi khi luu don hang");
             return ViewPaths.ADD_ORDER_TOUR;
         }

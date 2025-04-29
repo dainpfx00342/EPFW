@@ -1,5 +1,6 @@
 package funix.epfw.controller.farm.liveStream;
 
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.liveStream.LiveStream;
 import funix.epfw.service.farm.liveStream.LiveService;
@@ -23,8 +24,8 @@ public class DetailLiveStream {
 
         LiveStream liveStream = liveService.findById(liveStreamId);
         if (liveStream == null) {
-            // Handle error
-            return "redirect:/login";
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy livestream");
+            return "redirect:/manageLiveStream?error=livestreamNotFound";
         }
         model.addAttribute("liveStream", liveStream);
         return ViewPaths.DETAIL_LIVE_STREAM;
