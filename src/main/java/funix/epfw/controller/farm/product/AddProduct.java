@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,17 +34,17 @@ public class AddProduct {
     }
 
     @GetMapping("/addProduct/{farmId}")
-    public String addProduct(Model model, HttpSession session,  @PathVariable Long farmId) {
+    public String addProduct(Model model, HttpSession session, @PathVariable Long farmId, RedirectAttributes redirectAttributes) {
         String checkAuth =  AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }
 
-        // Lấy thông tin trang trại
+
         Farm farm = farmService.findById(farmId);
         if (farm==null) {
-            model.addAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
-            return ViewPaths.ADD_PRODUCT;
+            redirectAttributes.addFlashAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
+            return "redirect:/manageFarm?error=farmNotFound";
         }
 
         List<Unit> units = Arrays.asList(Unit.values());
@@ -52,7 +53,7 @@ public class AddProduct {
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
         model.addAttribute("product", new Product());
-        model.addAttribute("farm", farm); //  Đảm bảo `farm` được truyền vào model
+        model.addAttribute("farm", farm);
 
         return ViewPaths.ADD_PRODUCT;
     }
@@ -60,9 +61,9 @@ public class AddProduct {
 
     @PostMapping("/addProduct/{farmId}")
     public String addProduct(@Validated @ModelAttribute("product") Product newProduct,
-                             BindingResult result,@PathVariable Long farmId,
+                             BindingResult result, @PathVariable Long farmId,
                              @RequestParam("imageFile") MultipartFile file,
-                             Model model, HttpSession session ) {
+                             Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
         String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
@@ -71,8 +72,8 @@ public class AddProduct {
         // Kiểm tra nếu farm không tồn tại
        Farm farm = farmService.findById(farmId);
         if (farm==null) {
-            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy trang trại.");
-            return ViewPaths.ADD_PRODUCT;
+            redirectAttributes.addFlashAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
+            return "redirect:/manageFarm?error=farmNotFound";
         }
         try{
             String imageUrl = productService.saveImage(file);
@@ -83,7 +84,7 @@ public class AddProduct {
             model.addAttribute(Message.ERROR_MESS, "Lỗi lưu ảnh");
         }
 
-        // Kiểm tra nếu form có lỗi validation
+
         if (result.hasErrors()) {
             model.addAttribute("categories", Arrays.asList(Category.values()));
             model.addAttribute("units", Arrays.asList(Unit.values()));
@@ -92,8 +93,9 @@ public class AddProduct {
 
             return ViewPaths.ADD_PRODUCT;
         }
-        newProduct.setFarm(farm); //Gan farm vao san pham
-        productService.saveOrUpdateProduct(newProduct); // luu san pham moi
+        newProduct.setFarm(farm);
+        productService.saveOrUpdateProduct(newProduct);
+        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"Sản phẩm được thêm thành công");
 
         return "redirect:/manageProduct";
 

@@ -2,6 +2,7 @@ package funix.epfw.controller.farm;
 
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
+import funix.epfw.model.farm.Farm;
 import funix.epfw.service.farm.FarmService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class DeleteFarm {
         if (checkAuth != null) {
             return checkAuth;
         }
-
+        Farm farm = farmService.findById(farmId);
+        if (farm == null) {
+            redirectAttributes.addFlashAttribute(Message.ERROR_MESS, "Trang trại không tồn tại!");
+            return "redirect:/manageFarm";
+        }
         farmService.deleteFarmById(farmId);
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"Xóa trang trại thành công!");
         return "redirect:/manageFarm";

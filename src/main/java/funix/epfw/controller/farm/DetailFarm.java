@@ -26,7 +26,7 @@ public class DetailFarm {
             return checkAuth;
         }
         Farm farm = farmService.findById(farmId);
-        if(farm == null){
+        if(farm == null || farm.getUser() == null){
             return "redirect:/manageFarm?error=farmNotFound";
         }
         model.addAttribute("farm", farm);

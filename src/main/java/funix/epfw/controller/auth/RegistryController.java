@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@SessionAttributes("user")
+
 public class RegistryController {
 
     private final UserService userService;
@@ -38,6 +38,7 @@ public class RegistryController {
 
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Đăng ký không thành công, vui lòng nhập lại thông tin!");
+            model.addAttribute("user", user);
             return ViewPaths.REGISTER;
         }
         if(userService.findByUsername(user.getUsername()) != null) {

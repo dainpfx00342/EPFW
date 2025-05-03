@@ -18,6 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -43,6 +45,9 @@ class AddProductTest {
     @Mock
     private MultipartFile file;
 
+    @Mock
+    private RedirectAttributes redirectAttributes;
+
     @InjectMocks
     private AddProduct addProductController;
 
@@ -59,7 +64,7 @@ class AddProductTest {
         try (MockedStatic<AuthUtil> authUtilMockedStatic = mockStatic(AuthUtil.class)) {
             authUtilMockedStatic.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/accessDenied");
 
-            String view = addProductController.addProduct(model, session, 1L);
+            String view = addProductController.addProduct(model, session, 1L,redirectAttributes);
 
             assertEquals("redirect:/accessDenied", view);
         }
@@ -72,9 +77,9 @@ class AddProductTest {
 
             when(farmService.findById(1L)).thenReturn(null);
 
-            String view = addProductController.addProduct(model, session, 1L);
+            String view = addProductController.addProduct(model, session, 1L,redirectAttributes);
 
-            assertEquals(ViewPaths.ADD_PRODUCT, view);
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
             verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không thể tìm thấy trang trại."));
         }
     }
@@ -86,7 +91,7 @@ class AddProductTest {
 
             when(farmService.findById(1L)).thenReturn(farm);
 
-            String view = addProductController.addProduct(model, session, 1L);
+            String view = addProductController.addProduct(model, session, 1L,redirectAttributes);
 
             assertEquals(ViewPaths.ADD_PRODUCT, view);
             verify(model).addAttribute(eq("categories"), anyList());
@@ -102,7 +107,7 @@ class AddProductTest {
             authUtilMockedStatic.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/accessDenied");
 
             Product newProduct = new Product();
-            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session);
+            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session, redirectAttributes);
 
             assertEquals("redirect:/accessDenied", view);
         }
@@ -116,7 +121,7 @@ class AddProductTest {
             when(farmService.findById(1L)).thenReturn(null);
 
             Product newProduct = new Product();
-            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session);
+            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session,redirectAttributes);
 
             assertEquals(ViewPaths.ADD_PRODUCT, view);
             verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không tìm thấy trang trại."));
@@ -132,7 +137,7 @@ class AddProductTest {
             when(bindingResult.hasErrors()).thenReturn(true);
 
             Product newProduct = new Product();
-            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session);
+            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session,redirectAttributes);
 
             assertEquals(ViewPaths.ADD_PRODUCT, view);
             verify(model).addAttribute(eq("categories"), anyList());
@@ -152,7 +157,7 @@ class AddProductTest {
             when(productService.saveImage(file)).thenReturn("testImageUrl.jpg");
 
             Product newProduct = new Product();
-            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session);
+            String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session,redirectAttributes);
 
             assertEquals("redirect:/manageProduct", view);
             verify(productService).saveOrUpdateProduct(any(Product.class));

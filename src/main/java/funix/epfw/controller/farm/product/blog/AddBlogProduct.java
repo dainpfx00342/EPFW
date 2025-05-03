@@ -37,6 +37,11 @@ public class AddBlogProduct {
             return checkAuth;
         }
         Product currentProduct = productService.findById(productId);
+        if(currentProduct==null){
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy sản phẩm.");
+            return ViewPaths.ADD_BLOG;
+        }
+
         model.addAttribute("product", currentProduct);
         model.addAttribute("blog", new Blog());
         model.addAttribute("productId", productId);
@@ -50,17 +55,17 @@ public class AddBlogProduct {
         //kiem tra neu product khong ton tai
         Product product = productService.findById(productId);
         if(product==null){
-            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy san pham.");
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy sản phẩm.");
             return ViewPaths.ADD_BLOG;
         }
         // Liên kết blog với product
         if (blog.getProducts() == null) {
-            blog.setProducts(new ArrayList<>()); // Khởi tạo danh sách nếu chưa có
-        }
-        blog.getProducts().add(product); // Thêm product vào danh sách Products của Blog
-        product.getBlogs().add(blog); // Thêm blog vào danh sách Blogs của Product
 
-       // Lưu Blog (JPA sẽ tự động cập nhật quan hệ với Product)
+            blog.setProducts(new ArrayList<>());
+        }
+        blog.getProducts().add(product);
+        product.getBlogs().add(blog);
+
         blogService.saveBlog(blog);
         return "redirect:/manageBlog/product/"+productId;
     }

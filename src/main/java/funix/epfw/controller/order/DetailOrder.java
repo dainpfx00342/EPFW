@@ -1,6 +1,7 @@
 package funix.epfw.controller.order;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.order.Order;
 import funix.epfw.service.order.OrderService;
@@ -27,6 +28,10 @@ public class DetailOrder {
             return checkAuth;
         }
         Order order = orderService.findById(orderId);
+        if(order == null) {
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy đơn hàng.");
+            return "redirect:/order/manageOrderProduct";
+        }
         model.addAttribute("order", order);
 
         return ViewPaths.DETAIL_ORDER;

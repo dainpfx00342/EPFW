@@ -16,33 +16,29 @@ public class CanceledOrder {
 
     @Autowired
     public CanceledOrder(OrderService orderService) {
+
         this.orderService = orderService;
     }
 
-    // Phương thức chung để xử lý việc từ chối đơn hàng
-    private String cancelOrder(Long orderId, String reason, String orderType, @RequestHeader(value = "Referer", required = false) String referer) {
+
+    private String cancelOrder(Long orderId, String reason, String orderType,
+                               @RequestHeader(value = "Referer", required = false) String referer) {
         Order order = orderService.findById(orderId);
-        String note = "";
-
-        // Thiết lập ghi chú tùy thuộc vào loại đơn hàng
-        if ("product".equals(orderType)) {
-            note = "Đơn hàng bị từ chối bởi người bán. Lý do: " + reason;
-        } else if ("tour".equals(orderType)) {
-            note = "Đơn đặt tour bị từ chối bởi chủ trang trại. Lý do: " + reason;
-        } else if ("buyer".equals(orderType)) {
-            note = "Đơn dặt bị từ chối bởi người mua. Lý do: " + reason;
+        if (order == null) {
+            return "redirect:" + referer;
         }
+        String note = switch (orderType){
+            case "product" -> "Đơn hàng bị từ chối bởi người bán. Lý do: " + reason;
+            case "tour" -> "Đơn đặt tour bị từ chối bởi chủ trang trại. Lý do: "+reason;
+            case "buyer" -> "Đơn dặt bị từ chối bởi người mua. Lý do: "+reason;
+            default -> "";
+        };
 
-        // Cập nhật trạng thái đơn hàng và ghi chú
         order.setNote(note);
         order.setOrderStatus(OrderStatus.CANCELED);
         orderService.saveOrder(order);
 
-        // Chuyển hướng về trang trước đó nếu có
-        if (referer != null) {
-            return "redirect:" + referer;
-        }
-        return "redirect:/home";
+        return "redirect:" +referer;
     }
 
     @GetMapping("/canceledOrder/product/{orderId}")

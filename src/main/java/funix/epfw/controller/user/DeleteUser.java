@@ -29,7 +29,6 @@ public class DeleteUser {
         if(checkAuth != null) {
             return checkAuth;
         }
-        //Xoa user trong bang users
         userService.deleteUserById(id);
         model.addFlashAttribute(Message.SUCCESS_MESS, "Xóa người dùng thành công!");
 

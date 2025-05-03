@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm.product.blog;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.product.Product;
@@ -42,7 +43,15 @@ public class ManageBlog {
         }
 
         Product product = productService.findById(productId);
+        if (product == null) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy sản phẩm.");
+            return "redirect:/farm/product/blog/manageBlog";
+        }
         List<Blog> blogs = blogService.getBlogsByProductId(productId);
+        if (blogs == null || blogs.isEmpty()) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy bài viết nào cho sản phẩm này.");
+            return "redirect:/farm/product/blog/manageBlog";
+        }
         model.addAttribute("blogs",blogs);
         model.addAttribute("product",product);
         model.addAttribute("productId",productId);
@@ -55,7 +64,15 @@ public class ManageBlog {
             return checkAuth;
         }
         Tour tour = tourService.findById(tourId);
+        if (tour == null) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy chuyến tham quan.");
+            return "redirect:/farm/product/blog/manageBlogTour";
+        }
         List<Blog> blogs = blogService.getBlogsByTourId(tourId);
+        if (blogs == null || blogs.isEmpty()) {
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy bài viết nào cho chuyến tham quan này.");
+            return "redirect:/farm/product/blog/manageBlogTour";
+        }
         model.addAttribute("blogs",blogs);
         model.addAttribute("tour",tour);
         model.addAttribute("tourId",tourId);

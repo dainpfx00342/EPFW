@@ -38,6 +38,9 @@ EditFarm {
             return checkAuth;
         }
         Farm farm = farmService.findById(farmId);
+        if (farm == null) {
+            return "redirect:/manageFarm?error=farmNotFound";
+        }
 
         List<Category> categeries = Arrays.asList(Category.values());
         model.addAttribute("categories", categeries);

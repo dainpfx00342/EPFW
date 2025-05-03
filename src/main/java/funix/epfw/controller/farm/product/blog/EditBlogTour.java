@@ -1,6 +1,7 @@
 package funix.epfw.controller.farm.product.blog;
 
 import funix.epfw.constants.AuthUtil;
+import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.tour.Tour;
@@ -26,12 +27,16 @@ public class EditBlogTour {
 
     @GetMapping("/editBlog/tour/{blogId}")
     public String editBlogTour(@PathVariable Long blogId,Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth!=null){
             return checkAuth;
         }
         Blog blog = blogService.findById(blogId);
-        Tour tour = blog.getTours().getFirst();
+        if (blog == null){
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy bài viết cần sửa hoặc bài viết không tồn tại");
+            return "redirect:/farm/product/blog/manageBlogTour";
+        }
+        Tour tour = blog.getTours() != null && !blog.getTours().isEmpty() ? blog.getTours().getFirst() : null;
 
         model.addAttribute("tour", tour);
         model.addAttribute("blog", blog);
@@ -40,8 +45,18 @@ public class EditBlogTour {
     }
 
     @PostMapping("/editBlog/tour/{blogId}")
-    public String editBlogTour(@PathVariable Long blogId, Blog blog) {
+    public String editBlogTour(@PathVariable Long blogId, Blog blog, HttpSession session, Model model) {
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        if(checkAuth!=null){
+            return checkAuth;
+        }
+
         Blog blogToUpdate = blogService.findById(blogId);
+        if (blogToUpdate == null) {
+            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy bài viết cần sửa hoặc bài viết không tồn tại");
+            return "redirect:/farm/product/blog/manageBlogTour";
+        }
+
         blogToUpdate.setTitle(blog.getTitle());
         blogToUpdate.setContent(blog.getContent());
 

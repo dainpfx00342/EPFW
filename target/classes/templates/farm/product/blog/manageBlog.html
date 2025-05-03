@@ -21,11 +21,14 @@
 
     <h4>Danh sách bài viết của sản phẩm: <span class="text-success" th:text="${product.productName}"></span></h4>
 
-    <!-- Hiển thị thông báo thành công -->
+    <!-- Hiển thị thông báo  -->
     <div th:if="${successMess}" class="alert alert-success text-center">
         <span th:text="${successMess}"></span>
     </div>
 
+    <div th:if="${errorMess}" class="alert alert-danger text-center">
+        <span th:text="${errorMess}"></span>
+    </div>
     <!-- Danh sách Blog -->
     <div class="table-container">
         <table class="table table-bordered table-hover">

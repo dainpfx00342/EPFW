@@ -46,12 +46,14 @@ public class AddBlogTour {
         }
         Tour tour = tourService.findById(tourId);
         if(tour==null){
-            model.addAttribute(Message.ERROR_MESS,"Khong tim thay tour");
+            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy chuyến tham quan.");
             return ViewPaths.ADD_BLOG_TOUR;
         }
+
         if(blog.getTours()==null){
             blog.setTours(new ArrayList<>());
         }
+
         blog.getTours().add(tour);
         tour.getBlogs().add(blog);
         blogService.saveBlog(blog);

@@ -1,5 +1,6 @@
 package funix.epfw.controller.order;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
 import funix.epfw.model.order.Order;
 import funix.epfw.model.user.User;
@@ -22,15 +23,16 @@ public class ConfirmOrder {
     }
 
     @GetMapping("/confirmOrder/{orderId}")
-    public String confirmOrderProduct(@PathVariable("orderId") Long orderId, RedirectAttributes redirectAttributes, HttpSession session) {
-        String checkAuth = (String) session.getAttribute("checkAuth");
+    public String confirmOrderProduct(@PathVariable("orderId") Long orderId,
+                                      RedirectAttributes redirectAttributes, HttpSession session) {
+
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
         Long userId = currentUser.getId();
         Order currentOrder = orderService.findById(orderId);
-
         if(currentOrder != null) {
             orderService.confirmOrder(orderId);  // Chỉ gọi 1 lần duy nhất
             String redirectUrl = currentOrder.getProducts().isEmpty() ? "/manageOrderTour/" : "/manageOrderProduct/";
@@ -40,17 +42,4 @@ public class ConfirmOrder {
         return "redirect:/manageOrderProduct/" + userId;
 
     }
-
-//    @GetMapping("/confirmOrder/tour/{orderId}")
-//    public String confirmOrderTour(@PathVariable("orderId") Long orderId, RedirectAttributes redirectAttributes, HttpSession session) {
-//        String checkAuth = (String) session.getAttribute("checkAuth");
-//        if(checkAuth != null) {
-//            return checkAuth;
-//        }
-//        orderService.confirmOrder(orderId);
-//        User currentUser = (User) session.getAttribute("loggedInUser");
-//        Long userId = currentUser.getId();
-//        redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Xác nhận đơn hàng: "+orderId+" thành công");
-//        return "redirect:/manageOrderTour/"+userId;
-//    }
 }
