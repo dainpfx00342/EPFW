@@ -1,10 +1,7 @@
 package funix.epfw.controller.farm.product;
 
 
-import funix.epfw.constants.AuthUtil;
-import funix.epfw.constants.Message;
-import funix.epfw.constants.Unit;
-import funix.epfw.constants.ViewPaths;
+import funix.epfw.constants.*;
 
 import funix.epfw.model.farm.product.Product;
 import funix.epfw.service.farm.product.ProductService;
@@ -56,8 +53,10 @@ public class EditProduct {
             return "redirect:/manageProduct?error=productNotFound";
         }
         List<Unit> units = Arrays.asList(Unit.values());
+        List<Category> categories = Arrays.asList(Category.values());
         model.addAttribute("units", units);
         model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
         return ViewPaths.EDIT_PRODUCT;
     }
 

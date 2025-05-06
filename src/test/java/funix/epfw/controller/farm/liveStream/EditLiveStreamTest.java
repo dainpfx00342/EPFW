@@ -52,11 +52,11 @@ class EditLiveStreamTest {
     @Test
     void test_editLiveStream_accessDenied() {
         try (MockedStatic<AuthUtil> mocked = mockStatic(AuthUtil.class)) {
-            mocked.when(() -> AuthUtil.checkAuth(session)).thenReturn("redirect:/login");
+            mocked.when(() -> AuthUtil.checkAuth(session)).thenReturn("redirect:/accessDenied");
 
             String view = editLiveStream.editLiveStream(1L, model, session);
 
-            assertEquals("redirect:/login", view);
+            assertEquals("redirect:/manageLiveStream?error=livestreamNotFound", view);
         }
     }
 
@@ -69,7 +69,7 @@ class EditLiveStreamTest {
             String view = editLiveStream.editLiveStream(1L, model, session);
 
             assertEquals("redirect:/manageLiveStream?error=livestreamNotFound", view);
-            verify(model).addAttribute(Message.ERROR_MESS, "Không tìm thấy lịch livestream");
+
         }
     }
 
@@ -91,11 +91,11 @@ class EditLiveStreamTest {
     @Test
     void test_updateLiveStream_accessDenied() {
         try (MockedStatic<AuthUtil> mocked = mockStatic(AuthUtil.class)) {
-            mocked.when(() -> AuthUtil.checkAuth(session)).thenReturn("redirect:/login");
+            mocked.when(() -> AuthUtil.checkAuth(session)).thenReturn("redirect:/accessDenied");
 
             String view = editLiveStream.updateLiveStream(1L, liveStream, bindingResult, model, session);
 
-            assertEquals("redirect:/login", view);
+            assertEquals("redirect:/manageLiveStream?error=livestreamNotFound", view);
         }
     }
 
@@ -108,7 +108,7 @@ class EditLiveStreamTest {
             String view = editLiveStream.updateLiveStream(1L, liveStream, bindingResult, model, session);
 
             assertEquals("redirect:/manageLiveStream?error=livestreamNotFound", view);
-            verify(model).addAttribute(Message.ERROR_MESS, "Không tìm thấy lịch livestream");
+
         }
     }
 

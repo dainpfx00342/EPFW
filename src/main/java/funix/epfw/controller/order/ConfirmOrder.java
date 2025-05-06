@@ -31,15 +31,25 @@ public class ConfirmOrder {
             return checkAuth;
         }
         User currentUser = (User) session.getAttribute("loggedInUser");
-        Long userId = currentUser.getId();
+        Long currentUserId = currentUser.getId();
         Order currentOrder = orderService.findById(orderId);
         if(currentOrder != null) {
+
+            boolean isOwner = currentOrder.getProducts().stream()
+                    .anyMatch(product -> product.getFarm().getUser().getId().equals(currentUserId)) ||
+                    currentOrder.getTours().stream()
+                            .anyMatch(tour -> tour.getFarm().getUser().getId().equals(currentUserId));
+            if (!isOwner) {
+
+                return "redirect:/accessDenied";
+            }
+
             orderService.confirmOrder(orderId);  // Chỉ gọi 1 lần duy nhất
             String redirectUrl = currentOrder.getProducts().isEmpty() ? "/manageOrderTour/" : "/manageOrderProduct/";
             redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS, "Xác nhận đơn hàng thành công");
-            return "redirect:" + redirectUrl + userId;
+            return "redirect:" + redirectUrl + currentUserId;
         }
-        return "redirect:/manageOrderProduct/" + userId;
+        return "redirect:/manageOrderProduct/" + currentUserId;
 
     }
 }

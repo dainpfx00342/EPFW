@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes("loggedInUser")
+
 @Slf4j // Giúp log lỗi dễ hơn
 public class AddOrderProduct {
     private final ProductService productService;
@@ -48,13 +48,13 @@ public class AddOrderProduct {
         }
         Product currentProduct = productService.findById(productId);
         if(currentProduct == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy sản phẩm!?");
-            return ViewPaths.ADD_ORDER;
+
+            return "redirect:/home?error=productNotFound";
         }
         Blog currentBlog = blogService.findById(blogId);
         if(currentBlog == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy bài viết!?");
-            return ViewPaths.ADD_ORDER;
+
+            return "redirect:/home?error=blogNotFound";
         }
 
 
@@ -78,14 +78,14 @@ public class AddOrderProduct {
         }
         User user = (User) session.getAttribute("loggedInUser");
         if(user == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy người dùng!?");
-            return ViewPaths.ADD_ORDER;
+
+            return "redirect:/home?error=notLoggedIn";
         }
 
         Product product = productService.findById(productId);
         if (product == null) {
-            model.addAttribute(Message.ERROR_MESS, "Sản phẩm không tồn tại!");
-            return ViewPaths.ADD_ORDER;
+
+            return "redirect:/home?error=productNotFound";
         }
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Vui lòng nhập đầy đủ dữ liệu!");
@@ -97,18 +97,18 @@ public class AddOrderProduct {
         // Gán thông tin vào đơn hàng
         newOrder.setUser(user);
         if (newOrder.getProducts() == null) {
-            newOrder.setProducts(new ArrayList<>()); // Tránh lỗi NullPointerException
+            newOrder.setProducts(new ArrayList<>());
         }
         newOrder.getProducts().add(product);
         newOrder.setBlog(blogService.findById(blogId));
-        product.getOrders().add(newOrder); //Cập nhật 2 chiều
+        product.getOrders().add(newOrder);
         newOrder.setOrderType("PRODUCT");
         newOrder.setOrderStatus(OrderStatus.PENDING);
         if(newOrder.getExpectedPrice()==0){
             newOrder.setExpectedPrice(product.getPrice());
         }
 
-        // Lưu đơn hàng vào database
+
         try {
             orderService.saveOrder(newOrder);
         } catch (Exception e) {

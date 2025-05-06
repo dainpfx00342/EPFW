@@ -46,7 +46,7 @@ public class Order {
     private String phone;
 
     @Column
-   @Email(message = "Email không đúng định dạng")
+    @Email(message = "Email không đúng định dạng")
     private String email;
     
     @Column(nullable = false)

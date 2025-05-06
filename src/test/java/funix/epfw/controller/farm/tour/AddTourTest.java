@@ -58,8 +58,8 @@ class AddTourTest {
             when(farmService.findById(farmId)).thenReturn(null);
 
             String view = addTour.toAddTour(farmId, model, session);
-            assertEquals(ViewPaths.ADD_TOUR, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
+
         }
     }
 
@@ -98,8 +98,8 @@ class AddTourTest {
             when(farmService.findById(farmId)).thenReturn(null);
 
             String view = addTour.addTour(tour, result, farmId, model, session);
-            assertEquals(ViewPaths.ADD_TOUR, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
+
         }
     }
 

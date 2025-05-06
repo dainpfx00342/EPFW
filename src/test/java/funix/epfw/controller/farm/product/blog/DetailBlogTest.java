@@ -53,7 +53,7 @@ class DetailBlogTest {
     @Test
     void test_blogDetail_AccessDenied() {
         try (MockedStatic<AuthUtil> mocked = Mockito.mockStatic(AuthUtil.class)) {
-            mocked.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/accessDenied");
+            mocked.when(() -> AuthUtil.checkAuth(session)).thenReturn("redirect:/accessDenied");
 
             String view = detailBlog.blogDetail(blogId, model, session);
             assertEquals("redirect:/accessDenied", view);

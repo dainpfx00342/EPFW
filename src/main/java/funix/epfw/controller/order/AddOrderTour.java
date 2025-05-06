@@ -11,7 +11,6 @@ import funix.epfw.service.farm.product.blog.BlogService;
 import funix.epfw.service.farm.tour.TourService;
 import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@Slf4j
+
 public class AddOrderTour {
     private final OrderService orderService;
     private final TourService tourService;
@@ -44,12 +43,12 @@ public class AddOrderTour {
         Tour tour = tourService.findById(tourId);
         if(tour == null){
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
-            return ViewPaths.ADD_ORDER_TOUR;
+            return "redirect:/home?error=tourNotFound";
         }
         Blog blog = blogService.findById(blogId);
         if(blog == null){
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy blog");
-            return ViewPaths.ADD_ORDER_TOUR;
+            return "redirect:/home?error=blogNotFound";
         }
         model.addAttribute("tour", tour);
         model.addAttribute("order", new Order());
@@ -71,22 +70,23 @@ public class AddOrderTour {
         Tour tour = tourService.findById(tourId);
         if(tour== null){
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
-            return ViewPaths.ADD_ORDER_TOUR;
+            return "redirect:/home?error=tourNotFound";
         }
         Blog blog = blogService.findById(blogId);
         if(blog==null){
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy blog");
-            return ViewPaths.ADD_ORDER_TOUR;
+            return "redirect:/home?error=blogNotFound";
         }
 
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if(loggedInUser==null){
-            return ViewPaths.LOGIN;
+            return "redirect:/home?error=notLoggedIn";
         }
         if(result.hasErrors()){
             model.addAttribute(Message.ERROR_MESS,"Vui lòng nhập đầy đủ thông tin");
             model.addAttribute("order", newOrderTour);
             model.addAttribute("tour", tour);
+            model.addAttribute("blog", blog);
             return ViewPaths.ADD_ORDER_TOUR;
         }
 
@@ -106,7 +106,6 @@ public class AddOrderTour {
             orderService.saveOrder(newOrderTour);
         }catch(Exception e){
             model.addAttribute(Message.ERROR_MESS,"Lỗi hệ thống vui lòng thử lại");
-            log.error("loi khi luu don hang");
             return ViewPaths.ADD_ORDER_TOUR;
         }
 

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ManageUserOrderTest {
+public class ManageUserOrderTest {
 
     @InjectMocks
     private manageUserOrder manageUserOrder;
@@ -38,18 +38,22 @@ class ManageUserOrderTest {
     @Test
     void testShowManageUserOrder_AuthFailed() {
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
-            authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn("redirect:/login");
+            authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn("redirect:/accessDenied");
+            when(session.getAttribute("loggedInUser")).thenReturn(null);
 
             String result = manageUserOrder.showManageUserOrder(1L, model, session);
-            assertEquals("redirect:/login", result);
+            assertEquals("redirect:/accessDenied", result);
         }
     }
 
     @Test
     void testShowManageUserOrder_OrdersFound() {
-        List<Order> orders = List.of(new Order(), new Order());  // Mock some orders
-        try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
+            List<Order> orders = List.of(new Order(), new Order());
+
+            try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
             authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn(null);
+
+            when(user.getId()).thenReturn(1L);
             when(orderService.findOrdersByUserId(1L)).thenReturn(orders);
             when(session.getAttribute("loggedInUser")).thenReturn(user);
 
@@ -65,6 +69,8 @@ class ManageUserOrderTest {
         List<Order> orders = List.of();  // No orders found
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
             authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn(null);
+
+            when(user.getId()).thenReturn(1L);
             when(orderService.findOrdersByUserId(1L)).thenReturn(orders);
             when(session.getAttribute("loggedInUser")).thenReturn(user);
 

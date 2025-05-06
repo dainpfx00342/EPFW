@@ -13,10 +13,12 @@
     <!--Content-->
     <div class="container-fluid">
     <h2 class="text-center"> Trang Quản lý người dùng</h2>
-       <!-- Hiển thị thông báo xóa thành công -->
+       <!-- Hiển thị thông báo  -->
     <div th:if="${successMess}" class="text-success">
         <span th:text="${successMess}"></span>
     </div>
+    <div th:if="${errorMess}" class="text-danger"></div>
+        <span th:text="${errorMess}"></span>
     <div class="table-container">
      <table class="table table-bordered table-hover">
          <tr>

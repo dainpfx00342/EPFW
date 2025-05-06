@@ -1,19 +1,18 @@
 package funix.epfw.model.user;
 
 import funix.epfw.constants.Role;
-import funix.epfw.model.vote.Comment;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.model.order.Order;
+import funix.epfw.model.vote.Comment;
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
 
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -60,5 +59,18 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id != null && id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 }

@@ -3,6 +3,7 @@ package funix.epfw.controller.order;
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.order.Order;
+import funix.epfw.model.user.User;
 import funix.epfw.service.order.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class manageOrderProduct {
         if(checkAuth!=null) {
             return checkAuth;
         }
-
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        if (!userId.equals(currentUser.getId())) {
+            return "redirect:/accessDenied";
+        }
         List<Order> orders = orderService.findOrdersProductByUser(userId);
         model.addAttribute("orders", orders);
 

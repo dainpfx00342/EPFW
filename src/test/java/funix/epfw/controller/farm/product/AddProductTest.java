@@ -80,7 +80,7 @@ class AddProductTest {
             String view = addProductController.addProduct(model, session, 1L,redirectAttributes);
 
             assertEquals("redirect:/manageFarm?error=farmNotFound", view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không thể tìm thấy trang trại."));
+
         }
     }
 
@@ -123,8 +123,8 @@ class AddProductTest {
             Product newProduct = new Product();
             String view = addProductController.addProduct(newProduct, bindingResult, 1L, file, model, session,redirectAttributes);
 
-            assertEquals(ViewPaths.ADD_PRODUCT, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không tìm thấy trang trại."));
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
+
         }
     }
 

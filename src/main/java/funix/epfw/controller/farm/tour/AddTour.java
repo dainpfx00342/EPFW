@@ -40,8 +40,7 @@ public class AddTour {
 
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy trang trại");
-            return ViewPaths.ADD_TOUR;
+            return "redirect:/manageFarm?error=farmNotFound";
         }
 
         List<TourType> tourTypes = Arrays.asList(TourType.values());
@@ -68,8 +67,7 @@ public class AddTour {
         // kiểm tra nếu farm không tồn tại
         Farm currFarm = farmService.findById(farmId);
         if(currFarm == null){
-            model.addAttribute(Message.ERROR_MESS, "Không tìm thấy trang trại để thêm?");
-            return ViewPaths.ADD_TOUR ;
+            return "redirect:/manageFarm?error=farmNotFound" ;
         }
 
         //Kiểm tra nếu form có lỗi validation

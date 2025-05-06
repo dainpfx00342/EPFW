@@ -66,8 +66,8 @@ class AddOrderProductTest {
             when(productService.findById(productId)).thenReturn(null);
 
             String view = addOrderProduct.addOrder(productId, blogId, model, session);
-            assertEquals(ViewPaths.ADD_ORDER, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/home?error=productNotFound", view);
+
         }
     }
 
@@ -80,8 +80,8 @@ class AddOrderProductTest {
             when(blogService.findById(blogId)).thenReturn(null);
 
             String view = addOrderProduct.addOrder(productId, blogId, model, session);
-            assertEquals(ViewPaths.ADD_ORDER, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/home?error=blogNotFound", view);
+
         }
     }
 
@@ -121,8 +121,8 @@ class AddOrderProductTest {
             when(session.getAttribute("loggedInUser")).thenReturn(null);
 
             String view = addOrderProduct.processOrder(productId, blogId, order, result, model, session);
-            assertEquals(ViewPaths.ADD_ORDER, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/home?error=notLoggedIn", view);
+
         }
     }
 
@@ -136,8 +136,8 @@ class AddOrderProductTest {
             when(productService.findById(productId)).thenReturn(null);
 
             String view = addOrderProduct.processOrder(productId, blogId, order, result, model, session);
-            assertEquals(ViewPaths.ADD_ORDER, view);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+            assertEquals("redirect:/home?error=productNotFound", view);
+
         }
     }
 

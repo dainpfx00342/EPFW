@@ -47,7 +47,7 @@ public class AddBlogTour {
         Tour tour = tourService.findById(tourId);
         if(tour==null){
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy chuyến tham quan.");
-            return ViewPaths.ADD_BLOG_TOUR;
+            return "redirect:/manageTour?error=tourNotFound";
         }
 
         if(blog.getTours()==null){

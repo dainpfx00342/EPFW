@@ -28,13 +28,13 @@ public class EditLiveStream {
     @GetMapping("/editLiveStream/{liveId}")
     public String editLiveStream(@PathVariable Long liveId, Model model, HttpSession session) {
 
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }
         LiveStream liveStream = liveService.findById(liveId);
         if (liveStream == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy lịch livestream");
+
             return "redirect:/manageLiveStream?error=livestreamNotFound";
         }
         model.addAttribute("liveStream", liveStream);
@@ -44,13 +44,13 @@ public class EditLiveStream {
     @PostMapping("/editLiveStream/{liveId}")
     public String updateLiveStream(@PathVariable Long liveId, @Validated @ModelAttribute("liveStream")LiveStream liveStream,
                                    BindingResult result, Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkAuth(session);
+        String checkAuth = AuthUtil.checkFarmerAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }
         LiveStream liveStreamToUpdate = liveService.findById(liveId);
         if (liveStreamToUpdate == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy lịch livestream");
+
             return "redirect:/manageLiveStream?error=livestreamNotFound";
         }
         if(result.hasErrors()) {
@@ -67,6 +67,6 @@ public class EditLiveStream {
 
 
         liveService.saveLive(liveStreamToUpdate);
-        return "redirect:/manageLiveStream"; // Redirect to the manage live stream page after updating
+        return "redirect:/manageLiveStream";
     }
 }

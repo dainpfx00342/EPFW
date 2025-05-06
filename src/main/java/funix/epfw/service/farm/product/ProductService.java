@@ -70,4 +70,8 @@ public class ProductService {
         }
         return null;
     }
+
+    public boolean existsById(long id) {
+        return productRepository.existsById(id) ;
+    }
 }

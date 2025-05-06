@@ -45,15 +45,29 @@ class EditUserTest {
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
             authUtil.when(() -> AuthUtil.checkAdminAuth(session)).thenReturn("redirect:/login");
 
-            String result = editUser.showEditForm(1L, model, session);
+            String result = editUser.showEditForm(1L, model, session, redirectAttributes);
             assertEquals("redirect:/login", result);
         }
     }
 
     @Test
     void testShowEditForm_UserNotFound() {
-        String result = editUser.showEditForm(1L, model, session);
-        assertEquals("redirect:/accessDenied", result);
+        try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
+            // 1. Cho phép qua được checkAdminAuth
+            authUtil.when(() -> AuthUtil.checkAdminAuth(session))
+                    .thenReturn(null);
+
+            // 2. Khi tìm từ service trả về null (user không tồn tại)
+            when(userService.findById(1L)).thenReturn(null);
+
+            // 3. Gọi controller bên trong block mockStatic
+            String result = editUser.showEditForm(1L, model, session, redirectAttributes);
+
+            // Xác nhận đúng redirect khi user không tồn tại
+            assertEquals("redirect:/manageUser", result);
+            verify(redirectAttributes)
+                    .addFlashAttribute(Message.ERROR_MESS, "Người dùng không tồn tại!");
+        }
     }
 
     @Test
@@ -66,7 +80,7 @@ class EditUserTest {
             User user = new User();
             when(userService.findById(1L)).thenReturn(user);
 
-            String result = editUser.showEditForm(1L, model, session);
+            String result = editUser.showEditForm(1L, model, session, redirectAttributes);
             assertEquals(ViewPaths.EDIT_USER, result);
             verify(model).addAttribute("user", user);
         }
@@ -74,14 +88,27 @@ class EditUserTest {
 
     @Test
     void testEditUser_ValidationErrors() {
-        // Giả lập có lỗi validation
-        User currentUser = new User();
+        // 1. Giả lập có user trong DB
+        User userToUpdate = new User();
+        when(userService.findById(1L)).thenReturn(userToUpdate);
+
+        // 2. Giả lập có lỗi validation
         when(bindingResult.hasErrors()).thenReturn(true);
 
-        String result = editUser.editUser(currentUser, bindingResult, 1L, model, redirectAttributes);
+        User currentUser = new User();
+        String result = editUser.editUser(
+                currentUser,
+                bindingResult,
+                1L,
+                model,
+                redirectAttributes
+        );
 
+        // 3. Kỳ vọng vào branch lỗi validation
         assertEquals(ViewPaths.EDIT_USER, result);
         verify(model).addAttribute(Message.ERROR_MESS, "Cập nhật người dùng không thành công!");
+        // Và controller sẽ thêm lại user gốc vào model
+        verify(model).addAttribute("user", userToUpdate);
     }
 
     @Test

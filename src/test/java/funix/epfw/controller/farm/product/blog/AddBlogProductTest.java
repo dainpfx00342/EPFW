@@ -58,7 +58,7 @@ class AddBlogProductTest {
             when(productService.findById(productId)).thenReturn(null);
 
             String view = addBlogProduct.showAddBlogForm(model, productId, session);
-            assertEquals(ViewPaths.ADD_BLOG, view);
+            assertEquals("redirect:/manageProduct?error=productNotFound", view);
             verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
         }
     }
@@ -85,8 +85,8 @@ class AddBlogProductTest {
         when(productService.findById(productId)).thenReturn(null);
 
         String view = addBlogProduct.addBlog(blog, productId, model);
-        assertEquals(ViewPaths.ADD_BLOG, view);
-        verify(model).addAttribute(eq(Message.ERROR_MESS), anyString());
+        assertEquals("redirect:/manageProduct?error=productNotFound", view);
+
     }
 
     @Test

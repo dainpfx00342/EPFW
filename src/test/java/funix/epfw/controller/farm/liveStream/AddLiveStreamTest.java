@@ -70,8 +70,8 @@ class AddLiveStreamTest {
             when(farmService.findById(1L)).thenReturn(null);
 
             String view = addLiveStream.addLiveStream(1L, model, session);
-            assertEquals(ViewPaths.ADD_LIVE_STREAM, view);
-            verify(model).addAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
+
         }
     }
 
@@ -109,8 +109,8 @@ class AddLiveStreamTest {
             when(farmService.findById(1L)).thenReturn(null);
 
             String view = addLiveStream.addLiveStreamPost(1L, new LiveStream(), bindingResult, model, session);
-            assertEquals(ViewPaths.ADD_LIVE_STREAM, view);
-            verify(model).addAttribute(Message.ERROR_MESS, "Không thể tìm thấy trang trại.");
+            assertEquals("redirect:/manageFarm?error=farmNotFound", view);
+
         }
     }
 

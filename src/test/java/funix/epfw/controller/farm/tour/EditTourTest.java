@@ -76,7 +76,7 @@ class EditTourTest {
 
         String view = editTour.editTour(mockTour, bindingResult, model, 1L, redirectAttributes);
         assertEquals("redirect:/manageTour?error=tourNotFound", view);
-        verify(model).addAttribute(Message.ERROR_MESS, "Không tìm thấy tour");
+
     }
 
     @Test

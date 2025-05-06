@@ -37,7 +37,11 @@ public class EditTour {
         }
         List<TourType> tourTypes = Arrays.asList(TourType.values());
         List<TourStatus> tourStatuses = Arrays.asList(TourStatus.values());
+
         Tour tour = tourService.findById(tourId);
+        if(tour == null) {
+           return "redirect:/manageTour?error=tourNotFound";
+        }
         model.addAttribute("tour", tour);
         model.addAttribute("tourTypes", tourTypes);
         model.addAttribute("tourStatuses", tourStatuses);
@@ -56,7 +60,7 @@ public class EditTour {
 
         Tour tourToUpdate = tourService.findById(tourId);
         if(tourToUpdate == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không tìm thấy tour");
+
             return "redirect:/manageTour?error=tourNotFound";
         }
         if(result.hasErrors()) {

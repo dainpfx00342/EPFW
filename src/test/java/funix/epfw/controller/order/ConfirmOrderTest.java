@@ -2,7 +2,9 @@ package funix.epfw.controller.order;
 
 import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.Message;
+import funix.epfw.model.farm.Farm;
 import funix.epfw.model.farm.product.Product;
+import funix.epfw.model.farm.tour.Tour;
 import funix.epfw.model.order.Order;
 import funix.epfw.model.user.User;
 import funix.epfw.service.order.OrderService;
@@ -34,13 +36,25 @@ class ConfirmOrderTest {
     @Mock
     private RedirectAttributes redirectAttributes;
 
-    private final User mockUser = new User();
-    private final Order mockOrder = new Order();
+    private User mockUser ;
+    private  Order mockOrder;
 
     @BeforeEach
     void setUp() {
+        mockUser = new User();
         mockUser.setId(1L);
-        mockOrder.setProducts(Collections.singletonList(new Product())); // Có sản phẩm
+
+        mockOrder = new Order();
+
+        // Chuẩn bị product với farm.user = mockUser
+        Product product = new Product();
+        Farm farm = new Farm();
+        farm.setUser(mockUser);
+        product.setFarm(farm);
+        mockOrder.setProducts(Collections.singletonList(product));
+
+        // Khởi tạo tours rỗng
+        mockOrder.setTours(Collections.emptyList());
     }
 
     @Test
@@ -72,7 +86,14 @@ class ConfirmOrderTest {
 
     @Test
     void test_confirmOrder_isTourOrder() {
-        mockOrder.setProducts(Collections.emptyList()); // Không có sản phẩm => tour
+
+        mockOrder.setProducts(Collections.emptyList());
+
+        Tour tour = new Tour();
+        Farm farm = new Farm();
+        farm.setUser(mockUser);
+        tour.setFarm(farm);
+        mockOrder.setTours(Collections.singletonList(tour));
 
         try (MockedStatic<AuthUtil> mockedAuth = mockStatic(AuthUtil.class)) {
             mockedAuth.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn(null);

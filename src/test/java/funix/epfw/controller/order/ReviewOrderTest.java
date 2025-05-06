@@ -57,16 +57,23 @@ class ReviewOrderTest {
 
     @Test
     void testReviewOrder_Success() {
+
+        User realUser = new User();
+        realUser.setId(5L);
+
+        when(session.getAttribute("loggedInUser")).thenReturn(realUser);
+        when(order.getUser()).thenReturn(realUser);
+        when(orderService.findById(1L)).thenReturn(order);
+
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
             authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn(null);
-            when(orderService.findById(1L)).thenReturn(order);
-            when(session.getAttribute("loggedInUser")).thenReturn(user);
 
-            String result = reviewOrder.reviewOrder(1L, model, session);
-            assertEquals(ViewPaths.REVIEW_ORDER, result);
+            String view = reviewOrder.reviewOrder(1L, model, session);
+
+            assertEquals(ViewPaths.REVIEW_ORDER, view);
             verify(model).addAttribute("order", order);
             verify(model).addAttribute("vote", new Vote());
-            verify(model).addAttribute("user", user);
+            verify(model).addAttribute("user", realUser);
         }
     }
 
@@ -82,21 +89,26 @@ class ReviewOrderTest {
 
     @Test
     void testSubmitReviewOrder_Success() {
+
+        User realUser = new User();
+        realUser.setId(7L);
+
+        when(session.getAttribute("loggedInUser")).thenReturn(realUser);
+        when(order.getUser()).thenReturn(realUser);
+        when(orderService.findById(1L)).thenReturn(order);
+        when(order.getBlog()).thenReturn(blog);
+
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
             authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn(null);
-            when(orderService.findById(1L)).thenReturn(order);
-            when(order.getBlog()).thenReturn(blog);
-            when(session.getAttribute("loggedInUser")).thenReturn(user);
 
             Vote vote = new Vote();
-            vote.setBlog(blog);
-            vote.setOrder(order);
 
-            String result = reviewOrder.reviewOrder(1L, vote, model, session);
-            assertEquals("redirect:/manageOrderUser/" + user.getId(), result);
+            String view = reviewOrder.reviewOrder(1L, vote, model, session);
+
+            assertEquals("redirect:/manageOrderUser/" + realUser.getId(), view);
             verify(voteService).saveVote(vote);
             verify(model).addAttribute("order", order);
-            verify(model).addAttribute("user", user);
+            verify(model).addAttribute("user", realUser);
         }
     }
 }

@@ -39,7 +39,7 @@ public class AddBlogProduct {
         Product currentProduct = productService.findById(productId);
         if(currentProduct==null){
             model.addAttribute(Message.ERROR_MESS, "Không tìm thấy sản phẩm.");
-            return ViewPaths.ADD_BLOG;
+            return "redirect:/manageProduct?error=productNotFound";
         }
 
         model.addAttribute("product", currentProduct);
@@ -52,13 +52,13 @@ public class AddBlogProduct {
     @PostMapping("/addBlog/product/{productId}")
     public String addBlog(@ModelAttribute("blog") Blog blog, @PathVariable Long productId ,
                           Model model)  {
-        //kiem tra neu product khong ton tai
+
         Product product = productService.findById(productId);
         if(product==null){
             model.addAttribute(Message.ERROR_MESS, "Không tìm thấy sản phẩm.");
-            return ViewPaths.ADD_BLOG;
+            return "redirect:/manageProduct?error=productNotFound";
         }
-        // Liên kết blog với product
+
         if (blog.getProducts() == null) {
 
             blog.setProducts(new ArrayList<>());

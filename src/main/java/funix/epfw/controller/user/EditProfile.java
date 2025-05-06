@@ -20,13 +20,14 @@ public class EditProfile {
 
     @Autowired
     public EditProfile(UserService userService) {
+
         this.userService = userService;
     }
 
     @GetMapping("/editProfile")
     public String editProfile(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
-        if(user== null){
+        if(user == null){
             return ViewPaths.ACCESS_DENIED;
         }
         model.addAttribute("user", user);

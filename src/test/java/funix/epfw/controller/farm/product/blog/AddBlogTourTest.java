@@ -1,7 +1,6 @@
 package funix.epfw.controller.farm.product.blog;
 
 import funix.epfw.constants.AuthUtil;
-import funix.epfw.constants.Message;
 import funix.epfw.constants.ViewPaths;
 import funix.epfw.model.farm.product.Blog;
 import funix.epfw.model.farm.tour.Tour;
@@ -13,12 +12,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.ui.Model;
+
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class AddBlogTourTest {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+public class  AddBlogTourTest {
 
     @Mock
     private TourService tourService;
@@ -77,8 +80,8 @@ public class AddBlogTourTest {
             mocked.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn(null);
 
             String view = addBlogTour.saveBlog(tourId, blog, model, session);
-            assertEquals(ViewPaths.ADD_BLOG_TOUR, view);
-            verify(model).addAttribute(Message.ERROR_MESS, "Khong tim thay tour");
+            assertEquals("redirect:/manageTour?error=tourNotFound", view);
+
         }
     }
 

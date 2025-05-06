@@ -31,12 +31,12 @@ class DeleteLiveStreamTest {
     @Test
     void test_deleteLiveStream_unauthorized() {
         try (MockedStatic<AuthUtil> mocked = mockStatic(AuthUtil.class)) {
-            mocked.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/login");
+            mocked.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn("redirect:/accessDenied");
 
             String view = deleteLiveStream.deleteLiveStream(1L, session, redirectAttributes);
 
-            assertEquals("redirect:/login", view);
-            verifyNoInteractions(liveService); // không gọi xóa khi chưa login
+            assertEquals("redirect:/accessDenied", view);
+            verifyNoInteractions(liveService);
         }
     }
 

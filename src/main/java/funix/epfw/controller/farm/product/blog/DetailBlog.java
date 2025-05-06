@@ -37,7 +37,7 @@ public class DetailBlog {
 
     @GetMapping("/blogDetail/{blogId}")
     public String blogDetail(@PathVariable Long blogId, Model model, HttpSession session) {
-        String checkAuth = AuthUtil.checkFarmerAuth(session);
+        String checkAuth = AuthUtil.checkAuth(session);
         if (checkAuth != null) {
             return checkAuth;
         }

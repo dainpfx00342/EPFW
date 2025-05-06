@@ -37,7 +37,7 @@
         <div th:each="farm : ${farms}" class="card shadow-sm p-2" style="min-width: 300px; scroll-snap-align: start;">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-success" th:text="${farm.farmName}"></h5>
+                    <h5 class="card-title text-success"><i class="fas fa-leaf"></i> <span th:text="${farm.farmName}"> </span></h5>
                     <p class="card-text text-muted">
                         <strong>Sản phẩm:</strong> <span th:text="${#lists.size(farm.products)}"></span> |
                         <strong>Chuyến tham quan:</strong> <span th:text="${#lists.size(farm.tours)}"></span>
@@ -114,8 +114,8 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <!-- Icon -->
-                        <i th:if="${not #lists.isEmpty(blog.tours)}" class="fas fa-leaf text-success d-inline"></i>
-                        <i th:if="${not #lists.isEmpty(blog.products)}" class="fas fa-box text-warning d-inline"></i>
+                        <i th:if="${blog.tours != null}"
+                           th:class="${#lists.isEmpty(blog.tours) ? 'fas fa-box text-warning d-inline' : 'fas fa-route text-info d-inline'}"></i>
                         <a th:href="@{'/blogDetail/' + ${blog.id}}" th:text="${blog.title}" class="text-dark d-inline"></a>
                     </h5>
 

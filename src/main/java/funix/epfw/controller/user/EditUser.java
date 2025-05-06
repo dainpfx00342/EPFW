@@ -26,15 +26,16 @@ public class EditUser {
     }
 
     @GetMapping("/editUser/{userId}")
-    public String showEditForm(@PathVariable Long userId, Model model, HttpSession session) {
+    public String showEditForm(@PathVariable Long userId, Model model, HttpSession session, RedirectAttributes reModel) {
         String checkAuth = AuthUtil.checkAdminAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }
         User currentUuser = userService.findById(userId);
         if(currentUuser == null) {
-            // Handle error
-            return "redirect:/login";
+            reModel.addFlashAttribute(Message.ERROR_MESS, "Người dùng không tồn tại!");
+            return "redirect:/manageUser";
+
         }
         model.addAttribute("user", currentUuser);
         return ViewPaths.EDIT_USER;
@@ -47,18 +48,28 @@ public class EditUser {
                            Model model, RedirectAttributes reModel) {
         // Lấy user hiện tại từ DB
         User userToUpdate = userService.findById(userId);
+        if (userToUpdate == null) {
+            reModel.addFlashAttribute(Message.ERROR_MESS, "Người dùng không tồn tại!");
+            return "redirect:/manageUser";
+        }
 
-        // Kiểm tra lỗi validation trước khi cập nhật mật khẩu
+
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Cập nhật người dùng không thành công!");
-            model.addAttribute("user", userToUpdate); // Gửi lại dữ liệu khi người dùng nhập sai
+            model.addAttribute("user", userToUpdate);
             return ViewPaths.EDIT_USER;
         }
 
-        // Giữ lại mật khẩu cũ
+
         currentUser.setPassword(userToUpdate.getPassword());
 
-        // Cập nhật thông tin user nhưng giữ nguyên mật khẩu cũ
+       if(userService.findByUsername(currentUser.getUsername()) != null && !currentUser.getId().equals(userToUpdate.getId())) {
+            model.addAttribute(Message.ERROR_MESS, "Username đã tồn tại, vui lòng chọn username khác.");
+            model.addAttribute("user", userToUpdate);
+            return ViewPaths.EDIT_USER;
+        }
+
+        userToUpdate.setUsername(currentUser.getUsername());
         userToUpdate.setAddress(currentUser.getAddress());
         userToUpdate.setPhone(currentUser.getPhone());
         userToUpdate.setRole(currentUser.getRole());

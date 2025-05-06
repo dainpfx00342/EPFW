@@ -74,7 +74,7 @@ class AddOrderTourTest {
             String view = controller.addOrderTour(tourId, blogId, model, session);
 
             verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không tìm thấy tour"));
-            assertEquals(ViewPaths.ADD_ORDER_TOUR, view);
+            assertEquals("redirect:/home?error=tourNotFound", view);
         }
     }
 
@@ -89,7 +89,7 @@ class AddOrderTourTest {
             String view = controller.addOrderTour(tourId, blogId, model, session);
 
             verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không tìm thấy blog"));
-            assertEquals(ViewPaths.ADD_ORDER_TOUR, view);
+            assertEquals("redirect:/home?error=blogNotFound", view);
         }
     }
     // POST METHOD
@@ -114,7 +114,7 @@ class AddOrderTourTest {
             String view = controller.saveOrderTour(tourId, blogId, new Order(), result, model, session);
 
             verify(model).addAttribute(eq(Message.ERROR_MESS), eq("Không tìm thấy tour"));
-            assertEquals(ViewPaths.ADD_ORDER_TOUR, view);
+            assertEquals("redirect:/home?error=tourNotFound", view);
         }
     }
 

@@ -38,8 +38,8 @@ public class AddLiveStream {
         }
         Farm farm = farmService.findById(farmId);
         if(farm == null) {
-           model.addAttribute(Message.ERROR_MESS,"Không thể tìm thấy trang trại.");
-           return ViewPaths.ADD_LIVE_STREAM;
+
+           return "redirect:/manageFarm?error=farmNotFound";
         }
         model.addAttribute("farm", farm);
         model.addAttribute("liveStream", new LiveStream());
@@ -59,8 +59,7 @@ public class AddLiveStream {
         }
         Farm farm = farmService.findById(farmId);
         if(farm == null) {
-            model.addAttribute(Message.ERROR_MESS,"Không thể tìm thấy trang trại.");
-            return ViewPaths.ADD_LIVE_STREAM;
+            return "redirect:/manageFarm?error=farmNotFound";
         }
         if(result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS, "Thêm livestream không thành công");

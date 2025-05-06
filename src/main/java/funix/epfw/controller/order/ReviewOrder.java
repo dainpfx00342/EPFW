@@ -31,7 +31,15 @@ public class ReviewOrder {
         if(checkAuth != null) {
             return checkAuth;
         }
-        model.addAttribute("order", orderService.findById(orderId));
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        Long userId = currentUser.getId();
+
+        Order order = orderService.findById(orderId);
+        if (!order.getUser().getId().equals(userId)) {
+            return "redirect:/accessDenied";
+        }
+
+        model.addAttribute("order", order);
         model.addAttribute("vote",new Vote());
         User user = (User) session.getAttribute("loggedInUser");
         model.addAttribute("user", user);
@@ -45,8 +53,13 @@ public class ReviewOrder {
             return checkAuth;
         }
         User user = (User) session.getAttribute("loggedInUser");
+        Long userId = user.getId();
 
         Order order = orderService.findById(orderId);
+        if (!order.getUser().getId().equals(userId)) {
+            return "redirect:/accessDenied";
+        }
+
         Blog  orderBlog = order.getBlog();
 
         vote.setBlog(orderBlog);
