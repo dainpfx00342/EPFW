@@ -5,7 +5,6 @@ import funix.epfw.constants.Message;
 import funix.epfw.model.farm.Farm;
 import funix.epfw.service.farm.FarmService;
 import jakarta.servlet.http.HttpSession;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,10 +31,6 @@ class DeleteFarmTest {
     @InjectMocks
     private DeleteFarm deleteFarmController;
 
-    @BeforeEach
-    void setUp() {
-        // Nếu cần chuẩn bị dữ liệu trước mỗi test
-    }
 
     @Test
     void testDeleteFarm_NotAuthorized() {

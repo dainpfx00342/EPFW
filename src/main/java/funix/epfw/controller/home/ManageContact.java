@@ -1,8 +1,7 @@
 package funix.epfw.controller.home;
 
+import funix.epfw.constants.AuthUtil;
 import funix.epfw.constants.ViewPaths;
-import funix.epfw.controller.auth.userAuth.AdminAuth;
-import funix.epfw.controller.auth.userAuth.AuthChecker;
 import funix.epfw.model.Contact;
 import funix.epfw.service.home.ContactService;
 import jakarta.servlet.http.HttpSession;
@@ -25,8 +24,8 @@ public class ManageContact {
 
     @GetMapping("/manageContact")
     public String manageContact(Model model, HttpSession session) {
-        AuthChecker authChecker = new AdminAuth();
-        String checkAuth = authChecker.checkAuth(session);
+
+        String checkAuth = AuthUtil.checkAdminAuth(session);
         if(checkAuth != null) {
             return checkAuth;
         }

@@ -45,12 +45,13 @@ public class ManageBlog {
         Product product = productService.findById(productId);
         if (product == null) {
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy sản phẩm.");
-            return "redirect:/farm/product/blog/manageBlog";
+            return "redirect:/manageBlog/product/"+productId;
         }
         List<Blog> blogs = blogService.getBlogsByProductId(productId);
         if (blogs == null || blogs.isEmpty()) {
             model.addAttribute(Message.ERROR_MESS,"Không tìm thấy bài viết nào cho sản phẩm này.");
-            return "redirect:/farm/product/blog/manageBlog";
+            model.addAttribute("product", product);
+            return ViewPaths.MANAGE_BLOG;
         }
         model.addAttribute("blogs",blogs);
         model.addAttribute("product",product);

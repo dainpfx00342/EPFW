@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public class  AddLiveStreamControllerIntegrationTest {
+public class  AddLiveStreamIntegrationTest {
 
     @TestConfiguration
     static class Config {
@@ -49,8 +49,6 @@ public class  AddLiveStreamControllerIntegrationTest {
     @Autowired
     private FarmService farmService;
 
-    @Autowired
-    private LiveService liveService;
 
     private Farm farm;
 

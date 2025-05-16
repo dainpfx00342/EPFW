@@ -86,4 +86,21 @@ public class OrderService {
          orderRepository.save(order);
     }
 
+    public boolean checkOrderBelongsToUser(Long orderId, Long userId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
+        return order.getUser().getId().equals(userId);
+    }
+
+    public boolean checkOrderBelongsOwwer(Long orderId, Long id) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order with id " + orderId + " does not exist"));
+        boolean isProductOwner = !order.getProducts().isEmpty() &&
+                order.getProducts().getFirst().getFarm().getUser().getId().equals(id);
+
+        boolean isTourOwner = !order.getTours().isEmpty() &&
+                order.getTours().getFirst().getFarm().getUser().getId().equals(id);
+
+        return isProductOwner || isTourOwner;
+    }
 }

@@ -63,7 +63,7 @@ public class  DeleteFarmIntegrationTest {
         when(farmService.findById(1L)).thenReturn(testFarm);
         mockMvc.perform(get("/deleteFarm/1")
                         .sessionAttr("role", Role.FARMER)
-                        .sessionAttr("loggedInUser", mockUser)) // Bắt buộc có "user"
+                        .sessionAttr("loggedInUser", mockUser))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/manageFarm"))
                 .andExpect(flash().attribute(Message.SUCCESS_MESS, "Xóa trang trại thành công!"));

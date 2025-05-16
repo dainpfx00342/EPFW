@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
-class LiveStreamControllerTest {
+class LiveStreamTest {
 
     private MockMvc mockMvc;
 
@@ -35,10 +35,10 @@ class LiveStreamControllerTest {
 
     @Test
     void testLiveStreamList_ReturnsLiveStreamPage() throws Exception {
-        // Giả lập service trả về danh sách rỗng
+
         when(liveService.getAllLiveStreams()).thenReturn(Collections.emptyList());
 
-        // Gửi yêu cầu GET và kiểm tra kết quả
+
         mockMvc.perform(get("/liveStream"))
                 .andExpect(status().isOk()) // HTTP 200 OK
                 .andExpect(view().name(ViewPaths.LIVE_STREAM)) // Kiểm tra view trả về đúng

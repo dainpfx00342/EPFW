@@ -36,10 +36,7 @@ class ReviewOrderTest {
     @Mock
     private Model model;
 
-    @Mock
-    private User user;
-
-    @Mock
+       @Mock
     private Order order;
 
     @Mock
@@ -48,10 +45,10 @@ class ReviewOrderTest {
     @Test
     void testReviewOrder_AuthFailed() {
         try (MockedStatic<AuthUtil> authUtil = mockStatic(AuthUtil.class)) {
-            authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn("redirect:/login");
+            authUtil.when(() -> AuthUtil.checkBuyerAuth(session)).thenReturn("redirect:/accessDenied");
 
             String result = reviewOrder.reviewOrder(1L, model, session);
-            assertEquals("redirect:/login", result);
+            assertEquals("redirect:/accessDenied", result);
         }
     }
 
