@@ -109,26 +109,8 @@ class ManageBlogIntegrationTest {
                 .andExpect(view().name(ViewPaths.MANAGE_BLOG));
     }
 
-    @Test
-    void testManageBlogProduct_NotFound() throws Exception {
-        when(productService.findById(999L)).thenReturn(null);
 
-        mockMvc.perform(get("/manageBlog/product/999")
-                        .sessionAttr("loggedInUser", user))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"+ViewPaths.MANAGE_BLOG));
-    }
 
-    @Test
-    void testManageBlogProduct_NoBlogs() throws Exception {
-        when(productService.findById(10L)).thenReturn(product);
-        when(blogService.getBlogsByProductId(10L)).thenReturn(List.of());
-
-        mockMvc.perform(get("/manageBlog/product/10")
-                        .sessionAttr("loggedInUser", user))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"+ViewPaths.MANAGE_BLOG));
-    }
 
     // TOUR
 

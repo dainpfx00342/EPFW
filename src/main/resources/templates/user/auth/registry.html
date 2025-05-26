@@ -52,14 +52,14 @@
         <div class="form-group">
           <label for="confirmPassword" class="form-label">Xác Nhận Mật Khẩu: </label>
           <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')">
-          <div class="text-danger" th:if="${confirmpassError}" th:text="${confirmpassError}"></div>
+          <div class="text-danger" th:if="${confirmpassError}" th:errors="${confirmpassError}"></div>
         </div>
 
         <!-- Địa chỉ -->
         <div class="form-group">
           <label for="address" class="form-label">Địa Chỉ: </label>
           <textarea id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ" required oninvalid="this.setCustomValidity('Vui lòng nhập thông tin vào ô này.')" oninput="this.setCustomValidity('')"></textarea>
-
+          <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
         </div>
         <div class="form-group">
           <label for="role" class="form-label">Vai trò: </label>

@@ -56,6 +56,8 @@ public class AddFarm {
         }
         if (result.hasErrors()) {
             model.addAttribute(Message.ERROR_MESS,"Tạo trang trại không thành công");
+            List<Category> categeries = Arrays.asList(Category.values());
+            model.addAttribute("categories", categeries);
             return ViewPaths.ADD_FARM;
         }
         farm.setUser(user);

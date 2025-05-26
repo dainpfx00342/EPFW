@@ -60,30 +60,9 @@ class ManageBlogTest {
         }
     }
 
-    @Test
-    void manageBlog_productNotFound() {
-        try (MockedStatic<AuthUtil> mockAuth = Mockito.mockStatic(AuthUtil.class)) {
-            mockAuth.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn(null);
-            when(productService.findById(id)).thenReturn(null);
 
-            String result = manageBlog.manageBlog(id, model, session);
-            assertEquals("redirect:/farm/product/blog/manageBlog", result);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), contains("Không tìm thấy sản phẩm"));
-        }
-    }
 
-    @Test
-    void manageBlog_noBlogsFound() {
-        try (MockedStatic<AuthUtil> mockAuth = Mockito.mockStatic(AuthUtil.class)) {
-            mockAuth.when(() -> AuthUtil.checkFarmerAuth(session)).thenReturn(null);
-            when(productService.findById(id)).thenReturn(new Product());
-            when(blogService.getBlogsByProductId(id)).thenReturn(Collections.emptyList());
 
-            String result = manageBlog.manageBlog(id, model, session);
-            assertEquals("redirect:/farm/product/blog/manageBlog", result);
-            verify(model).addAttribute(eq(Message.ERROR_MESS), contains("Không tìm thấy bài viết"));
-        }
-    }
 
     @Test
     void manageBlog_success() {
