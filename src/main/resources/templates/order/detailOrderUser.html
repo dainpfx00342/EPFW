@@ -29,7 +29,24 @@
             <tr>
               <th><i class="fas fa-user text-warning"></i> Tên người mua:</th>
               <td th:text="${order.buyerName}"></td>
-            </tr>
+            <tr>
+              <th>
+               <span th:if="${not #lists.isEmpty(order.products)}">
+                <i class="fas fa-seedling text-success"></i> Tên sản phẩm:
+               </span>
+                <span th:if="${not #lists.isEmpty(order.tours)}">
+                <i class="fas fa-map-marked-alt text-info"></i> Tên chuyến du lịch:
+                </span>
+              </th>
+              <td>
+              <span class="text-success" th:if="${not #lists.isEmpty(order.products)}"
+                                         th:text="${order.products[0].productName}">
+              </span>
+              <span class="text-success" th:if="${not #lists.isEmpty(order.tours)}"
+                                           th:text="${order.tours[0].tourName}">
+              </span>
+              </td>
+
             <tr>
               <th><i class="fas fa-map-marker-alt text-danger"></i> Địa chỉ:</th>
               <td th:text="${order.address}"></td>

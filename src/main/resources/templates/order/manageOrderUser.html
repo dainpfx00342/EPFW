@@ -37,6 +37,7 @@
         <th>Loại đơn hàng</th>
         <th>Giá trị của đơn</th>
         <th>Giá mong muốn</th>
+        <th>Tên sản phẩm/Tour đã đặt</th>
         <th>Hành động</th>
       </tr>
       </thead>
@@ -64,6 +65,7 @@
            </span>
         </td>
         <td th:text="${order.orderType}"></td>
+
         <td class="text-success">
           <span th:if="${order.products !=null and not #lists.isEmpty(order.products)}"
                 th:text="${#numbers.formatInteger(order.products[0].price,3,'POINT')}">
@@ -73,6 +75,13 @@
           </span>
         </td>
         <td class="text-danger" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
+        <td> <span class="text-success" th:if="${not #lists.isEmpty(order.products)}"
+                   th:text="${order.products[0].productName}">
+              </span>
+          <span class="text-success" th:if="${not #lists.isEmpty(order.tours)}"
+                th:text="${order.tours[0].tourName}">
+         </span>
+        </td>
         <td>
           <a th:href="@{/detailOrderUser/{orderId} (orderId=${order.id}) }" class="btn btn-info btn-sm btn-action">
             <i class="fas fa-eye"></i> Xem chi tiết
