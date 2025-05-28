@@ -74,6 +74,8 @@ public class EditTour {
         tourToUpdate.setTourType(currTour.getTourType());
         tourToUpdate.setTourName(currTour.getTourName());
         tourToUpdate.setDescription(currTour.getDescription());
+        tourToUpdate.setTicketPrice(currTour.getTicketPrice());
+
 
         tourService.saveTour(tourToUpdate);
         redirectAttributes.addFlashAttribute(Message.SUCCESS_MESS,"Cập nhật chuyến du lịch thành công");

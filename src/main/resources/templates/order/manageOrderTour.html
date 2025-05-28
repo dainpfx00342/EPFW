@@ -43,7 +43,7 @@
         <td th:text="${order.id}"></td>
         <td th:text="${#temporals.format(order.orderDate,'dd-MM-yyyy')}"></td>
         <td th:text="${order.user.username}"></td>
-        <td th:text="${order.quantity}"></td>
+
         <td>
           <span class="badge badge-warning" th:if="${order.orderStatus.name()=='PENDING'}">
                      <i class="fas fa-hourglass-half"></i> Chờ xác nhận
@@ -64,6 +64,7 @@
         <td th:text="${order.tours[0].tourName}"></td>
         <td class="text-success" th:text="${#numbers.formatInteger(order.tours[0].ticketPrice,3,'POINT')}"></td>
         <td class="text-danger" th:text="${#numbers.formatInteger(order.expectedPrice,3,'POINT')}"></td>
+        <td th:text="${order.quantity}"></td>
         <td>
           <a th:if="${order.getOrderStatus().name()=='PENDING'}"
              th:href="@{/confirmOrder/{orderId}(orderId=${order.id})}" class="btn btn-primary btn-sm btn-action">
